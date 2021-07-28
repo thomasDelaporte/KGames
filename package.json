@@ -1,0 +1,11 @@
+{
+    "name": "kgames",
+    "private": true,
+    "scripts": {
+        "web:dev": "lerna run dev --parallel --scope @kgames/web"
+    },
+    "devDependencies": {
+        "lerna": "^3.22.1",
+        "typescript": "^4.3.5"
+    }
+}

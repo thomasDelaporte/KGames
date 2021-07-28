@@ -1,0 +1,11 @@
+0 silly argv {
+0 silly argv   _: [ 'create' ],
+0 silly argv   lernaVersion: '3.22.1',
+0 silly argv   '$0': '..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\lerna\\cli.js',
+0 silly argv   name: '@kgames/geoquizz',
+0 silly argv   loc: 'games'
+0 silly argv }
+1 notice cli v3.22.1
+2 verbose rootPath C:\Users\toto-\Documents\GitHub\Kgames
+3 warn ENOREMOTE No git remote found, skipping repository property
+4 error
