@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
-import { HelloWorld } from '../../../games/geoquizz/src';
+import { HelloWorld, ComponentTest } from '@kgames/geoquizz';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
 
-  HelloWorld();
+  console.log( uuidv4() );
+
   const [count, setCount] = useState(0)
 
   return (
@@ -19,6 +21,9 @@ function App() {
             count is: {count}
           </button>
         </p>
+
+        <ComponentTest />
+        
         <p>
           Edit <code>App.tsx</code> and save to test HMR updates.
         </p>
