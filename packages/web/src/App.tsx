@@ -3,11 +3,8 @@ import logo from './logo.svg'
 import './App.css'
 
 import { HelloWorld, ComponentTest } from '@kgames/geoquizz';
-import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-
-  console.log( uuidv4() );
 
   const [count, setCount] = useState(0)
 
