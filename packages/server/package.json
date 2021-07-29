@@ -6,10 +6,9 @@
     "homepage": "",
     "license": "ISC",
     "scripts": {
-        "start": "ts-node-dev src/index.ts",
+        "start": "node index.js",
         "dev": "ts-node-dev src/index.ts",
-        "build": "tsc src/index.ts",
-        "server": "node index.js"
+        "build": "tsc src/index.ts"
     },
     "dependencies": {
         "apollo-server": "^3.0.2",
