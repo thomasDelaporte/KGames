@@ -1,22 +1,20 @@
 {
-  "name": "@kgames/server",
-  "version": "0.0.0",
-  "description": "> TODO: description",
-  "author": "Thomas Delaporte <thomas.delaporte30@gmail.com>",
-  "homepage": "",
-  "license": "ISC",
-  "main": "lib/server.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  }
+    "name": "@kgames/server",
+    "version": "0.0.0",
+    "description": "> TODO: description",
+    "author": "Thomas Delaporte <thomas.delaporte30@gmail.com>",
+    "homepage": "",
+    "license": "ISC",
+    "scripts": {
+        "start": "ts-node-dev src/index.ts",
+        "dev": "ts-node-dev src/index.ts",
+        "build": "tsc src/index.ts"
+    },
+    "dependencies": {
+        "apollo-server": "^3.0.2",
+        "graphql": "^15.5.1"
+    },
+    "devDependencies": {
+        "ts-node-dev": "^1.1.8"
+    }
 }
