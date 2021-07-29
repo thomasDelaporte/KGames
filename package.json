@@ -9,7 +9,7 @@
 
         "server:dev": "lerna run dev --parallel --scope @kgames/server",
         "server:build": "lerna run build --scope @kgames/server",
-        "server": "echo 'Starting server'"
+        "server": "cd packages/server && npm run start"
     },
     "devDependencies": {
         "@types/react": "^17.0.0",

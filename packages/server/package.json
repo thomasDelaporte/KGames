@@ -9,11 +9,11 @@
         "start": "ts-node-dev src/index.ts",
         "dev": "ts-node-dev src/index.ts",
         "build": "tsc src/index.ts",
-
-        "server": "echo 'Server wrong package.json'"
+        "server": "node index.js"
     },
     "dependencies": {
         "apollo-server": "^3.0.2",
+        "express": "^4.17.1",
         "graphql": "^15.5.1",
         "ts-node-dev": "^1.1.8"
     }
