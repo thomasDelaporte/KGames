@@ -1,14 +1,13 @@
 {
     "name": "@kgames/server",
     "version": "0.0.0",
-    "description": "> TODO: description",
+    "description": "",
     "author": "Thomas Delaporte <thomas.delaporte30@gmail.com>",
-    "homepage": "",
     "license": "ISC",
     "scripts": {
-        "start": "node index.js",
+        "start": "node dist/index.js",
         "dev": "ts-node-dev src/index.ts",
-        "build": "tsc src/index.ts"
+        "build": "tsc"
     },
     "dependencies": {
         "apollo-server": "^3.0.2",

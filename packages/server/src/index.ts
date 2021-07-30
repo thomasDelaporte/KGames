@@ -44,8 +44,6 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers })
 const port = process.env.PORT || 5000;
 
-console.log('Server here', port, server);
-
 // The `listen` method launches a web server.
 server.listen({ port }).then(({ url }) => {
     console.log(`🚀  Server ready at ${url}`)
