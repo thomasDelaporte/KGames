@@ -1,0 +1,12 @@
+.login {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 24rem;
+
+    &__or {
+        margin: 2rem 0;
+        opacity: .6;
+    }
+}
