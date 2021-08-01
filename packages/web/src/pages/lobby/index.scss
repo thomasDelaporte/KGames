@@ -202,6 +202,10 @@
             text-align: center;
             position: relative;
             max-height: 200px;
+            border: 2px dotted #343343;
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
 
             img {
                 border-radius: 10px;
@@ -213,8 +217,8 @@
             &:after {
                 content: attr(data-index);
                 position: absolute;
-                top: 10px;
-                right: 10px;
+                top: 20px;
+                right: 20px;
                 font-weight: 600;
                 color: #fb6da9;
                 background-color: #ffffff;

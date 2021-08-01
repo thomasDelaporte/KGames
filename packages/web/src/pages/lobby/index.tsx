@@ -11,7 +11,7 @@ export default function LobbyPage() {
             { 
                 step === 0 ? <LobbyPlayers setStep={setStep} /> :
                 step === 1 ? <LobbyGames setStep={setStep} /> : 
-                step === 2 ? <LobbyConfiguration setStep={setStep} /> : <GameAudio setStep={setStep} />
+                step === 2 ? <LobbyConfiguration setStep={setStep} /> : <GameOrder setStep={setStep} />
             }
         </div>
     );
@@ -172,20 +172,20 @@ export const GameOrder = ({ setStep }) => (
         <div className="game">
             <div className="geoquizz__question" data-question="1">
                 <h3>Classez ces animaux du plus rapide au plus lent</h3>
+            </div>
 
-                <div className="geoquizz__orders">
-                    <div className="geoquizz__orders__item" data-index="1">
-                        <img src="https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Swain_0.jpg" />
-                    </div>
-                    <div className="geoquizz__orders__item" data-index="2">
-                        <img src="https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Seraphine_0.jpg" />
-                    </div>
-                    <div className="geoquizz__orders__item" data-index="3">
-                        <img src="https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Kennen_0.jpg" />
-                    </div>
-                    <div className="geoquizz__orders__item" data-index="4">
-                        <img src="https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Zyra_0.jpg" />
-                    </div>
+            <div className="geoquizz__orders">
+                <div className="geoquizz__orders__item" data-index="1">
+                    <img src="https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Swain_0.jpg" />
+                </div>
+                <div className="geoquizz__orders__item" data-index="2">
+                    <img src="https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Seraphine_0.jpg" />
+                </div>
+                <div className="geoquizz__orders__item" data-index="3">
+                    <img src="https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Kennen_0.jpg" />
+                </div>
+                <div className="geoquizz__orders__item" data-index="4">
+                    <img src="https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Zyra_0.jpg" />
                 </div>
             </div>
         </div>
@@ -205,16 +205,16 @@ export const GamePetitBac = ({ setStep }) => (
         <div className="game">
             <div className="geoquizz__question" data-question="1">
                 <h3>Petit Bac: A</h3>
-                
-                <div className="geoquizz__petitbac">
-                    <label className="input-group label">Animal<input className="input input--color input--small" type="text" /></label>
-                    <label className="input-group label">Célébrité (nom de f.)<input className="input input--color input--small" type="text" /></label>
-                    <label className="input-group label">Pays<input className="input input--color input--small" type="text" /></label>
-                    <label className="input-group label">Métier<input className="input input--color input--small" type="text" /></label>
-                    <label className="input-group label">Fruit & légume<input className="input input--color input--small" type="text" /></label>
-                    <label className="input-group label">Objet<input className="input input--color input--small" type="text" /></label>
-                    <label className="input-group label">Sport<input className="input input--color input--small" type="text" /></label>
-                </div>
+            </div>
+
+            <div className="geoquizz__petitbac">
+                <label className="input-group label">Animal<input className="input input--small" type="text" /></label>
+                <label className="input-group label">Célébrité (nom de f.)<input className="input input--small" type="text" /></label>
+                <label className="input-group label">Pays<input className="input input--small" type="text" /></label>
+                <label className="input-group label">Métier<input className="input input--small" type="text" /></label>
+                <label className="input-group label">Fruit & légume<input className="input input--small" type="text" /></label>
+                <label className="input-group label">Objet<input className="input input--small" type="text" /></label>
+                <label className="input-group label">Sport<input className="input input--small" type="text" /></label>
             </div>
         </div>
 
