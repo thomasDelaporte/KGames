@@ -7,7 +7,7 @@
     transition: border-color .2s;
 
     &:hover, &:focus {
-        border-color: #fc76a1;
+        border-color: #ff9e7c;
     }
 
     &:focus {
@@ -24,6 +24,22 @@
         background-position-x: 99%;
         background-position-y: 50%;
     }
+
+    &--small {
+        padding: 1rem;
+    }
+
+    &--color {
+        border-color: #ff9e7c;
+
+        &:hover, &:focus {
+            border-color: #ffffff;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 4px #343343, 0 0 8px rgba(255, 255, 255, .8);
+        }
+    }
 }
 
 .input-group {
@@ -31,7 +47,7 @@
     flex-direction: column;
 
     .input {
-        margin-top: 10px;
+        margin-top: 1rem;
     }
 
     &:not(:first-of-type) {
