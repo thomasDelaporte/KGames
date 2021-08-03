@@ -1,0 +1,28 @@
+.switch {
+    cursor: pointer;
+    width: 4rem;
+    height: 2rem;
+    border-radius: 10px;
+    background-color: #343343;
+    padding: 5px;
+
+    &__label {
+        content: '';
+        display: block;
+        height: 100%;
+        width: 50%;
+        border-radius: inherit;
+        background-color: #fb6da9;
+        cursor: inherit;
+        transition: all .2s;
+    }
+
+    input {
+        display: none;
+
+        &:checked ~ .switch__label {
+            margin-left: auto;
+            background-color: #71BC78;
+        }
+    }
+}

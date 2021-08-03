@@ -59,8 +59,13 @@
             }
         }
 
-        &:not(&--active):hover {
+        &:not(&--active):not(&--disabled):hover {
             background-color: #343343;
+        }
+
+        &--disabled {
+            background: linear-gradient(45deg, #272732, transparent);
+            cursor: none;
         }
 
         &--active {
@@ -129,121 +134,5 @@
         &:hover:not(&--empty) {
             background-color: #343343;
         }
-    }
-}
-
-
-.geoquizz {
-    position: relative;
-
-    &__time {
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding: 1rem;
-        border: 2px solid #343343;
-        border-radius: 10px;
-        --progress: 50%;
-
-        &:after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: -2px; left: -2px; bottom: -2px; right: -2px;
-            border: inherit;
-            border-color: #fff;
-            border-radius: inherit;
-            clip-path: inset(var(--progress) 0 0 0);
-        }
-    }
-
-    &__question {
-        background-color: #343343;
-        padding: 20px;
-        border-radius: 10px;
-        position: relative;
-
-        &:after {
-            content: attr(data-question);
-            position: absolute;
-            top: 0;
-            transform: translateY(-50%);
-            right: 20px;
-            font-weight: 600;
-            background-color: #fb6da9;
-            border-radius: 10px;
-            width: 2.25rem;
-            height: 2.25rem;
-            line-height: 2.25rem;
-            text-align: center;
-        }
-
-        &__image {
-            margin-top: 1.25rem;
-            width: 100%;
-            max-height: 200px;
-            object-fit: cover;
-            object-position: center;
-            border-radius: inherit;
-        }
-    }
-
-    &__answer {
-        margin-top: 1.5rem;
-    }
-    
-    &__orders {
-        margin-top: 1.5rem;
-        display: flex;
-        gap: 20px;
-
-        &__item {
-            flex-grow: 1;
-            text-align: center;
-            position: relative;
-            max-height: 200px;
-            border: 2px dotted #343343;
-            border-radius: 10px;
-            padding: 10px;
-            cursor: pointer;
-
-            img {
-                border-radius: 10px;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-            
-            &:after {
-                content: attr(data-index);
-                position: absolute;
-                top: 20px;
-                right: 20px;
-                font-weight: 600;
-                color: #fb6da9;
-                background-color: #ffffff;
-                width: 1.5rem;
-                height: 1.5rem;
-                line-height: 1.5rem;
-                border-radius: 5px;
-                text-align: center;
-            }
-        }
-    }
-
-    &__petitbac {
-        margin-top: 1.5rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(48%, 1fr));
-        gap: 20px;
-
-        .input-group {
-            margin-top: 0;
-        }
-    }
-
-    &__audio {
-        margin-top: 1.5rem;
-        text-align: center;
     }
 }
