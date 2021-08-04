@@ -20,6 +20,10 @@
 
     &:hover {
         transform: translateY(-.25rem);
+
+        &:active {
+            transform: translateY(-0rem);
+        }
     }
 
     &--clear {

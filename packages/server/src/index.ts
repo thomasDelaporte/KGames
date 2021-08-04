@@ -18,6 +18,10 @@ const typeDefs = gql`
     type Query {
         books: [Book]
     }
+
+    type Mutation {
+        createLobby: Int
+    }
 `
 
 const books = [
@@ -37,6 +41,11 @@ const resolvers = {
     Query: {
         books: () => books,
     },
+    Mutation: {
+        createLobby: async () => {
+            return Math.floor(Math.random() * 1000000);
+        }
+    }
 }
 
 // The ApolloServer constructor requires two parameters: your schema

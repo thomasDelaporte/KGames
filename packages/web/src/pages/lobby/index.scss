@@ -1,10 +1,6 @@
 .lobby {
     min-width: 800px;
 
-    &__games .games__item {
-        cursor: pointer;
-    }
-
     &__content {
 
         &__title {
@@ -38,6 +34,7 @@
         border-radius: 10px;
         display: flex;
         align-items: center;
+        cursor: pointer;
 
         &__thumbnail {
             border-radius: inherit;
@@ -65,10 +62,10 @@
 
         &--disabled {
             background: linear-gradient(45deg, #272732, transparent);
-            cursor: none;
+            cursor: not-allowed;
         }
 
-        &--active {
+        &--active:not(&--disabled) {
             background-color: rgb(187, 63, 221);
             position: relative;
 
@@ -115,6 +112,7 @@
             display: flex;
             justify-content: center;
             background: none;
+            transition: transform .2s;
 
             svg {
                 fill: rgba(255, 255, 255, .8);
@@ -124,6 +122,10 @@
             &:hover {
                 color: #fff;
                 border-color: #343343;
+
+                &:active {
+                    transform: scale(0.96);
+                }
 
                 svg {
                     fill: #fff;
