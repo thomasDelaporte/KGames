@@ -1,6 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
 import './index.scss';
 
@@ -13,6 +13,8 @@ const CREATE_LOBBY = gql`
 export default function LoginPage() {
     
     const history = useHistory();
+    const [login, setLogin] = useState<string>();
+    const loginRef = useRef<HTMLInputElement>(null);
 
     const [createLobby, { data, loading, error }] = useMutation(CREATE_LOBBY, {
         onCompleted: ({ createLobby: id }) => history.push(`/lobby/${id}`)
@@ -20,6 +22,15 @@ export default function LoginPage() {
 
     if (loading) return 'Submitting...';
     if (error) return `Submission error! ${error.message}`;
+
+    const createLobbyAsInvite = () => {
+
+        if( login !== undefined )
+            return createLobby();
+
+        if( loginRef.current )
+            loginRef.current.reportValidity();
+    }
     
     return (
         <div className="login">
@@ -32,8 +43,8 @@ export default function LoginPage() {
 
             <span className="login__or">ou</span>
 
-            <input type="text" className="input" placeholder="Identifiant" />
-            <button className="btn" onClick={() => createLobby()}>Créer un lobby</button>
+            <input type="text" className="input" placeholder="Identifiant" value={login} onChange={(e) => setLogin(e.target.value)} ref={loginRef} required />
+            <button className="btn" onClick={createLobbyAsInvite}>Créer un lobby</button>
         </div>
     );
 }
