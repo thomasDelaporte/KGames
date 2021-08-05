@@ -14,7 +14,7 @@ export const ComponentTest = () => {
 }
 
 export const Game = ({ setStep }) => (
-    <div className="lobby__content geoquizz">
+    <div className="geoquizz">
         <h2 className="lobby__content__title">Geoquizz</h2>
         <p className="lobby__content__desc">Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des 
         capitales pour gagner le plus de points</p>
@@ -35,24 +35,27 @@ export const Game = ({ setStep }) => (
 )
 
 export const GameImage = ({ setStep }) => (
-    <div className="lobby__content geoquizz">
+    <>
         <h2 className="lobby__content__title">Geoquizz</h2>
-        <p className="lobby__content__desc">Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des 
-        capitales pour gagner le plus de points</p>
 
-        <span className="geoquizz__time">10</span>
+        <div className="geoquizz">
+            <p className="lobby__content__desc">Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des 
+            capitales pour gagner le plus de points</p>
 
-        <div className="game">
-            <div className="geoquizz__question" data-question="1">
-                <h3>Quel grand personnage de l'antiquité a fondé la cité d'Alexandrie en Egypte ?</h3>
-                <img className="geoquizz__question__image" src="https://cdna.artstation.com/p/assets/images/images/036/415/176/large/jun-seong-park-juns-league-of-legends-orchestra-art-freljord.jpg?1617631996" />
+            <span className="geoquizz__time">10</span>
+
+            <div className="game">
+                <div className="geoquizz__question" data-question="1">
+                    <h3>Quel grand personnage de l'antiquité a fondé la cité d'Alexandrie en Egypte ?</h3>
+                    <img className="geoquizz__question__image" src="https://cdna.artstation.com/p/assets/images/images/036/415/176/large/jun-seong-park-juns-league-of-legends-orchestra-art-freljord.jpg?1617631996" />
+                </div>
+
+                <label className="geoquizz__answer input-group label">Votre réponse<input type="text" className="input" placeholder="Réponse" /></label>
             </div>
 
-            <label className="geoquizz__answer input-group label">Votre réponse<input type="text" className="input" placeholder="Réponse" /></label>
+            <button className="btn" onClick={() => setStep(0)}>Reset</button>
         </div>
-
-        <button className="btn" onClick={() => setStep(0)}>Reset</button>
-    </div>
+    </>
 )
 
 export const GameOrder = ({ setStep }) => (
@@ -197,27 +200,31 @@ export const GameResultOrders = ({ setStep }) => (
 )
 
 export const GameResultSimple = ({ setStep }) => (
-    <div className="lobby__content geoquizz">
+    <>
         <h2 className="lobby__content__title">Geoquizz</h2>
         <p className="lobby__content__desc">Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des 
         capitales pour gagner le plus de points</p>
 
-        <div className="game">
-            <div className="geoquizz__question" data-question="1">
-                <h3>Quel grand personnage de l'antiquité a fondé la cité d'Alexandrie en Egypte ?</h3>
-            </div>
+        <div className="geoquizz">
+            
 
-            <div className="geoquizz__results">
-                <div className="geoquizz__results__item" data-question="1">
-                    <h3>DLP</h3>
+            <div className="game">
+                <div className="geoquizz__question" data-question="1">
+                    <h3>Quel grand personnage de l'antiquité a fondé la cité d'Alexandrie en Egypte ?</h3>
+                </div>
 
-                    <div>Hello world</div>
+                <div className="geoquizz__results">
+                    <div className="geoquizz__results__item" data-question="1">
+                        <h3>DLP</h3>
 
-                    <label className="geoquizz__results__switch switch"><input type="checkbox" defaultChecked/><span className="switch__label" ></span></label> 
+                        <div>Hello world</div>
+
+                        <label className="geoquizz__results__switch switch"><input type="checkbox" defaultChecked/><span className="switch__label" ></span></label> 
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <button className="btn" onClick={() => setStep(0)}>Réponse suivante</button>
-    </div>
+            <button className="btn" onClick={() => setStep(0)}>Réponse suivante</button>
+        </div>
+    </>
 )

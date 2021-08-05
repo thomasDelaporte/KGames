@@ -13,7 +13,7 @@ const CREATE_LOBBY = gql`
 export default function LoginPage() {
     
     const history = useHistory();
-    const [login, setLogin] = useState<string>();
+    const [login, setLogin] = useState<string>('');
     const loginRef = useRef<HTMLInputElement>(null);
 
     const [createLobby, { data, loading, error }] = useMutation(CREATE_LOBBY, {

@@ -11,12 +11,14 @@ export default function LobbyPage() {
     return (
         <div className="lobby">
             <h1 className="page-title">{ step === 3 ? 'Game' : 'Lobby'}.</h1>
-            <AnimatePresence>
-                { 
-                    step === 0 ? <LobbyPlayers setStep={setStep} /> :
-                    step === 1 ? <LobbyGames setStep={setStep} /> : 
-                    step === 2 ? <LobbyConfiguration setStep={setStep} /> : <GameResultSimple setStep={setStep} />
-                }
+            <AnimatePresence exitBeforeEnter>
+                <motion.div key={step} initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}  transition={{ duration: .4 }} className="lobby__content">
+                    { 
+                        step === 0 ? <LobbyPlayers setStep={setStep} /> :
+                        step === 1 ? <LobbyGames setStep={setStep} /> : 
+                        step === 2 ? <LobbyConfiguration setStep={setStep} /> : <GameResultSimple setStep={setStep} />
+                    }
+                </motion.div>
             </AnimatePresence>
         </div>
     );
@@ -28,7 +30,6 @@ export const LobbyPlayers = ({ setStep }) => {
 
     useEffect(() => {
 
-        console.log(showCopy);
         if(showCopy === false)
             return;
 
@@ -37,7 +38,7 @@ export const LobbyPlayers = ({ setStep }) => {
     }, [showCopy]);
 
     return (
-        <motion.div key={0} initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 1, x: 50 }} className="lobby__content">
+        <>
             <h2 className="lobby__content__title">Inviter vos amis</h2>
 
             <div className="lobby__players players">
@@ -71,7 +72,7 @@ export const LobbyPlayers = ({ setStep }) => {
             </div>
 
             <button className="btn" onClick={() => setStep(1)}>Choissisez le jeu</button>
-        </motion.div>
+        </>
     )
 }
 
@@ -79,7 +80,7 @@ export const LobbyGames = ({ setStep }) => {
     const [selectedGame, setSelectedGame] = useState(3);
 
     return (    
-        <motion.div key={1} initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }} className="lobby__content">
+        <>
             <h2 className="lobby__content__title">Selectionner les jeux</h2>
 
             <div className="lobby__games games">
@@ -126,12 +127,12 @@ export const LobbyGames = ({ setStep }) => {
             </div>
 
             <button className="btn" onClick={() => selectedGame && setStep(2)}>Configurer le jeu</button>
-        </motion.div>
+        </>
     )
 }
 
 export const LobbyConfiguration = ({ setStep }) => (
-    <motion.div key={2} initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }} className="lobby__content">
+    <>
         <h2 className="lobby__content__title">Configurer votre partie</h2>
 
         <div className="lobby__configuration">
@@ -145,5 +146,5 @@ export const LobbyConfiguration = ({ setStep }) => (
         </div>
 
         <button className="btn" onClick={() => setStep(3)}>Démarrer la partie</button>
-    </motion.div>
+    </>
 )
