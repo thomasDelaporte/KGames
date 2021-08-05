@@ -7,6 +7,7 @@
     "license": "ISC",
     "main": "src/index.tsx",
     "dependencies": {
+        "@kgames/common": "^0.0.0",
         "uuid": "^8.3.2"
     },
     "devDependencies": {

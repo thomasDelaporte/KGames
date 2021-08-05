@@ -8,6 +8,7 @@
     },
     "dependencies": {
         "@apollo/client": "^3.4.4",
+        "@kgames/common": "^0.0.0",
         "@kgames/geoquizz": "^0.0.0",
         "framer-motion": "^4.1.17",
         "graphql": "^15.5.1",
