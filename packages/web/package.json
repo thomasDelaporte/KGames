@@ -9,6 +9,7 @@
     "dependencies": {
         "@apollo/client": "^3.4.4",
         "@kgames/geoquizz": "^0.0.0",
+        "framer-motion": "^4.1.17",
         "graphql": "^15.5.1",
         "react-dom": "^17.0.0",
         "react-router-dom": "^5.2.0"

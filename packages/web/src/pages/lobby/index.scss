@@ -113,8 +113,28 @@
             justify-content: center;
             background: none;
             transition: transform .2s;
+            position: relative;
 
-            svg {
+            &__copy {
+                position: absolute;
+                background-color: #bb3fdd;
+                color: #ffffff;
+                left: 50%;
+                transform: translateX(-50%);
+                white-space: nowrap;
+                padding: .7rem 1rem;
+                border-radius: 10px;
+                font-weight: 500;
+                box-shadow: 0 0 1rem 0 rgba(255, 255, 255, .2);
+
+                svg {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right: 10px;
+                }
+            }
+
+            &>svg {
                 fill: rgba(255, 255, 255, .8);
                 margin-bottom: 20px;
             }
