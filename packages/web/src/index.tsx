@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { App } from './App';
+import { KGamesProvider } from './store';
 import {
   ApolloClient,
   InMemoryCache,
@@ -8,30 +10,23 @@ import {
   useQuery,
   gql,
 } from '@apollo/client';
+import Layout from './components/Layout';
+import './styles/index.scss';
 
 const client = new ApolloClient({
   uri: import.meta.env.VITE_API,
   cache: new InMemoryCache(),
 });
 
-import './styles/index.scss';
-
-import Layout from './components/Layout';
-
-import LoginPage from './pages/login';
-import LobbyPage from './pages/lobby';
-
-const App = () => (
+ReactDOM.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
       <Layout>
-        <Switch>
-          <Route path="/lobby/:id" component={LobbyPage} />
-          <Route path="/" component={LoginPage} />
-        </Switch>
+        <KGamesProvider>
+          <App />
+        </KGamesProvider>
       </Layout>
     </BrowserRouter>
-  </ApolloProvider>
+  </ApolloProvider>,
+  document.getElementById('root')
 );
-
-ReactDOM.render(<App />, document.getElementById('root'));

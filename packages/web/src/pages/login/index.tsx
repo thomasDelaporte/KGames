@@ -10,7 +10,7 @@ const CREATE_LOBBY = gql`
   }
 `;
 
-export default function LoginPage() {
+export function LoginPage() {
   const history = useHistory();
   const [login, setLogin] = useState<string>();
   const loginRef = useRef<HTMLInputElement>(null);
