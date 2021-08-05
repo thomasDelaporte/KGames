@@ -1,59 +1,65 @@
-const { ApolloServer, gql } = require('apollo-server')
+require('dotenv').config();
+import 'reflect-metadata';
+import { buildSchema, BuildSchemaOptions } from 'type-graphql';
+import { ApolloServer } from 'apollo-server-express';
+import {
+  ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginLandingPageDisabled,
+} from 'apollo-server-core';
+import { LobbyResolver, UserResolver } from './resolver';
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-const typeDefs = gql`
-    # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+import * as express from 'express';
+import * as path from 'path';
+import * as http from 'http';
+import * as session from 'express-session';
 
-    # This "Book" type defines the queryable fields for every book in our data source.
-    type Book {
-        title: String
-        author: String
-    }
+import errorFormater from './error-formater';
 
-    # The "Query" type is special: it lists all of the available queries that
-    # clients can execute, along with the return type for each. In this
-    # case, the "books" query returns an array of zero or more Books (defined above).
-    type Query {
-        books: [Book]
-    }
+async function main() {
+  const schema = await buildSchema({
+    resolvers: [LobbyResolver, UserResolver],
+  });
 
-    type Mutation {
-        createLobby: Int
-    }
-`
+  const server = new ApolloServer({
+    schema,
+    context: (http) => ({ req: http.req, res: http.res }),
+    formatError: errorFormater,
+    plugins: [
+      process.env.NODE_ENV === 'production'
+        ? ApolloServerPluginLandingPageDisabled()
+        : ApolloServerPluginLandingPageGraphQLPlayground(),
+    ],
+  });
 
-const books = [
-    {
-        title: 'The Awakening',
-        author: 'Kate Chopin',
+  await server.start();
+  const app = express();
+  const httpServer = http.createServer(app);
+  const port = process.env.PORT || 4000;
+
+  const corsOptions = {
+    credentials: true,
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? process.env.PROD_ORIGIN
+        : process.env.DEV_ORIGIN,
+  };
+
+  const sessionOption = {
+    secret: process.env.SESSION_SECRET as string,
+    cookie: {
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV === 'production',
     },
-    {
-        title: 'City of Glass',
-        author: 'Paul Auster',
-    },
-]
+  };
 
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
-const resolvers = {
-    Query: {
-        books: () => books,
-    },
-    Mutation: {
-        createLobby: async () => {
-            return Math.floor(Math.random() * 1000000);
-        }
-    }
+  app.use(session(sessionOption as any));
+  app.set('trust proxy', 1);
+
+  server.applyMiddleware({ app: app as any, cors: corsOptions });
+
+  httpServer.listen(port, () => {
+    console.log('server running on port', port);
+  });
 }
 
-// The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
-const server = new ApolloServer({ typeDefs, resolvers })
-const port = process.env.PORT || 5000;
-
-// The `listen` method launches a web server.
-server.listen({ port }).then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`)
-})
+main();
