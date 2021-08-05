@@ -58,7 +58,8 @@ export const LobbyPlayers = ({ setStep }) => {
                 <button className="players__item players__item--empty" onClick={() => setShowCopy(true)}>
                     <motion.span 
                         style={{ x: '-50%' }}
-                        animate={{ y: showCopy ? '-1.75em' : '0.5rem', opacity: showCopy ? 1 : 0 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ y: showCopy ? '-1.75rem' : '0rem', opacity: showCopy ? 1 : 0 }}
                         transition={{ type: 'spring', stiffness: 150, delay: .1 }}
                         className="players__item--empty__copy">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-16 10v-14h14v4h-10v10h-4z" fill="#ffffff"/></svg>Vous avez copié le lien
