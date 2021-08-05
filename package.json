@@ -15,8 +15,10 @@
         "typescript": "^4.3.5"
     },
     "dependencies": {
+        "@types/cors": "^2.8.12",
         "@types/express-session": "^1.17.4",
         "@types/jsonwebtoken": "^8.5.4",
+        "cors": "^2.8.5",
         "express-session": "^1.17.2",
         "jsonwebtoken": "^8.5.1",
         "react": "^17.0.0"

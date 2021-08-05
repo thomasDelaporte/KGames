@@ -1,32 +1,32 @@
-import { gql, useMutation } from '@apollo/client'
-import { useHistory } from 'react-router-dom'
-import React, { useRef, useState } from 'react'
+import { gql, useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
 
-import './index.scss'
+import './index.scss';
 
 const CREATE_LOBBY = gql`
-  mutation CreateLobby {
+  mutation createLobby {
     createLobby
   }
-`
+`;
 
 export default function LoginPage() {
-  const history = useHistory()
-  const [login, setLogin] = useState<string>()
-  const loginRef = useRef<HTMLInputElement>(null)
+  const history = useHistory();
+  const [login, setLogin] = useState<string>();
+  const loginRef = useRef<HTMLInputElement>(null);
 
   const [createLobby, { data, loading, error }] = useMutation(CREATE_LOBBY, {
     onCompleted: ({ createLobby: id }) => history.push(`/lobby/${id}`),
-  })
+  });
 
-  if (loading) return <p>Submitting...</p>
-  if (error) return <p>Submission error! {error.message}</p>
+  if (loading) return <p>Submitting...</p>;
+  if (error) return <p>Submission error! {error.message}</p>;
 
   const createLobbyAsInvite = () => {
-    if (login !== undefined) return createLobby()
+    if (login !== undefined) return createLobby();
 
-    if (loginRef.current) loginRef.current.reportValidity()
-  }
+    if (loginRef.current) loginRef.current.reportValidity();
+  };
 
   return (
     <div className="login">
@@ -76,5 +76,5 @@ export default function LoginPage() {
         Créer un lobby
       </button>
     </div>
-  )
+  );
 }
