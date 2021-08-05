@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { GameResultSimple } from '@kgames/geoquizz';
 
 import './index.scss';
-import { motion } from 'framer-motion';
 
 export default function LobbyPage() {
     const [step, setStep] = useState(0);
@@ -12,11 +11,13 @@ export default function LobbyPage() {
     return (
         <div className="lobby">
             <h1 className="page-title">{ step === 3 ? 'Game' : 'Lobby'}.</h1>
-            { 
-                step === 0 ? <LobbyPlayers setStep={setStep} /> :
-                step === 1 ? <LobbyGames setStep={setStep} /> : 
-                step === 2 ? <LobbyConfiguration setStep={setStep} /> : <GameResultSimple setStep={setStep} />
-            }
+            <AnimatePresence>
+                { 
+                    step === 0 ? <LobbyPlayers setStep={setStep} /> :
+                    step === 1 ? <LobbyGames setStep={setStep} /> : 
+                    step === 2 ? <LobbyConfiguration setStep={setStep} /> : <GameResultSimple setStep={setStep} />
+                }
+            </AnimatePresence>
         </div>
     );
 }
@@ -36,7 +37,7 @@ export const LobbyPlayers = ({ setStep }) => {
     }, [showCopy]);
 
     return (
-        <div className="lobby__content">
+        <motion.div key={0} initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 1, x: 50 }} className="lobby__content">
             <h2 className="lobby__content__title">Inviter vos amis</h2>
 
             <div className="lobby__players players">
@@ -70,20 +71,20 @@ export const LobbyPlayers = ({ setStep }) => {
             </div>
 
             <button className="btn" onClick={() => setStep(1)}>Choissisez le jeu</button>
-        </div>
+        </motion.div>
     )
 }
 
 export const LobbyGames = ({ setStep }) => {
-    const [selectedGame, setSelectedGame] = useState();
+    const [selectedGame, setSelectedGame] = useState(3);
 
-    return (
-        <div className="lobby__content">
+    return (    
+        <motion.div key={1} initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }} className="lobby__content">
             <h2 className="lobby__content__title">Selectionner les jeux</h2>
 
             <div className="lobby__games games">
 
-                <div className={`games__item games__item--disabled ${selectedGame == 0 ? 'games__item--active' : null}`} onClick={() => setSelectedGame(0)}>
+                <div className={`games__item games__item--disabled`}>
                     <img className="games__item__thumbnail" src="https://kgames.fr/games/icons/undercover.jpg" />
                     <div className="games__item__content">
                         <h2>Imposteur</h2>
@@ -91,7 +92,7 @@ export const LobbyGames = ({ setStep }) => {
                     </div>
                 </div>
 
-                <div className={`games__item ${selectedGame == 1 ? 'games__item--active' : null}`} onClick={() => setSelectedGame(1)}>
+                <div className={`games__item  games__item--disabled`}>
                     <img className="games__item__thumbnail" src="https://kgames.fr/games/icons/spyfall.jpg" />
                     <div className="games__item__content">
                         <h2>Spyfall</h2>
@@ -99,7 +100,7 @@ export const LobbyGames = ({ setStep }) => {
                     </div>
                 </div>
 
-                <div className={`games__item ${selectedGame == 2 ? 'games__item--active' : null}`} onClick={() => setSelectedGame(2)}>
+                <div className={`games__item  games__item--disabled`}>
                     <img className="games__item__thumbnail" src="https://kgames.fr/games/icons/geoquizz.jpg" />
                     <div className="games__item__content">
                         <h2>Géoquizz</h2>
@@ -115,7 +116,7 @@ export const LobbyGames = ({ setStep }) => {
                     </div>
                 </div>
 
-                <div className={`games__item ${selectedGame == 4 ? 'games__item--active' : null}`} onClick={() => setSelectedGame(4)}>
+                <div className={`games__item  games__item--disabled`}>
                     <img className="games__item__thumbnail" src="https://kgames.fr/games/icons/infiltre.png" />
                     <div className="games__item__content">
                         <h2>L'infiltré</h2>
@@ -124,13 +125,13 @@ export const LobbyGames = ({ setStep }) => {
                 </div>
             </div>
 
-            <button className="btn" onClick={() => setStep(2)}>Configurer le jeu</button>
-        </div>
+            <button className="btn" onClick={() => selectedGame && setStep(2)}>Configurer le jeu</button>
+        </motion.div>
     )
 }
 
 export const LobbyConfiguration = ({ setStep }) => (
-    <div className="lobby__content">
+    <motion.div key={2} initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }} className="lobby__content">
         <h2 className="lobby__content__title">Configurer votre partie</h2>
 
         <div className="lobby__configuration">
@@ -144,5 +145,5 @@ export const LobbyConfiguration = ({ setStep }) => (
         </div>
 
         <button className="btn" onClick={() => setStep(3)}>Démarrer la partie</button>
-    </div>
+    </motion.div>
 )

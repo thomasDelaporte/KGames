@@ -20,8 +20,8 @@ export default function LoginPage() {
         onCompleted: ({ createLobby: id }) => history.push(`/lobby/${id}`)
     });
 
-    if (loading) return 'Submitting...';
-    if (error) return `Submission error! ${error.message}`;
+    if (loading) return <p>Submitting...</p>;
+    if (error) return <p>Submission error! {error.message}</p>;
 
     const createLobbyAsInvite = () => {
 
