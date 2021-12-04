@@ -22,8 +22,9 @@ export namespace KGames {
   }
 
   export interface Player {
-    id: string;
+    id: number;
     username: string;
+    lobby: Lobby;
   }
 
   export interface Store {

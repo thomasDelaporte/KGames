@@ -7,17 +7,21 @@ import {
   ApolloServerPluginLandingPageDisabled,
 } from 'apollo-server-core';
 import { LobbyResolver, UserResolver } from './resolver';
+import { authChecker } from './utils/auth-checker';
+import express from 'express';
+import path from 'path';
+import http from 'http';
+import cors from 'cors';
 
-import * as express from 'express';
-import * as path from 'path';
-import * as http from 'http';
-import * as cors from 'cors';
+import jwt from 'express-jwt';
 
 import errorFormater from './error-formater';
 
 async function main() {
   const schema = await buildSchema({
     resolvers: [LobbyResolver, UserResolver],
+    authChecker,
+    validate: false,
   });
 
   const server = new ApolloServer({
@@ -34,7 +38,7 @@ async function main() {
   await server.start();
   const app = express();
   const httpServer = http.createServer(app);
-  const port = process.env.PORT || 5000;
+  const port = process.env.PORT || 4000;
 
   const corsOptions = {
     credentials: true,
@@ -46,6 +50,14 @@ async function main() {
 
   app.set('trust proxy', 1);
   app.use(cors(corsOptions));
+  app.use(
+    '/graphql',
+    jwt({
+      secret: process.env.SESSION_SECRET as string,
+      algorithms: ['HS256'],
+      credentialsRequired: false,
+    })
+  );
 
   server.applyMiddleware({ app: app as any });
 

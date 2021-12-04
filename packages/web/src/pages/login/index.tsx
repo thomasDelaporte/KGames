@@ -1,8 +1,41 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import './index.scss';
+import { useKGames } from '../../store';
+
+const ME = gql`
+  query me {
+    me {
+      id
+      username
+      lobby {
+        id
+        owner {
+          id
+          username
+        }
+        mode
+      }
+    }
+  }
+`;
+
+type MeResponse = {
+  me: {
+    id: string;
+    username: string;
+    lobby: {
+      id: string;
+      owner: {
+        id: string;
+        username: string;
+      };
+      mode: number;
+    };
+  };
+};
 
 const CREATE_LOBBY = gql`
   mutation createLobby {
@@ -10,23 +43,78 @@ const CREATE_LOBBY = gql`
   }
 `;
 
+const AUTH = gql`
+  mutation auth($username: String!) {
+    auth(username: $username)
+  }
+`;
+
+type AuthVariable = {
+  username: string;
+};
+
+type AuthResponse = {
+  auth: string;
+};
+
 export function LoginPage() {
+  const {
+    actions: { dispatch },
+  } = useKGames();
   const history = useHistory();
   const [login, setLogin] = useState<string>();
   const loginRef = useRef<HTMLInputElement>(null);
 
-  const [createLobby, { data, loading, error }] = useMutation(CREATE_LOBBY, {
-    onCompleted: ({ createLobby: id }) => history.push(`/lobby/${id}`),
-  });
+  const [authentify, { loading, error, data }] = useMutation<
+    AuthResponse,
+    AuthVariable
+  >(AUTH);
 
-  if (loading) return <p>Submitting...</p>;
-  if (error) return <p>Submission error! {error.message}</p>;
+  const [getMe, { loading: loadingMe, error: errorMe, data: dataMe }] =
+    useLazyQuery<MeResponse>(ME);
+
+  const [tryLogin, setTryLogin] = useState(false);
+
+  // if (loading) return <p>Submitting...</p>;
+  // if (error) return <p>Submission error! {error.message}</p>;
 
   const createLobbyAsInvite = () => {
-    if (login !== undefined) return createLobby();
+    console.log(login);
+    if (!login) return;
+    authentify({
+      variables: {
+        username: login as string,
+      },
+    });
 
+    setTryLogin(true);
     if (loginRef.current) loginRef.current.reportValidity();
   };
+
+  useEffect(() => {
+    if (tryLogin) {
+      if (!loading && !error && data) {
+        if (data.auth) {
+          window.localStorage.setItem('token', data.auth);
+          getMe();
+          console.log('get me');
+          //
+        }
+      }
+    }
+  }, [loading, data, error, tryLogin]);
+
+  useEffect(() => {
+    if (!loadingMe && !errorMe && dataMe) {
+      if (dataMe.me) {
+        dispatch({
+          type: 'login',
+          player: dataMe.me,
+        });
+        history.push(`/lobby/${dataMe.me.lobby.id}`);
+      }
+    }
+  }, [loadingMe, errorMe, dataMe]);
 
   return (
     <div className="login">
@@ -73,7 +161,7 @@ export function LoginPage() {
         required
       />
       <button className="btn" onClick={createLobbyAsInvite}>
-        Créer un lobby
+        S'authentifier
       </button>
     </div>
   );

@@ -4,13 +4,54 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { GameResultSimple } from '@kgames/geoquizz';
 
 import './index.scss';
+import { useParams } from 'react-router';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/client';
+
+const GET_LOBBY = gql`
+  query getLobby($id: String!) {
+    getLobby(id: $id) {
+      id
+      owner {
+        id
+        username
+      }
+      mode
+    }
+  }
+`;
+
+type LobbyResponse = {
+  getLobby: {
+    id: string;
+    owner: {
+      id: string;
+      username: string;
+    };
+    mode: number;
+  };
+};
 
 export function LobbyPage() {
   const [step, setStep] = useState(0);
+  const { id } = useParams() as { id: string };
+  const { loading, error, data } = useQuery<LobbyResponse, { id: string }>(
+    GET_LOBBY,
+    {
+      variables: { id },
+    }
+  );
+
+  console.log(data);
+
+  if (loading) return <p>Loading lobby</p>;
+  if (data && data.getLobby === null) return <p>Lobby introuvable</p>;
 
   return (
     <div className="lobby">
-      <h1 className="page-title">{step === 3 ? 'Game' : 'Lobby'}.</h1>
+      <h1 className="page-title">
+        {step === 3 ? 'Game' : 'Lobby'}. Owner {data?.getLobby.owner.username}
+      </h1>
       <AnimatePresence>
         {step === 0 ? (
           <LobbyPlayers setStep={setStep} />

@@ -1,9 +1,11 @@
-import * as shortUUID from 'short-uuid';
+import shortUUID from 'short-uuid';
+import { Field, ObjectType } from 'type-graphql';
 import { GameMode } from '../../module';
 import { Player } from '../player';
 
 const translator = shortUUID();
 
+@ObjectType()
 export class Lobby {
   public static Lobbies: Map<string, Lobby> = new Map<string, Lobby>();
 
@@ -21,8 +23,10 @@ export class Lobby {
   /**
    * Instance data
    */
-
+  @Field()
   public id: string;
+  @Field(() => Player)
   public owner: Player;
+  @Field(() => Number)
   public mode: GameMode; // <=== Game Mode
 }

@@ -9,15 +9,38 @@ import {
   ApolloProvider,
   useQuery,
   gql,
+  createHttpLink,
+  from,
 } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import Layout from './components/Layout';
 import './styles/index.scss';
 
-const client = new ApolloClient({
-  uri: import.meta.env.VITE_API,
-  cache: new InMemoryCache(),
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('token');
+  console.log(token, '<= Token');
+  if (token !== '') {
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    };
+  } else {
+    return {
+      headers: {
+        ...headers,
+      },
+    };
+  }
 });
 
+const link = createHttpLink({ uri: import.meta.env.VITE_API });
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: from([authLink.concat(link)]),
+});
 ReactDOM.render(
   <ApolloProvider client={client}>
     <BrowserRouter>

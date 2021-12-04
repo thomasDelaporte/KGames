@@ -1,3 +1,5 @@
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
 import React, { useEffect } from 'react';
 import {
   BrowserRouter,
@@ -8,9 +10,42 @@ import {
   withRouter,
   useLocation,
   useHistory,
+  useParams,
 } from 'react-router-dom';
 import { LoginPage, LobbyPage } from './pages';
 import { useKGames } from './store';
+
+const ME = gql`
+  query me {
+    me {
+      id
+      username
+      lobby {
+        id
+        owner {
+          id
+          username
+        }
+        mode
+      }
+    }
+  }
+`;
+
+type MeResponse = {
+  me: {
+    id: string;
+    username: string;
+    lobby: {
+      id: string;
+      owner: {
+        id: string;
+        username: string;
+      };
+      mode: number;
+    };
+  };
+};
 
 function Component() {
   const {
@@ -21,12 +56,25 @@ function Component() {
   const location = useLocation();
   const history = useHistory();
 
+  const { loading, error, data } = useQuery<MeResponse>(ME);
+
   useEffect(() => {
-    if (!state.player && location.pathname !== '/') {
-      dispatch({ type: 'set-login-redirection', path: location.pathname });
-      history.push('/');
+    if (!loading && !error && data) {
+      if (data.me) {
+        dispatch({
+          type: 'login',
+          player: data.me,
+        });
+        if (location.pathname === '/') {
+          history.push(`lobby/${data.me.lobby.id}`);
+        } else {
+          history.push(location.pathname);
+        }
+      }
     }
-  }, [location, state]);
+  }, [loading, error, data]);
+
+  if (loading) return <p>Loading</p>;
 
   return (
     <>
@@ -34,7 +82,7 @@ function Component() {
         <>
           <Switch>
             <Route path="/" component={LoginPage} />
-            <Redirect to="/" />
+            <Route path="/lobby/:id" component={App} />
           </Switch>
         </>
       )}

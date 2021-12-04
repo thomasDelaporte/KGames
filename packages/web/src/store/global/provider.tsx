@@ -15,6 +15,13 @@ actionHandler.set('set-login-redirection', (state, action) => {
   };
 });
 
+actionHandler.set('login', (state, actions) => {
+  return {
+    ...state,
+    player: actions.player,
+  };
+});
+
 function reducer(state: KGames.Store, actions: KGames.Action): KGames.Store {
   const handler = actionHandler.get(actions.type);
   if (handler) return handler(state, actions);
