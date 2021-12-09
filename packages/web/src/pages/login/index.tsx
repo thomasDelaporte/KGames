@@ -97,8 +97,7 @@ export function LoginPage() {
         if (data.auth) {
           window.localStorage.setItem('token', data.auth);
           getMe();
-          console.log('get me');
-          //
+          //history.push()
         }
       }
     }
@@ -106,11 +105,13 @@ export function LoginPage() {
 
   useEffect(() => {
     if (!loadingMe && !errorMe && dataMe) {
+       console.log(dataMe.me)
       if (dataMe.me) {
         dispatch({
           type: 'login',
           player: dataMe.me,
         });
+        console.log(dataMe.me)
         history.push(`/lobby/${dataMe.me.lobby.id}`);
       }
     }

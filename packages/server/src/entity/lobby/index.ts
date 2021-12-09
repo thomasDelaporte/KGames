@@ -29,4 +29,10 @@ export class Lobby {
   public owner: Player;
   @Field(() => Number)
   public mode: GameMode; // <=== Game Mode
+
+  public players: Player[] = [];
+
+  public addPlayer(player: Player) {
+    this.players.push(player);
+  }
 }
