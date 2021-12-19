@@ -1,2 +1,2 @@
-export * from './player';
-export * from './lobby';
+export * from './Player';
+export * from './Lobby';

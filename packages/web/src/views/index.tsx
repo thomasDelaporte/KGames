@@ -1,2 +1,2 @@
 export * from './lobby';
-export * from './login';
+export * from './hub'
