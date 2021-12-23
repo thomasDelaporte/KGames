@@ -87,16 +87,19 @@ export const GameResultSimple = () => (
         <p className="lobby__content__desc">Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des 
         capitales pour gagner le plus de points</p>
 
-        <div className="game">
-            <div className="geoquizz__question" data-question="1">
-                <h3>Quel grand personnage de l'antiquité a fondé la cité d'Alexandrie en Egypte ?</h3>
-            </div>
+        <div className="geoquizz">
+            
 
-            <div className="geoquizz__results">
-                <div className="geoquizz__results__item" data-question="1">
-                    <h3>DLP</h3>
+            <div className="game">
+                <div className="geoquizz__question" data-question="1">
+                    <h3>Quel grand personnage de l'antiquité a fondé la cité d'Alexandrie en Egypte ?</h3>
+                </div>
 
-                    <div>Hello world</div>
+                <div className="geoquizz__results">
+                    <div className="geoquizz__results__item" data-question="1">
+                        <h3>DLP</h3>
+
+                        <div>Hello world</div>
 
                     <label className="geoquizz__results__switch switch">
                         <input type="checkbox" defaultChecked/>
@@ -104,8 +107,8 @@ export const GameResultSimple = () => (
                     </label> 
                 </div>
             </div>
-        </div>
 
-        <button className="btn" onClick={() => setStep(0)}>Réponse suivante</button>
+            <button className="btn">Réponse suivante</button>
+        </div>
     </div>
 )
