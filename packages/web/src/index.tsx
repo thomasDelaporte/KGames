@@ -1,32 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from "@apollo/client";
-  
-const client = new ApolloClient({
-    uri: import.meta.env.VITE_API,
-    cache: new InMemoryCache()
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, from } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
+
+import App from './components/App';
+
+import './styles/index.scss';
+
+const authLink = setContext((request, previousContext) => ({
+    headers: { authorization: localStorage.getItem('token') }
+}));
+
+const authError = onError(({ graphQLErrors }) => {
+    
+    if(!graphQLErrors)
+        return;
+
+    for(let err of graphQLErrors) {
+        switch (err.extensions.code) {
+            case 'UNAUTHENTICATED':
+                localStorage.removeItem('token');
+                break;
+        }
+    }
 });
 
-import './styles/index.scss'
+const httpLink = createHttpLink({ uri: import.meta.env.VITE_API });
 
-import Layout from './components/Layout';
-
-import LoginPage from './pages/login';
-import LobbyPage from './pages/lobby';
-
-const App = () => (
-    <ApolloProvider client={client}>
-        <BrowserRouter>
-            <Layout>
-                <Switch>
-                    <Route path='/lobby/:id' component={LobbyPage} />
-                    <Route path='/' component={LoginPage} />
-                </Switch>
-            </Layout>
-        </BrowserRouter>
-    </ApolloProvider>
-)
+const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link: from([authLink, authError, httpLink]),
+});
 
 ReactDOM.render(
-    <App />, document.getElementById('root'));
+    <ApolloProvider client={client}>
+        <App />
+    </ApolloProvider>,
+    document.getElementById('root')
+);

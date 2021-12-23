@@ -99,6 +99,18 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
+
+        &__owner {
+            position: absolute;
+            background-color: #bb3fdd;
+            padding: 6px;
+            top: 0;
+            transform: translateY(-50%);
+            right: 20px;
+            transition: transform .2s;
+            border-radius: 20px;
+        }
 
         &__thumbnail {
             border-radius: inherit;
@@ -153,6 +165,10 @@
                     fill: #fff;
                 }
             }
+        }
+
+        &:hover &__owner {
+            transform: translateY(-40%);
         }
 
         &:hover:not(&--empty) {
