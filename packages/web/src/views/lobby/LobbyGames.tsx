@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
+import { GameContext } from '../../store/game';
 
-export const LobbyGames = ({ setStep }: any) => {
+export const LobbyGames = () => {
 
+    const { websocket, owner } = useContext<{ websocket: WebSocket}>(GameContext);
     const [selectedGame, setSelectedGame] = useState(3);
+
+    const setStep = () => {
+        websocket.send(JSON.stringify({ event: 'updatestep', step: 2 }));
+    }
 
     return (
         <motion.div
@@ -24,7 +30,7 @@ export const LobbyGames = ({ setStep }: any) => {
                     </div>
                 </div>
 
-                <div className={`games__item  games__item--disabled`}>
+                <div className={`games__item games__item--disabled`}>
                     <img className="games__item__thumbnail" src="https://kgames.fr/games/icons/spyfall.jpg" />
                     <div className="games__item__content">
                         <h2>Spyfall</h2>
@@ -32,7 +38,7 @@ export const LobbyGames = ({ setStep }: any) => {
                     </div>
                 </div>
 
-                <div className={`games__item  games__item--disabled`}>
+                <div className={`games__item games__item--active`}>
                     <img className="games__item__thumbnail" src="https://kgames.fr/games/icons/geoquizz.jpg" />
                     <div className="games__item__content">
                         <h2>Géoquizz</h2>
@@ -40,7 +46,7 @@ export const LobbyGames = ({ setStep }: any) => {
                     </div>
                 </div>
 
-                <div className={`games__item ${selectedGame == 3 ? 'games__item--active' : null}`} onClick={() => setSelectedGame(3)}>
+                <div className={`games__item games__item--disabled`}>
                     <img className="games__item__thumbnail" src="https://kgames.fr/games/icons/kculture.jpg" />
                     <div className="games__item__content">
                         <h2>Kculture</h2>
@@ -48,7 +54,7 @@ export const LobbyGames = ({ setStep }: any) => {
                     </div>
                 </div>
 
-                <div className={`games__item  games__item--disabled`}>
+                <div className={`games__item games__item--disabled`}>
                     <img className="games__item__thumbnail" src="https://kgames.fr/games/icons/infiltre.png" />
                     <div className="games__item__content">
                         <h2>L'infiltré</h2>
@@ -57,9 +63,11 @@ export const LobbyGames = ({ setStep }: any) => {
                 </div>
             </div>
 
-            <button className="btn" onClick={() => selectedGame && setStep(2)}>
-                Configurer le jeu
-            </button>
+            {owner &&
+                <button className="btn" onClick={() => selectedGame && setStep()}>
+                    Configurer le jeu
+                </button>
+            }
         </motion.div>
     );
 };

@@ -5,12 +5,12 @@ import { Container } from 'typedi';
 
 import { buildSchema } from 'type-graphql';
 import { ApolloServer, AuthenticationError } from 'apollo-server';
+import jwt from 'jsonwebtoken';
 
 import { LobbyResolver, PlayerResolver } from './resolver';
 import { PlayerService } from './services';
-
-import jwt from 'jsonwebtoken';
 import { AuthorizationDerective } from './directives/Authorization';
+import GameServer from './game/GameServer';
 
 (async function() {
 		
@@ -42,8 +42,9 @@ import { AuthorizationDerective } from './directives/Authorization';
 		}
 	});
 
-	await server.listen({ port }).then(({ url }) => {
+	await server.listen({ port }).then(({ url, server }) => {
 		console.log(`🚀 Server ready at ${url}`);
-	});
 
+		new GameServer(server);
+	});
 })();

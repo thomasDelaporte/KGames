@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 
 import { SessionContext } from '.';
 
@@ -22,7 +23,14 @@ const AUTHENTICATE = gql`
 
 export function SessionProvider(props: { children: ReactNode }): JSX.Element {
 
-    const { loading, error, data: user, refetch } = useQuery(GET_ME);
+    const history = useHistory();
+
+    const { loading, error, data: user, refetch } = useQuery(GET_ME, {
+        onCompleted: ({ me }) => {
+            if(history && me.lobby)
+                history.push(`/lobby/${me.lobby.id}`);
+        }
+    });
 
     const [authenticate, { data, loading: loadingAuthenticate, error: errorAuthenticate}] = useMutation(AUTHENTICATE, {
         onCompleted: ({ auth: token }) => {
@@ -30,10 +38,6 @@ export function SessionProvider(props: { children: ReactNode }): JSX.Element {
             refetch();
         }
     });
-
-    useEffect(() => {
-        console.log(user);
-    }, [user])
 
     if(loading) return <p>Loading...</p>;
 

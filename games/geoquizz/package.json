@@ -11,6 +11,10 @@
         "uuid": "^8.3.2"
     },
     "devDependencies": {
-        "@types/uuid": "^8.3.1"
+        "@types/uuid": "^8.3.1",
+        "@kgames/web": "0.0.0"
+    },
+    "peerDependencies": {
+        "@kgames/web": "0.0.0"
     }
 }

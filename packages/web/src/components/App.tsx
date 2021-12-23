@@ -7,14 +7,14 @@ import { Lobby, Hub } from '../views/';
 export default function App() {
     return (
         <main className="main">
-            <SessionProvider>
-                <BrowserRouter>
+            <BrowserRouter>
+                <SessionProvider>
                     <Switch>
                         <Route exact path='/' component={Hub} />
                         <Route path='/lobby/:id' component={Lobby}/>
                     </Switch>
-                </BrowserRouter>
-            </SessionProvider>
+                </SessionProvider>
+            </BrowserRouter>
         </main>
     );
 }

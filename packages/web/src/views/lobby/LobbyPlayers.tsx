@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
+import { GameContext } from '../../store/game';
 
-export const LobbyPlayers = ({ setStep }: any) => {
+export const LobbyPlayers = () => {
 
-    const [players, setPlayers] = useState([]);
+    const { players, owner, websocket } = useContext<{ owner: boolean, players: [], websocket: WebSocket}>(GameContext);
     const [showCopy, setShowCopy] = useState(false);
 
     useEffect(() => {
-        if (showCopy === false) return;
+
+        if (showCopy === false) 
+            return;
 
         navigator.clipboard.writeText(window.location.href);
         setTimeout(() => setShowCopy(false), 1000);
     }, [showCopy]);
+
+    const setStep = () => {
+        websocket.send(JSON.stringify({ event: 'updatestep', step: 1 }));
+    }
 
     return (
         <motion.div
@@ -24,9 +31,18 @@ export const LobbyPlayers = ({ setStep }: any) => {
             <h2 className="lobby__content__title">Inviter vos amis</h2>
 
             <div className="lobby__players players">
-                {players.map((player, i) => (
-                    <div className="players__item">
-                        <img className="players__item__thumbnail" src={player.thumbnail} />
+                {players.map((player: any, i: number) => (
+                    <div className="players__item" key={i}>
+
+                    {player.owner && 
+                        <div className="players__item__owner">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#fff">
+                                <path d="M3 16l-3-10 7.104 4 4.896-8 4.896 8 7.104-4-3 10h-18zm0 2v4h18v-4h-18z"/>
+                            </svg>
+                        </div>
+                    }
+
+                        <img className="players__item__thumbnail" src={`https://avatars.dicebear.com/api/adventurer-neutral/${player.username}.svg`} />
                         <h2>{player.username}</h2>
                     </div>
                 ))}
@@ -57,10 +73,12 @@ export const LobbyPlayers = ({ setStep }: any) => {
                     Inviter vos amis
                 </button>
             </div>
-
-            <button className="btn" onClick={() => setStep(1)}>
-                Choissisez le jeu
-            </button>
+            
+            { owner &&
+                <button className="btn" onClick={() => setStep()}>
+                    Choissisez le jeu
+                </button>
+            }
         </motion.div>
     );
 };

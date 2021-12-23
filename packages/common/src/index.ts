@@ -7,4 +7,11 @@ export enum GameMode {
     KCULTURE,
     SPYFALL,
 }
-  
+
+export enum LobbyStep {
+    PLAYERS,
+    SELECT,
+    CONFIGURATION,
+    GAME,
+    RESULT
+}

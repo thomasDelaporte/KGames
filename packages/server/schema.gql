@@ -7,6 +7,7 @@ type Lobby {
   id: String!
   mode: Float!
   owner: Player!
+  players: [Player!]!
 }
 
 type Mutation {

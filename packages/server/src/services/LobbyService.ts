@@ -9,18 +9,30 @@ export class LobbyService {
 
     private lobbies: Record<string, Lobby> = {};
 
-    public createLobby(owner: Player): Lobby {
+    public createLobby(owner: Player, id?: string): Lobby {
 
-        const id = translator.new().toString();
+        if(id === undefined)
+            id = translator.new().toString();
+        
         const lobby = new Lobby();
         lobby.id = id;
         lobby.owner = owner;
+        owner.lobby = lobby;
 
         return this.lobbies[id] = lobby;
     }
 
     public getLobby(id: string): Lobby | null {
         return this.lobbies[id];
+    }
+
+    public getLobbyOrCreate(owner: Player, id: string): Lobby {
+        
+        if(this.lobbies[id])
+            return this.lobbies[id];
+
+        return this.createLobby(owner, id);
+
     }
 
     public getLobbies(): Lobby[] {

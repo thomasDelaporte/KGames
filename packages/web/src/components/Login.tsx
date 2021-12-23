@@ -3,9 +3,9 @@ import { SessionContext } from '../store';
 
 export default function Login() {
 
-    const { user, authenticate } = useContext(SessionContext);
+    const { authenticate } = useContext(SessionContext);
 
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useState(localStorage.getItem('username') || '');
 	const usernameRef = useRef<HTMLInputElement>(null);
 
     const login = () => {
@@ -16,6 +16,7 @@ export default function Login() {
         if(username === '')
             return;
 
+        localStorage.setItem('username', username);
         authenticate({ variables: { username } });
     }
 
