@@ -12,7 +12,7 @@ import { Game } from '../../games/geoquizz';
 
 import './index.scss';
 
-let websocket: WebSocket | null = null;
+let websocket: WebSocket;
 
 import Login from '../../components/Login';
 import Countdown from '../../components/Countdown';
