@@ -18,10 +18,13 @@ const authError = onError(({ graphQLErrors }) => {
         return;
 
     for(let err of graphQLErrors) {
-        switch (err.extensions.code) {
-            case 'UNAUTHENTICATED':
-                localStorage.removeItem('token');
-                break;
+
+        if( err && err.extensions ) {
+            switch (err.extensions.code) {
+                case 'UNAUTHENTICATED':
+                    localStorage.removeItem('token');
+                    break;
+            }
         }
     }
 });

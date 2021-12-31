@@ -4,7 +4,7 @@ import { GameContext } from '../../store/game';
 
 export const LobbyGames = () => {
 
-    const { websocket, owner } = useContext<{ websocket: WebSocket}>(GameContext);
+    const { websocket, owner } = useContext<{ websocket: WebSocket, owner: boolean }>(GameContext);
     const [selectedGame, setSelectedGame] = useState(3);
 
     const setStep = () => {

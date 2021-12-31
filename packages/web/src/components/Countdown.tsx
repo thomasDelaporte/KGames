@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-export default function Countdown({ onFinish }) {
+export default function Countdown({ onFinish }: { onFinish: () => void }) {
 
     const [timer, setTimer] = React.useState(3);
 

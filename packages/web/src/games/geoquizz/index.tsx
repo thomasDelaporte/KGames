@@ -5,22 +5,22 @@ import {GeoquizzQuestionType} from '@kgames/common';
 import './index.scss';
 import { Question } from './components/Question';
 import { QuestionAudio } from './components/QuestionAudio';
-import { AnswerBac, QuestionBac } from './components/AnswerBac';
-import { AnswerOrder, QuestionOrder } from './components/AnswerOrder';
+import { AnswerBac } from './components/AnswerBac';
+import { AnswerOrder } from './components/AnswerOrder';
 import { QuestionImage } from './components/QuestionImage';
 
 let interval: number;
 
-export const Game = ({ websocket }) => {
+export const Game = ({ websocket }: { websocket: WebSocket }) => {
 
     const controls = useAnimation();
 
-    const [question, setQuestion] = useState();
+    const [question, setQuestion] = useState<{ question: any, type: GeoquizzQuestionType, number: number }>();
     const [timer, setTimer] = useState(10);
 
     useEffect(() => {
 
-        websocket.onmessage = (raw) => {
+        websocket.onmessage = (raw: MessageEvent<any>) => {
 
             const data = JSON.parse(raw.data);
             
@@ -136,7 +136,7 @@ export const GameResultOrders = () => (
             </div>
         </div>
 
-        <button className="btn" onClick={() => setStep(0)}>Réponse suivante</button>
+        <button className="btn">Réponse suivante</button>
     </div>
 )
 
