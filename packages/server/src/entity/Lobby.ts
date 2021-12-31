@@ -1,6 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
 import { Player } from './Player';
 import { GameMode } from '@kgames/common';
+import { Game } from '../game/Game';
 
 @ObjectType()
 export class Lobby {
@@ -18,6 +19,8 @@ export class Lobby {
     public players: Set<Player> = new Set();
 
     public step: number = 0;
+
+    public game: Game;
 
     public getPlayers(): {} {
         return Array.from(this.players).map((p: Player) => ({

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
 
-export default function Countdown() {
+export default function Countdown({ onFinish }) {
 
-    const [timer, setTimer] = React.useState(3)
+    const [timer, setTimer] = React.useState(3);
 
     useEffect(() => {
 
@@ -10,8 +11,13 @@ export default function Countdown() {
 
             setTimer((prev) => {
 
-                if(prev <= 1)
+                if(prev <= 1) {
+
                     clearInterval(interval);
+                    onFinish();
+
+                    return 0;
+                }
 
                 return prev - 1
             }) }, 1000)
@@ -20,6 +26,8 @@ export default function Countdown() {
     }, [])
 
     return (
-        <div className="countdown">{timer}</div>
+        <motion.div className="countdown" animate={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: -100 }}>
+            <motion.span className="countdown__timer" animate={{ y: '-50%' }} initial={{ y: '100%' }}>{timer}</motion.span>
+        </motion.div>
     )
 }

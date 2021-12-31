@@ -9,6 +9,8 @@
         padding: 1rem;
         border: 2px solid #343343;
         border-radius: 10px;
+        aspect-ratio: 1/1;
+        transition: clip-path .1s;
         --progress: 50%;
 
         &:after {

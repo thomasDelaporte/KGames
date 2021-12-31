@@ -3,10 +3,11 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { SessionProvider } from '../store';
 
 import { Lobby, Hub } from '../views/';
+import Countdown from './Countdown';
 
 export default function App() {
     return (
-        <main className="main">
+        <main className="main">            
             <BrowserRouter>
                 <SessionProvider>
                     <Switch>

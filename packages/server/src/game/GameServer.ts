@@ -5,6 +5,8 @@ import Authentication from '../directives/Authentication';
 import url from 'url';
 import { LobbyService } from '../services';
 import Container, { Inject, Service } from 'typedi';
+import { isFunction } from 'util';
+import { Geoquizz } from './Geoquizz';
 
 export default class GameServer {
 
@@ -33,6 +35,12 @@ export default class GameServer {
 				if(lobby == null)
 					throw new Error('oui');
 
+				if(lobby.game === undefined)
+					lobby.game = new Geoquizz(lobby);
+					
+				if(lobby.game && lobby.game.hasStarded)
+					socket.close();
+
 				player.joinLobby(lobby, socket);
 				lobby.addPlayer(player);
 				
@@ -60,7 +68,10 @@ export default class GameServer {
 						setTimeout(() => {
 							lobby.step = 4;
 							lobby.broadcast('updatestep', { step: lobby.step });
-						}, 1200);
+							lobby.game.start();
+						}, 3000);
+					} else if(data.event === 'reset') {
+						lobby.game.reset();
 					}
 				})
 			} catch (error) {

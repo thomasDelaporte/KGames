@@ -8,13 +8,14 @@ import { LobbyConfiguration } from './LobbyConfiguration';
 import { SessionContext } from '../../store';
 import { GameContext } from '../../store/game';
 
-import { Game } from '@kgames/geoquizz';
+import { Game } from '../../games/geoquizz';
 
 import './index.scss';
 
 let websocket: WebSocket | null = null;
 
 import Login from '../../components/Login';
+import Countdown from '../../components/Countdown';
 
 export function Lobby() {
 
@@ -22,14 +23,11 @@ export function Lobby() {
     const { id } = useParams<{id: string}>();
 
     const [error, setError] = useState(false);
-    const [hasJoined, setHasJoined] = useState(false);
 
     const [players, setPlayers] = useState([]);
     const [owner, setOwner] = useState(false);
     const [step, setStep] = useState(0);
-
-    const [countdown, setCountdown] = useState<number | undefined>(undefined);
-    let countdownTimer = null;
+    const [countdown, setCountdown] = useState(false);
 
     useEffect(() => {
 
@@ -62,7 +60,7 @@ export function Lobby() {
             } else if(data.event === 'updateowner') {
                 setOwner(data.owner);
             } else if(data.event === 'startgame') {
-                setStep(3);
+                setCountdown(true);
             }
         }
     }, [user]);
@@ -73,6 +71,9 @@ export function Lobby() {
     if(error) 
         return <p>error...</p>
 
+    if(players.length === 0)
+        return <p>Loading...</p>
+
     return (
         <GameContext.Provider value={{ players, owner, step, websocket }}>
             <div className="lobby">
@@ -81,7 +82,7 @@ export function Lobby() {
                 </h1>
 
                 {countdown &&
-                    <span>{countdown}</span>
+                    <Countdown onFinish={() => setCountdown(false)} />
                 }
                 
                 <AnimatePresence>
@@ -92,7 +93,7 @@ export function Lobby() {
                     ) : step === 2 ? (
                         <LobbyConfiguration />
                     ) : (
-                        <Game />
+                        <Game websocket={websocket} />
                     )}
                 </AnimatePresence>
             </div>

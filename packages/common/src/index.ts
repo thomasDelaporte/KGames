@@ -10,8 +10,16 @@ export enum GameMode {
 
 export enum LobbyStep {
     PLAYERS,
-    SELECT,
-    CONFIGURATION,
+    SELECT_GAME,
+    CONFIGURATION_GAME,
     GAME,
     RESULT
+}
+
+export enum GeoquizzQuestionType {
+    TEXT,
+    IMAGE,
+    AUDIO,
+    BAC,
+    ORDER
 }

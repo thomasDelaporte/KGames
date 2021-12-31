@@ -1,9 +1,54 @@
-import { v4 as uuidv4 } from 'uuid';
-import React from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import React, { useContext, useEffect, useState } from 'react';
+import {GeoquizzQuestionType} from '@kgames/common';
 
 import './index.scss';
+import { Question } from './components/Question';
+import { QuestionAudio } from './components/QuestionAudio';
+import { AnswerBac, QuestionBac } from './components/AnswerBac';
+import { AnswerOrder, QuestionOrder } from './components/AnswerOrder';
+import { QuestionImage } from './components/QuestionImage';
 
-export const Game = () => {
+let interval: number;
+
+export const Game = ({ websocket }) => {
+
+    const controls = useAnimation();
+
+    const [question, setQuestion] = useState();
+    const [timer, setTimer] = useState(10);
+
+    useEffect(() => {
+
+        websocket.onmessage = (raw) => {
+
+            const data = JSON.parse(raw.data);
+            
+            if(data.event === 'question') {
+                
+                const questionData = data;
+                delete questionData.event;
+
+                console.log(questionData);
+
+                clearInterval(interval);
+
+                setQuestion(questionData);
+                setTimer(10);
+
+                interval = setInterval(() => {
+                    setTimer(prev => {
+
+                        if(prev <= 1) {
+                            clearInterval(interval);
+                        }
+                            
+                        return prev - 1;
+                    });
+                }, 1000)
+            }
+        }
+    }, []);
 
     return (
         <div className="lobby__content geoquizz">
@@ -11,17 +56,31 @@ export const Game = () => {
             <p className="lobby__content__desc">Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des 
             capitales pour gagner le plus de points</p>
 
-            <span className="geoquizz__time">10</span>
+            <span className="geoquizz__time" style={{ '--progress': ((10 - timer) * 10) + '%' } as any}>{timer}</span>
 
             <div className="game">
-                <div className="geoquizz__question" data-question="1">
-                    <h3>Quel grand personnage de l'antiquité a fondé la cité d'Alexandrie en Egypte ?</h3>
+                { question && question.type === GeoquizzQuestionType.AUDIO ?
+                    (<QuestionAudio question={question} />)
+                : question && question.type === GeoquizzQuestionType.IMAGE ? 
+                    (<QuestionImage question={question} />)
+                : question ?
+                    (<Question question={question} />)
+                : null }
+                
+                <div className="geoquizz__answer">
+                    <span className="geoquizz__answer__label">Réponse {question && question.number}</span>
                 </div>
 
-                <label className="geoquizz__answer input-group label">Question 1<input type="text" className="input" placeholder="Réponse" /></label>
+                { question && question.type === GeoquizzQuestionType.BAC ?
+                    (<AnswerBac />)
+                : question && question.type === GeoquizzQuestionType.ORDER ?
+                    (<AnswerOrder question={question} />)
+                : question ?
+                    (<input type="text" className="input" placeholder="Réponse" />)
+                : null }
             </div>
 
-            <button className="btn" onClick={() => alert('reset')}>Reset</button>
+            <button className="btn" onClick={() => websocket.send(JSON.stringify({ event: 'reset' }))}>Reset</button>
         </div>
     );
 }
@@ -88,8 +147,6 @@ export const GameResultSimple = () => (
         capitales pour gagner le plus de points</p>
 
         <div className="geoquizz">
-            
-
             <div className="game">
                 <div className="geoquizz__question" data-question="1">
                     <h3>Quel grand personnage de l'antiquité a fondé la cité d'Alexandrie en Egypte ?</h3>
@@ -98,17 +155,21 @@ export const GameResultSimple = () => (
                 <div className="geoquizz__results">
                     <div className="geoquizz__results__item" data-question="1">
                         <h3>DLP</h3>
-
                         <div>Hello world</div>
 
-                    <label className="geoquizz__results__switch switch">
-                        <input type="checkbox" defaultChecked/>
-                        <span className="switch__label" ></span>
-                    </label> 
+                        <label className="geoquizz__results__switch switch">
+                            <input type="checkbox" defaultChecked/>
+                            <span className="switch__label" ></span>
+                        </label> 
+                    </div>
                 </div>
-            </div>
 
-            <button className="btn">Réponse suivante</button>
-        </div>
+                <button className="btn">Réponse suivante</button>
+            </div>
+    </div>
     </div>
 )
+function GameContext(GameContext: any): { websocket: any; } {
+    throw new Error('Function not implemented.');
+}
+
