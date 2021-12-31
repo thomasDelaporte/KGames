@@ -1,7 +1,13 @@
 {
-    "compilerOptions": {
-        "outDir": "dist"
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "**/*.spec.ts"]
+	"compilerOptions": {
+		"target": "ESNEXT",
+		"module": "commonjs",
+		"strict": true,
+		"strictPropertyInitialization": false,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true
+	}
 }

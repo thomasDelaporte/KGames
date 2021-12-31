@@ -1,50 +1,50 @@
-const { ApolloServer, gql } = require('apollo-server')
+require('dotenv').config();
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-const typeDefs = gql`
-    # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+import 'reflect-metadata';
+import { Container } from 'typedi';
 
-    # This "Book" type defines the queryable fields for every book in our data source.
-    type Book {
-        title: String
-        author: String
-    }
+import { buildSchema } from 'type-graphql';
+import { ApolloServer, AuthenticationError } from 'apollo-server';
+import jwt from 'jsonwebtoken';
 
-    # The "Query" type is special: it lists all of the available queries that
-    # clients can execute, along with the return type for each. In this
-    # case, the "books" query returns an array of zero or more Books (defined above).
-    type Query {
-        books: [Book]
-    }
-`
+import { LobbyResolver, PlayerResolver } from './resolver';
+import { PlayerService } from './services';
+import { AuthorizationDerective } from './directives/Authorization';
+import GameServer from './game/GameServer';
 
-const books = [
-    {
-        title: 'The Awakening',
-        author: 'Kate Chopin',
-    },
-    {
-        title: 'City of Glass',
-        author: 'Paul Auster',
-    },
-]
+(async function() {
+		
+	const schema = await buildSchema({
+		container: Container,
+		resolvers: [ LobbyResolver, PlayerResolver ],
+		authChecker: AuthorizationDerective,
+		emitSchemaFile: true
+	});
 
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
-const resolvers = {
-    Query: {
-        books: () => books,
-    },
-}
+	const port = process.env.PORT || 4000;
+	const server = new ApolloServer({ 
+		schema,
+		context: ({ req }): any => {
 
-// The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
-const server = new ApolloServer({ typeDefs, resolvers })
-const port = process.env.PORT || 5000;
+			const token = req.headers.authorization;
 
-// The `listen` method launches a web server.
-server.listen({ port }).then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`)
-})
+			if(token == undefined || token == 'null')
+				return {};
+			
+			const playerId = jwt.verify(token, process.env.SESSION_SECRET as string);
+			const playerService = Container.get(PlayerService);
+			const player = playerService.getPlayer(playerId.toString());
+
+			if(player === undefined)
+				throw new AuthenticationError('The player not existing anymore');
+			
+			return { player };
+		}
+	});
+
+	await server.listen({ port }).then(({ url, server }) => {
+		console.log(`🚀 Server ready at ${url}`);
+
+		new GameServer(server);
+	});
+})();
