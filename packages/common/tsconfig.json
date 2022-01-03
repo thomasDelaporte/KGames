@@ -1,0 +1,22 @@
+{
+
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES2019",
+
+        "rootDir": "src",
+        "outDir": "dist",
+
+        "composite": true,
+        "declaration": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noUncheckedIndexedAccess": true,
+        "skipLibCheck": true,
+        "strict": true,
+    },
+
+    "include": [ "src/**/*.ts" ]
+}

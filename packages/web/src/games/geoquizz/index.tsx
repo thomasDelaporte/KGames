@@ -1,6 +1,7 @@
 import { motion, useAnimation } from 'framer-motion';
-import React, { useContext, useEffect, useState } from 'react';
-import {GeoquizzQuestionType} from '@kgames/common';
+import React, { useEffect, useState } from 'react';
+
+import { GeoquizzQuestionType } from '@kgames/common';
 
 import './index.scss';
 import { Question } from './components/Question';
