@@ -30,6 +30,8 @@ export default class GameServer {
 			try {
 
 				const player = Authentication(query.token as string);
+				player.socket = socket;
+
 				const lobby = this.lobbyService.getLobbyOrCreate(player, query.lobby as string);
 
 				if(lobby == null)
@@ -41,7 +43,6 @@ export default class GameServer {
 				if(lobby.game && lobby.game.hasStarded)
 					socket.close();
 
-				player.joinLobby(lobby, socket);
 				lobby.addPlayer(player);
 				
 				console.log(`Player ${player.username} connected to ${query.lobby}`);

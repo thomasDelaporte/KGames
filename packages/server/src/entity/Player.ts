@@ -16,14 +16,5 @@ export class Player {
     public lobby?: Lobby;
     
     public socket?: WebSocket;
-
-    joinLobby(lobby: Lobby, socket: WebSocket) {
-
-        if(this.lobby === lobby && this.socket) {
-            console.log('should close the connection with the first websocket but not leave the lobby');
-        }
-        
-        this.lobby = lobby;
-		this.socket = socket;
-	}
+    
 }

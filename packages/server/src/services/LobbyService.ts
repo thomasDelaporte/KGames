@@ -47,4 +47,8 @@ export class LobbyService {
 
         return this.lobbies = {};
     }
+
+    deleteLobby(id: string) {
+        delete this.lobbies[id];
+    }
 }

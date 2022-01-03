@@ -2,6 +2,8 @@ import { Field, ObjectType } from 'type-graphql';
 import { Player } from './Player';
 import { GameMode } from '@kgames/common';
 import { Game } from '../game/Game';
+import Container from 'typedi';
+import { LobbyService } from '../services';
 
 @ObjectType()
 export class Lobby {
@@ -34,11 +36,7 @@ export class Lobby {
         player.lobby = undefined;
         this.players.delete(player);
 
-        if(this.players.size === 0)
-            console.log('should delete ?');
-
         let hasNewOwner = false;
-
         this.players.forEach((p) => {
 
             if(!hasNewOwner && this.owner === player) {
@@ -49,9 +47,23 @@ export class Lobby {
 
             p.socket?.send(JSON.stringify({ event: 'playerupdate', players: this.getPlayers() }))
         });
+
+        if(this.players.size === 0) {
+            setTimeout(() => {
+
+                if(this.players.size === 0)
+                    Container.get(LobbyService).deleteLobby(this.id);
+            })
+        }
 	}
 
     addPlayer(player: Player) {
+
+        if(this.players.has(player))
+           return;
+    
+        
+        player.lobby = this;
 		this.players.add(player);
 
         this.players.forEach(player => {
