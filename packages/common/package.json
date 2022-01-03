@@ -5,5 +5,10 @@
     "author": "Thomas Delaporte <thomas.delaporte30@gmail.com>",
     "homepage": "https://github.com/thomasDelaporte/Kgames#readme",
     "license": "ISC",
-    "main": "src/index.ts"
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "clean": "rimraf -rf ./dist *.tsbuildinfo"
+    }
 }

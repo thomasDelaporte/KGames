@@ -1,6 +1,7 @@
 {
+    "extends": "../../tsconfig.json",
+
     "compilerOptions": {
-        "target": "ESNext",
         "types": ["vite/client"],
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "allowJs": false,
@@ -16,5 +17,6 @@
         "noEmit": true,
         "jsx": "react"
     },
-    "include": ["./src", "./node-modules/@kgames"]
+    
+    "include": ["./src"]
 }

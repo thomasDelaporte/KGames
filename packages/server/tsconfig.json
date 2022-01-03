@@ -1,7 +1,10 @@
 {
+	"extends": "../../tsconfig.json",
+	
 	"compilerOptions": {
 		"target": "ESNEXT",
 		"module": "commonjs",
+		"moduleResolution": "node",
 		"strict": true,
 		"strictPropertyInitialization": false,
 		"esModuleInterop": true,
@@ -11,6 +14,14 @@
 		"forceConsistentCasingInFileNames": true,
 		"outDir": "dist"
 	},
+
+	"references": [
+		{ "path": "../common" }
+	],
+
 	"include": ["src/**/*"],
-    "exclude": ["node_modules", "**/*.spec.ts"]
+    "exclude": [
+		"node_modules", 
+		"**/*.spec.ts"
+	]
 }

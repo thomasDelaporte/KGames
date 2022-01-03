@@ -1,7 +1,16 @@
-import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
+import { defineConfig } from 'vite';
 
-// https://vitejs.dev/config/
+import reactRefresh from '@vitejs/plugin-react-refresh';
+
 export default defineConfig({
-    plugins: [reactRefresh()],
+    plugins: [
+        reactRefresh()
+    ],
+
+    build: {
+        commonjsOptions: {
+            exclude: '@kgames/common',
+            include: []
+        }
+    }
 });

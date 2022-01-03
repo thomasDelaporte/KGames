@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@kgames/common": [ "packages/common/src/*" ]
+        },
+        "noEmit": false
+    }
+}
