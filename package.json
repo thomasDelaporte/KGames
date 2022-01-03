@@ -6,7 +6,7 @@
         "common:build": "lerna run build --scope @kgames/common",
 
         "web:dev": "lerna run dev --stream --scope @kgames/web",
-        "web:build": "lerna run build --scope= @kgames/web",
+        "web:build": "lerna run build --scope @kgames/web",
 
         "server:dev": "lerna run dev --parallel --scope @kgames/server",
         "server:build": "lerna run build --scope @kgames/server",
