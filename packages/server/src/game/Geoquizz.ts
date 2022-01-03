@@ -20,6 +20,11 @@ export class Geoquizz extends Game {
 
     private questionInterval: NodeJS.Timeout;
 
+    public configuration: {} = {
+        theme: 'Aucune idée',
+        time: 30
+    }
+
     public start(): void {
 
         console.log('start game');

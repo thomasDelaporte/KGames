@@ -72,6 +72,13 @@ export default class GameServer {
 						}, 3000);
 					} else if(data.event === 'reset') {
 						lobby.game.reset();
+					} else if(data.event === 'updateconfig') {
+
+						const configurations = data;
+						delete configurations['delete'];
+
+						lobby.game.configuration = configurations;
+						lobby.broadcast('updateconfig', configurations);
 					}
 				})
 			} catch (error) {

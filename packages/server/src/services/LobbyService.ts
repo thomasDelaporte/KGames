@@ -45,6 +45,6 @@ export class LobbyService {
             lobby.players.forEach(player => player.socket?.close);
         });
 
-        this.lobbies = {};
+        return this.lobbies = {};
     }
 }

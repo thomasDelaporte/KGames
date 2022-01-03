@@ -1,9 +1,12 @@
+import { COMMON } from '@kgames/common';
+
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { SessionProvider } from '../store';
 
 import { Lobby, Hub } from '../views/';
-import Countdown from './Countdown';
+
+console.log( COMMON );
 
 export default function App() {
     return (

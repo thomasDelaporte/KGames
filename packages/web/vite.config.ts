@@ -6,6 +6,10 @@ export default defineConfig({
     plugins: [
         reactRefresh()
     ],
+    
+    optimizeDeps: {
+        include: [ '@kgames/common' ]
+    },
 
     build: {
         commonjsOptions: {

@@ -45,7 +45,7 @@ export function Lobby() {
             setError(true);
         }
         
-        websocket.onmessage = (raw) => {
+        websocket.addEventListener('message', (raw) => {
             
             const data = JSON.parse(raw.data);
             
@@ -62,7 +62,7 @@ export function Lobby() {
             } else if(data.event === 'startgame') {
                 setCountdown(true);
             }
-        }
+        });
     }, [user]);
 
     if(!user)
@@ -93,7 +93,7 @@ export function Lobby() {
                     ) : step === 2 ? (
                         <LobbyConfiguration />
                     ) : (
-                        <Game websocket={websocket} />
+                        <Game />
                     )}
                 </AnimatePresence>
             </div>
