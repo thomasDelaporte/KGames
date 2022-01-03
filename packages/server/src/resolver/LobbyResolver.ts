@@ -26,4 +26,9 @@ export class LobbyResolver {
     getLobbies(): Lobby[] {
         return this.lobbyService.getLobbies();
     }
+
+    @Mutation(() => [Lobby])
+    clearLobbies() {
+        return this.lobbyService.clearLobbies();
+    }
 }

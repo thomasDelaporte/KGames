@@ -1,27 +1,26 @@
-import { motion, useAnimation } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { GameContext } from '../../store/game';
 
 import { GeoquizzQuestionType } from '@kgames/common';
-
-import './index.scss';
 import { Question } from './components/Question';
 import { QuestionAudio } from './components/QuestionAudio';
 import { AnswerBac } from './components/AnswerBac';
 import { AnswerOrder } from './components/AnswerOrder';
 import { QuestionImage } from './components/QuestionImage';
 
+import './index.scss';
+
 let interval: number;
 
-export const Game = ({ websocket }: { websocket: WebSocket }) => {
+export const Game = () => {
 
-    const controls = useAnimation();
-
+    const { websocket, step } = useContext<{ websocket: WebSocket, step: number }>(GameContext);
     const [question, setQuestion] = useState<{ question: any, type: GeoquizzQuestionType, number: number }>();
     const [timer, setTimer] = useState(10);
 
     useEffect(() => {
 
-        websocket.onmessage = (raw: MessageEvent<any>) => {
+        websocket.addEventListener('message', (raw: MessageEvent<any>) => {
 
             const data = JSON.parse(raw.data);
             
@@ -48,8 +47,14 @@ export const Game = ({ websocket }: { websocket: WebSocket }) => {
                     });
                 }, 1000)
             }
-        }
+        });
     }, []);
+
+    if(!question)
+        return <p>Loading...</p>
+
+    if(step === 5)
+        return <GameResultSimple />
 
     return (
         <div className="lobby__content geoquizz">
@@ -60,25 +65,21 @@ export const Game = ({ websocket }: { websocket: WebSocket }) => {
             <span className="geoquizz__time" style={{ '--progress': ((10 - timer) * 10) + '%' } as any}>{timer}</span>
 
             <div className="game">
-                { question && question.type === GeoquizzQuestionType.AUDIO ?
+                { question.type === GeoquizzQuestionType.AUDIO ?
                     (<QuestionAudio question={question} />)
-                : question && question.type === GeoquizzQuestionType.IMAGE ? 
+                : question.type === GeoquizzQuestionType.IMAGE ? 
                     (<QuestionImage question={question} />)
-                : question ?
-                    (<Question question={question} />)
-                : null }
+                : (<Question question={question} />) }
                 
                 <div className="geoquizz__answer">
                     <span className="geoquizz__answer__label">Réponse {question && question.number}</span>
                 </div>
 
-                { question && question.type === GeoquizzQuestionType.BAC ?
+                { question.type === GeoquizzQuestionType.BAC ?
                     (<AnswerBac />)
-                : question && question.type === GeoquizzQuestionType.ORDER ?
+                : question.type === GeoquizzQuestionType.ORDER ?
                     (<AnswerOrder question={question} />)
-                : question ?
-                    (<input type="text" className="input" placeholder="Réponse" />)
-                : null }
+                : (<input type="text" className="input" placeholder="Réponse" />) }
             </div>
 
             <button className="btn" onClick={() => websocket.send(JSON.stringify({ event: 'reset' }))}>Reset</button>
@@ -167,10 +168,7 @@ export const GameResultSimple = () => (
 
                 <button className="btn">Réponse suivante</button>
             </div>
-    </div>
+        </div>
     </div>
 )
-function GameContext(GameContext: any): { websocket: any; } {
-    throw new Error('Function not implemented.');
-}
 

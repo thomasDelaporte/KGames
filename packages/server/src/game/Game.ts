@@ -3,6 +3,9 @@ import { Lobby } from '../entity';
 export abstract class Game {
 
     protected lobby: Lobby;
+
+    public configuration: {};
+
     public hasStarded: boolean = false;
 
     constructor(lobby: Lobby) {

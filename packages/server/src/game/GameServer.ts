@@ -30,6 +30,8 @@ export default class GameServer {
 			try {
 
 				const player = Authentication(query.token as string);
+				player.socket = socket;
+
 				const lobby = this.lobbyService.getLobbyOrCreate(player, query.lobby as string);
 
 				if(lobby == null)
@@ -41,7 +43,6 @@ export default class GameServer {
 				if(lobby.game && lobby.game.hasStarded)
 					socket.close();
 
-				player.joinLobby(lobby, socket);
 				lobby.addPlayer(player);
 				
 				console.log(`Player ${player.username} connected to ${query.lobby}`);
@@ -72,6 +73,13 @@ export default class GameServer {
 						}, 3000);
 					} else if(data.event === 'reset') {
 						lobby.game.reset();
+					} else if(data.event === 'updateconfig') {
+
+						const configurations = data;
+						delete configurations['delete'];
+
+						lobby.game.configuration = configurations;
+						lobby.broadcast('updateconfig', configurations);
 					}
 				})
 			} catch (error) {

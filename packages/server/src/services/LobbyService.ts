@@ -38,4 +38,17 @@ export class LobbyService {
     public getLobbies(): Lobby[] {
         return Object.values(this.lobbies);
     }
+    
+    public clearLobbies() {
+
+        Object.values(this.lobbies).forEach(lobby => {
+            lobby.players.forEach(player => player.socket?.close);
+        });
+
+        return this.lobbies = {};
+    }
+
+    deleteLobby(id: string) {
+        delete this.lobbies[id];
+    }
 }

@@ -8,7 +8,7 @@ export enum GameMode {
     SPYFALL,
 }
 
-export enum LobbyStep {
+export enum GameStep {
     PLAYERS,
     SELECT_GAME,
     CONFIGURATION_GAME,

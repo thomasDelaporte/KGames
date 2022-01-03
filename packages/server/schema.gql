@@ -12,6 +12,7 @@ type Lobby {
 
 type Mutation {
   auth(username: String!): String!
+  clearLobbies: [Lobby!]!
   createLobby: Lobby!
 }
 
