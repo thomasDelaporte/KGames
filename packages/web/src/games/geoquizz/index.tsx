@@ -5,7 +5,6 @@ import GeoquizzGame from './Game';
 import ResultQuestion from './Result';
 
 import './index.scss';
-import Score from './Score';
 
 export default function Geoquizz() {
 
