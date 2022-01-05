@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext, EventHandler, SyntheticEvent } from 'react';
 import { SessionContext } from '../store';
 
 export default function Login() {
@@ -8,7 +8,9 @@ export default function Login() {
     const [username, setUsername] = useState(localStorage.getItem('username') || '');
 	const usernameRef = useRef<HTMLInputElement>(null);
 
-    const login = () => {
+    const login = (e: SyntheticEvent) => {
+
+        e.preventDefault();
 
         if (usernameRef.current) 
             usernameRef.current.reportValidity();
@@ -21,7 +23,7 @@ export default function Login() {
     }
 
     return (
-        <div className="login">
+        <form className="login" onSubmit={login}>
             <h1 className="page-title">Connexion.</h1>
 
             <button className="btn btn--clear">
@@ -39,11 +41,11 @@ export default function Login() {
             </button>
 
             <span className="login__or">ou</span>
-
+            
             <input type="text" className="input" placeholder="Identifiant" value={username} onChange={(e) => setUsername(e.target.value)} 
                 ref={usernameRef} required />
             
             <button className="btn" onClick={login}>S'authentifier</button>
-        </div>
+        </form>
     )
 }
