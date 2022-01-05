@@ -1,12 +1,6 @@
-.login {
-    text-align: center;
+.hub {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 24rem;
-
-    &__or {
-        margin: 2rem 0;
-        opacity: .6;
-    }
+    max-width: 16rem;
 }

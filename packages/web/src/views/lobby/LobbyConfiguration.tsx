@@ -34,7 +34,7 @@ export const LobbyConfiguration = () => {
 
         e.preventDefault();
 
-        if(time === '' || !theme)
+        if(time === '')
             return;
 
         websocket.send(JSON.stringify({ event: 'startgame' }));
