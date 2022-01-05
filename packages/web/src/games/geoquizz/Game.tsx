@@ -10,7 +10,7 @@ export default function GeoquizzGame() {
     const { websocket, owner } = useContext<GameContext>(GameContext);
 
     const [question, setQuestion] = useState<{ question: any, type: GeoquizzQuestionType, number: number }>();
-    const [timer, setTimer] = useState<number>(10);
+    const [timer, setTimer] = useState<number>();
     const [response, setResponse] = useState<string>('');
 
     useEffect(() => {
@@ -20,20 +20,17 @@ export default function GeoquizzGame() {
             const data = JSON.parse(raw.data);
             
             if(data.event === 'question') {
-                
-                const questionData = data;
-                delete questionData.event;
-
-                setQuestion(questionData);
+                setQuestion(data.question);
+                setResponse('');
             } else if(data.event  == 'questionretrieve') {
                 
                 setResponse(prevResponse => {
-                    console.log('send response');
+                    console.log('send response', prevResponse);
                     websocket.send(JSON.stringify({ event: 'response', response: prevResponse }));
                     return '';
                 });
             } else if(data.event == 'timer') {
-                setTimer(data.timer);
+                setTimer(data.time);
             }
         });
     }, []);
@@ -43,7 +40,10 @@ export default function GeoquizzGame() {
 
     return (
         <div className="game">
-            <span className="geoquizz__time" style={{ '--progress': ((10 - timer) * 10) + '%' } as any}>{timer}</span>
+
+            { timer ? (
+                <span className="geoquizz__time">{String(timer).padStart(2, '0')}</span>
+            ): null }
 
             { question.type === GeoquizzQuestionType.AUDIO ?
                 (<QuestionAudio question={question} />)
@@ -55,10 +55,6 @@ export default function GeoquizzGame() {
                 <span className="geoquizz__answer__label">Réponse {question.number}</span>
                 <input type="text" className="input" placeholder="Réponse" value={response} onChange={(e) => setResponse(e.target.value)} />
             </div>
-
-            { owner && 
-                <button className="btn" onClick={() => websocket.send(JSON.stringify({ event: 'reset' }))}>Reset</button>
-            }
         </div>
     )
 }
