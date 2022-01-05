@@ -25,6 +25,8 @@ export class Geoquizz extends Game {
     private answers: any = {};
     private scores: any = {};
 
+    private validAnswer: boolean = false;
+
     public start(): void {
 
         console.log('[GEOQUIZZ] Start game on lobby: ', this.lobby.id, ' with players:', this.lobby.players.size);
@@ -136,15 +138,29 @@ export class Geoquizz extends Game {
             if(!this.scores[ userChecking.id ])
                 this.scores[ userChecking.id ] = 0;
 
+<<<<<<< Updated upstream
             this.scores[ userChecking.id ] += (data.valid) ? 1 : 0
             console.log('ici', this.scores);
 
             if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
                 console.log('la', this.scores);
                 this.lobby.broadcast('updatestep', { step: 6, scores: this.scores } );
+=======
+            this.scores[ userChecking.id ] += (this.validAnswer) ? 1 : 0
+
+            if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
+                  
+                const sortedArr = Object.entries(this.scores)
+                    .sort(([, v1]: any, [, v2]: any) => v2 - v1)
+
+                this.lobby.broadcast('scores', { scores: Object.fromEntries(sortedArr) } );
+>>>>>>> Stashed changes
             } else {
                 this.pickResult();
             }
+        } else if(action === 'togglevalidity') {
+            this.validAnswer = data.valid;
+            this.lobby.broadcast('togglevalidity', { valid: this.validAnswer });
         }
     }
 }
