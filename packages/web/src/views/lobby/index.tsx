@@ -8,14 +8,13 @@ import { LobbyConfiguration } from './LobbyConfiguration';
 import { SessionContext } from '../../store';
 import { GameContext } from '../../store/game';
 
-import { Game } from '../../games/geoquizz';
-
 import './index.scss';
 
 let websocket: WebSocket;
 
 import Login from '../../components/Login';
 import Countdown from '../../components/Countdown';
+import Geoquizz from '../../games/geoquizz';
 
 export function Lobby() {
 
@@ -93,7 +92,7 @@ export function Lobby() {
                     ) : step === 2 ? (
                         <LobbyConfiguration />
                     ) : (
-                        <Game />
+                        <Geoquizz />
                     )}
                 </AnimatePresence>
             </div>

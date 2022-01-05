@@ -5,8 +5,9 @@ import { GameContext } from '../../store/game';
 export const LobbyConfiguration = () => {
 
     const { websocket, owner } = useContext<{ websocket: WebSocket, owner: boolean }>(GameContext);
-    const [theme, setTheme] = useState<string>();
-    const [time, setTime] = useState<string>("30");
+
+    const [theme, setTheme] = useState<string>('');
+    const [time, setTime] = useState<string>('30');
 
     useEffect(() => {
 
@@ -50,8 +51,9 @@ export const LobbyConfiguration = () => {
 
             <div className="lobby__configuration">
                 <label className="input-group label">Thême
-                    <input type="text" className="input" value={theme} readOnly={!owner}
-                        {...owner && { onChange: (e) => setTheme(e.target.value) }} />
+                    <select className="input" value={theme} {...owner && { onChange: (e) => setTheme(e.target.value) }}>
+                        <option disabled={!owner}>Thème par défault</option>
+                    </select>
                 </label>
 
                 <label className="input-group label">Temps
@@ -60,7 +62,7 @@ export const LobbyConfiguration = () => {
                 </label>
             </div>
 
-            { owner &&
+            {owner &&
                 <button className="btn" onClick={startGame}>
                     Démarrer la partie
                 </button>

@@ -77,6 +77,11 @@
 
     &__answer {
         margin-top: 1.5rem;
+
+        &__label {
+            display: block;
+            margin-bottom: 1rem;
+        }
     }
     
     &__orders {

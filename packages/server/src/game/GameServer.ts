@@ -80,6 +80,8 @@ export default class GameServer {
 
 						lobby.game.configuration = configurations;
 						lobby.broadcast('updateconfig', configurations);
+					} else if(lobby.game.hasStarded && player) {
+						lobby.game.on(data.event, data, player);
 					}
 				})
 			} catch (error) {
