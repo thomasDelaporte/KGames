@@ -6,6 +6,7 @@ import { SessionContext } from '../../store';
 
 import './index.scss';
 import { useHistory } from 'react-router-dom';
+import Account from '../../components/Account';
 
 const CREATE_LOBBY = gql`
 	mutation createLobby {
@@ -28,10 +29,10 @@ export function Hub() {
 		return <Login />
 
 	return (
-		<div className="login__user">
+		<div className="hub">
 			<h1 className="page-title">Hub.</h1>
 
-			{user.me.username}
+			<Account />
 
 			<button className="btn" onClick={user && createLobby}>Créer un lobby</button>
 		</div>

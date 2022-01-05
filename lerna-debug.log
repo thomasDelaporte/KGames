@@ -1,0 +1,25 @@
+0 silly argv {
+0 silly argv   _: [ 'run' ],
+0 silly argv   parallel: true,
+0 silly argv   scope: '@kgames/server',
+0 silly argv   lernaVersion: '3.22.1',
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js',
+0 silly argv   script: 'dev'
+0 silly argv }
+1 notice cli v3.22.1
+2 verbose rootPath C:\Users\toto-\Documents\GitHub\Kgames
+3 notice filter including "@kgames/server"
+4 info filter [ '@kgames/server' ]
+5 info Executing command in 1 package: "npm run dev"
+6 silly npmRunScript.stream [ 'dev', [], '@kgames/server' ]
+7 silly getExecOpts C:\Users\toto-\Documents\GitHub\Kgames\packages\server undefined
+8 error MaxBufferError: stdout maxBuffer exceeded
+8 error     at PassThrough.<anonymous> (C:\Users\toto-\Documents\GitHub\Kgames\node_modules\get-stream\index.js:41:19)
+8 error     at PassThrough.emit (events.js:327:22)
+8 error     at addChunk (internal/streams/readable.js:309:12)
+8 error     at readableAddChunk (internal/streams/readable.js:280:11)
+8 error     at PassThrough.Readable.push (internal/streams/readable.js:223:10)
+8 error     at PassThrough.Transform.push (internal/streams/transform.js:166:32)
+8 error     at PassThrough.afterTransform (internal/streams/transform.js:101:10)
+8 error     at PassThrough._transform (internal/streams/passthrough.js:46:3)
+8 error     at PassThrough.Transform._read (internal/streams/transform.js:205:10)

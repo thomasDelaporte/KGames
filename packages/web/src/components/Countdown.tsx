@@ -6,7 +6,7 @@ export default function Countdown({ onFinish }: { onFinish: () => void }) {
     const [timer, setTimer] = React.useState(3);
 
     useEffect(() => {
-
+        
         const interval = setInterval(() => {
 
             setTimer((prev) => {
@@ -23,7 +23,7 @@ export default function Countdown({ onFinish }: { onFinish: () => void }) {
             }) }, 1000)
 
         return () => clearInterval(interval);
-    }, [])
+    }, []);
 
     return (
         <motion.div className="countdown" animate={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: -100 }}>

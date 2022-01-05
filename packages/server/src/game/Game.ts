@@ -1,10 +1,10 @@
-import { Lobby } from '../entity';
+import { Lobby, Player } from '../entity';
 
 export abstract class Game {
 
     protected lobby: Lobby;
 
-    public configuration: {};
+    public configuration: any;
 
     public hasStarded: boolean = false;
 
@@ -14,4 +14,8 @@ export abstract class Game {
 
     public abstract start(): void;
     public abstract reset(): void;
+
+    public on(action: string, data: any, player: Player) {
+        
+    }
 }

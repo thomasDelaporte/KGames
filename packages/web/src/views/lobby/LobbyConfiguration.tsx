@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { SyntheticEvent, useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { GameContext } from '../../store/game';
 
 export const LobbyConfiguration = () => {
 
     const { websocket, owner } = useContext<{ websocket: WebSocket, owner: boolean }>(GameContext);
-    const [theme, setTheme] = useState<string>();
-    const [time, setTime] = useState<string>("30");
+
+    const [theme, setTheme] = useState<string>('');
+    const [time, setTime] = useState<string>('30');
 
     useEffect(() => {
 
@@ -18,14 +19,9 @@ export const LobbyConfiguration = () => {
 
     useEffect(() => {
 
-        if(owner)
-            return;
-
         websocket.addEventListener('message', (raw) => {
 
             const data = JSON.parse(raw.data);
-
-            console.log('update from ws', data);
 
             if(data.event === 'updateconfig') {
                 setTheme(data.theme);
@@ -34,7 +30,13 @@ export const LobbyConfiguration = () => {
         });
     }, []);
 
-    const startGame = () => {
+    const startGame = (e: SyntheticEvent) => {
+
+        e.preventDefault();
+
+        if(time === '')
+            return;
+
         websocket.send(JSON.stringify({ event: 'startgame' }));
     }
 
@@ -48,23 +50,22 @@ export const LobbyConfiguration = () => {
         >
             <h2 className="lobby__content__title">Configurer votre partie</h2>
 
-            <div className="lobby__configuration">
+            <form className="lobby__configuration" onSubmit={startGame}>
                 <label className="input-group label">Thême
-                    <input type="text" className="input" value={theme} readOnly={!owner}
-                        {...owner && { onChange: (e) => setTheme(e.target.value) }} />
+                    <select className="input" value={theme} {...owner && { onChange: (e) => setTheme(e.target.value) }}>
+                        <option disabled={!owner}>Thème par défault</option>
+                    </select>
                 </label>
 
                 <label className="input-group label">Temps
-                    <input type="number" className="input" value={time} readOnly={!owner} 
+                    <input type="number" className="input" value={time} readOnly={!owner} required min={3}
                         {...owner && { onChange: (e) => setTime(e.target.value) }}/>
                 </label>
-            </div>
 
-            { owner &&
-                <button className="btn" onClick={startGame}>
-                    Démarrer la partie
-                </button>
-            }
+                {owner &&
+                    <button className="btn">Démarrer la partie</button>
+                }
+            </form>
         </motion.div>
     );
 }
