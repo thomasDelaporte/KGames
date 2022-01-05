@@ -8,7 +8,7 @@ export default function Score({ scores }: { scores: any }) {
     return (
         <div className="scores">
             {Object.keys(scores).map((playerid, i) => (
-                <p>{playerid} => {scores[playerid]}</p>
+                <p>{playerid} : {scores[playerid]}</p>
             ))}
 
             { owner && 
