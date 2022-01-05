@@ -138,14 +138,6 @@ export class Geoquizz extends Game {
             if(!this.scores[ userChecking.id ])
                 this.scores[ userChecking.id ] = 0;
 
-<<<<<<< Updated upstream
-            this.scores[ userChecking.id ] += (data.valid) ? 1 : 0
-            console.log('ici', this.scores);
-
-            if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
-                console.log('la', this.scores);
-                this.lobby.broadcast('updatestep', { step: 6, scores: this.scores } );
-=======
             this.scores[ userChecking.id ] += (this.validAnswer) ? 1 : 0
 
             if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
@@ -154,7 +146,6 @@ export class Geoquizz extends Game {
                     .sort(([, v1]: any, [, v2]: any) => v2 - v1)
 
                 this.lobby.broadcast('scores', { scores: Object.fromEntries(sortedArr) } );
->>>>>>> Stashed changes
             } else {
                 this.pickResult();
             }
