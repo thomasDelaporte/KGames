@@ -6,7 +6,9 @@ import { off } from 'process';
 const questions = [
     { type: GeoquizzQuestionType.TEXT, question: 'Question textuel' },
     { type: GeoquizzQuestionType.AUDIO, question: 'Question audio', audio: 'https://freesound.org/data/previews/612/612673_11861866-lq.mp3' },
-]
+];
+
+const msClock = process.env.NODE_ENV === 'production' ? 1000 : 100;
 
 export class Geoquizz extends Game {
 
@@ -64,7 +66,7 @@ export class Geoquizz extends Game {
 
         this.questionsPlayed.add(question);
 
-        this.clock = setInterval(this.update.bind(this), 100);
+        this.clock = setInterval(this.update.bind(this), msClock);
         this.lobby.broadcast('question', { question: { ...question, number: this.currentQuestion} });
     }
 
@@ -141,9 +143,10 @@ export class Geoquizz extends Game {
             if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
                   
                 const sortedArr = Object.entries(this.scores)
-                    .sort(([, v1], [, v2]) => v2 - v1)
+                    .sort(([, v1]: any, [, v2]: any) => v2 - v1)
 
-                this.lobby.broadcast('updatestep', { step: 6, scores: Object.fromEntries(sortedArr) } );
+                console.log(Object.fromEntries(sortedArr));
+                this.lobby.broadcast('scores', { scores: Object.fromEntries(sortedArr) } );
             } else {
                 this.pickResult();
             }

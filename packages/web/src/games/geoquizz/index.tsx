@@ -13,7 +13,6 @@ export default function Geoquizz() {
     
     const [ question, setQuestion ] = useState<any>();
     const [ answer, setAnswer ] = useState<any>();
-    const [ scores, setScores ] = useState({});
 
     useEffect(() => {
 
@@ -22,13 +21,10 @@ export default function Geoquizz() {
             const data = JSON.parse(raw.data);
             
             if(data.event === 'updatestep') {
-                console.log(data);
 
                 if(data.step === 5) {
                     setQuestion(data.question);
                     setAnswer(data.answer);
-                } else if(data.step === 6) {
-                    setScores(data.scores);
                 }
             }
         });
@@ -44,8 +40,6 @@ export default function Geoquizz() {
                 <GeoquizzGame />
             : step === 5 ?
                 <ResultQuestion question={question} answer={answer} />
-            : step === 6 ?
-                <Score scores={scores} />
             : null}
         </div>
     );

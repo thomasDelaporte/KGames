@@ -36,9 +36,6 @@ export default class GameServer {
 
 				if(lobby == null)
 					throw new Error('oui');
-
-				if(lobby.game === undefined)
-					lobby.game = new Geoquizz(lobby);
 					
 				if(lobby.game && lobby.game.hasStarded)
 					socket.close();
@@ -64,6 +61,9 @@ export default class GameServer {
 						lobby.broadcast('updatestep', { step: lobby.step });
 					} else if(data.event === 'startgame' ) {
 
+						if(lobby.game === undefined)
+							lobby.game = new Geoquizz(lobby);
+
 						lobby.broadcast('startgame');
 
 						setTimeout(() => {
@@ -72,7 +72,12 @@ export default class GameServer {
 							lobby.game.start();
 						}, 3000);
 					} else if(data.event === 'reset') {
-						lobby.game.reset();
+						
+						lobby.game.hasStarded = false;
+						
+						lobby.step = 0;
+						lobby.broadcast('updatestep', { step: 0 });
+
 					} else if(data.event === 'updateconfig') {
 
 						const configurations = data;
