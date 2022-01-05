@@ -30,6 +30,7 @@
         padding: 20px;
         border-radius: 10px;
         position: relative;
+        margin-bottom: 1.5rem;
 
         &:after {
             content: attr(data-question);
@@ -80,7 +81,7 @@
 
         &__label {
             display: block;
-            margin-bottom: 1rem;
+            margin-bottom: .75rem;
         }
     }
     

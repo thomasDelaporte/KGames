@@ -45,17 +45,15 @@ export default function GeoquizzGame() {
         <div className="game">
             <span className="geoquizz__time" style={{ '--progress': ((10 - timer) * 10) + '%' } as any}>{timer}</span>
 
-            <div className="question">
-                { question.type === GeoquizzQuestionType.AUDIO ?
-                    (<QuestionAudio question={question} />)
-                : question.type === GeoquizzQuestionType.IMAGE ? 
-                    (<QuestionImage question={question} />)
-                : (<Question question={question} />) }
-                
-                <div className="question__answer">
-                    <span className="question__answer__label">Réponse {question.number}</span>
-                    <input type="text" className="input" placeholder="Réponse" value={response} onChange={(e) => setResponse(e.target.value)} />
-                </div>
+            { question.type === GeoquizzQuestionType.AUDIO ?
+                (<QuestionAudio question={question} />)
+            : question.type === GeoquizzQuestionType.IMAGE ? 
+                (<QuestionImage question={question} />)
+            : (<Question question={question} />) }
+
+            <div className="geoquizz__answer">
+                <span className="geoquizz__answer__label">Réponse {question.number}</span>
+                <input type="text" className="input" placeholder="Réponse" value={response} onChange={(e) => setResponse(e.target.value)} />
             </div>
 
             { owner && 
