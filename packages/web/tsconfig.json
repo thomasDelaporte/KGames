@@ -17,6 +17,10 @@
         "noEmit": true,
         "jsx": "react"
     },
+
+    "references": [
+        { "path": "../common" }
+    ],
     
     "include": ["./src"]
 }
