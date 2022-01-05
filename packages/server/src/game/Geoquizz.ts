@@ -36,16 +36,20 @@ export class Geoquizz extends Game {
         this.questionsPlayed = new Set();
         this.hasStarded = true;
         this.currentQuestion = 0;
+        this.currentUserChecking = 0;
 
         this.pickQuestion();
         this.update();
     }
 
     public reset(): void {
+
+        this.answers = {};
+        this.scores = {};
+        this.questionsPlayed = new Set();
         
         console.log('[GEOQUIZZ] Reset game on lobby: ', this.lobby.id);
         clearInterval(this.clock);
-        this.start();
     }
 
     protected pickQuestion(): void {
