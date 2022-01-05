@@ -137,11 +137,13 @@ export class Geoquizz extends Game {
                 this.scores[ userChecking.id ] = 0;
 
             this.scores[ userChecking.id ] += (data.valid) ? 1 : 0
-            console.log('ici', this.scores);
 
             if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
-                console.log('la', this.scores);
-                this.lobby.broadcast('updatestep', { step: 6, scores: this.scores } );
+                  
+                const sortedArr = Object.entries(this.scores)
+                    .sort(([, v1], [, v2]) => v2 - v1)
+
+                this.lobby.broadcast('updatestep', { step: 6, scores: Object.fromEntries(sortedArr) } );
             } else {
                 this.pickResult();
             }
