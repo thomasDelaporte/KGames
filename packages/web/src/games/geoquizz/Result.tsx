@@ -1,5 +1,8 @@
-import React, { ChangeEvent, SyntheticEvent, useContext, useEffect, useState } from 'react';
+import { GeoquizzQuestionType } from '@kgames/common';
+import React, { useContext, useEffect, useState } from 'react';
 import { GameContext } from '../../store/game';
+
+import { Question, QuestionAudio, QuestionImage } from './questions';
 
 export default function ResultQuestion({ question, answer}: any) {
 
@@ -35,15 +38,21 @@ export default function ResultQuestion({ question, answer}: any) {
     
     return (
         <div className="result">
-            <div className="geoquizz__question" data-question={question.number}>
-                <h3>{question.question}</h3>
-            </div>
+            
+            { question.type === GeoquizzQuestionType.AUDIO ?
+                (<QuestionAudio question={question} />)
+            : question.type === GeoquizzQuestionType.IMAGE ? 
+                (<QuestionImage question={question} />)
+            : (<Question question={question} />) }
 
             <div className="geoquizz__results">
                 <div className="geoquizz__results__item" data-question="1">
                     <h3>{answer.username}</h3>
-                    <div>{answer.answer}</div>
 
+                    { Array.isArray(answer.answer) ?
+                        <b>Un array ici</b>
+                    :  <div>{answer.answer}</div> }
+                   
                     <label className="geoquizz__results__switch switch">
                         <input type="checkbox" checked={valid} { ...owner && { onChange: toggleValidity } }  />
                         <span className="switch__label" ></span>

@@ -12,10 +12,14 @@
         "@kgames/common": "^0.0.0",
         "framer-motion": "^4.1.17",
         "graphql": "^15.5.1",
+        "react": "^17.0.0",
         "react-dom": "^17.0.0",
-        "react-router-dom": "^5.2.0"
+        "react-router-dom": "^5.2.0",
+        "@dnd-kit/core": "^4.0.3",
+        "@dnd-kit/sortable": "^5.1.0"
     },
     "devDependencies": {
+        "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
         "@types/react-router-dom": "^5.1.8",
         "@vitejs/plugin-react-refresh": "^1.3.1",
@@ -23,7 +27,6 @@
         "vite": "^2.4.4"
     },
     "peerDependencies": {
-        "@types/react": "^17.0.0",
-        "react": "^17.0.0"
+        "@types/react": "^17.0.0"
     }
 }

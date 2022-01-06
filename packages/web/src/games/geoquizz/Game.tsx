@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GeoquizzQuestionType } from '@kgames/common';
 import { Question, QuestionAudio, QuestionImage } from './questions';
 import { GameContext } from '../../store/game';
-
+import { AnswerOrder } from './answers/AnswerOrder';
 
 export default function GeoquizzGame() {
 
@@ -11,7 +11,7 @@ export default function GeoquizzGame() {
 
     const [question, setQuestion] = useState<{ question: any, type: GeoquizzQuestionType, number: number }>();
     const [timer, setTimer] = useState<number>();
-    const [response, setResponse] = useState<string>('');
+    const [response, setResponse] = useState<any>('');
 
     useEffect(() => {
 
@@ -20,11 +20,17 @@ export default function GeoquizzGame() {
             const data = JSON.parse(raw.data);
             
             if(data.event === 'question') {
+
+                if(data.question.type === GeoquizzQuestionType.ORDER) {
+                    setResponse(data.question.items);
+                } else {
+                    setResponse('');
+                }
+
                 setQuestion(data.question);
-                setResponse('');
             } else if(data.event  == 'questionretrieve') {
                 
-                setResponse(prevResponse => {
+                setResponse((prevResponse: any) => {
                     console.log('send response', prevResponse);
                     websocket.send(JSON.stringify({ event: 'response', response: prevResponse }));
                     return '';
@@ -53,7 +59,12 @@ export default function GeoquizzGame() {
 
             <div className="geoquizz__answer">
                 <span className="geoquizz__answer__label">Réponse {question.number}</span>
-                <input type="text" className="input" placeholder="Réponse" value={response} onChange={(e) => setResponse(e.target.value)} />
+
+                { question.type === GeoquizzQuestionType.ORDER ?
+                    <AnswerOrder question={question} response={response} setResponse={setResponse} />
+                : 
+                    <input type="text" className="input" placeholder="Réponse" value={response} onChange={(e) => setResponse(e.target.value)} />            
+                }
             </div>
         </div>
     )

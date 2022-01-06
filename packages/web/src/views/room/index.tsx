@@ -84,10 +84,6 @@ export function Room() {
                 <h1 className="page-title">
                     {step >= 3 ? 'Game' : 'Room'}
                 </h1>
-
-                {countdown &&
-                    <Countdown onFinish={() => setCountdown(false)} />
-                }
                 
                 <AnimatePresence>
                     {step === 0 ? (

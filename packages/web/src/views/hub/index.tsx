@@ -22,7 +22,7 @@ export function Hub() {
 	const history = useHistory();
 
 	const [createRoom, { data: Room, loading, error }] = useMutation(CREATE_Room, {
-		onCompleted: ({ createRoom }) => history.push(`/Room/${createRoom.id}`)
+		onCompleted: ({ createRoom }) => history.push(`/room/${createRoom.id}`)
 	});
 
 	if(!user)
