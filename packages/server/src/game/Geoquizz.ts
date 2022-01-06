@@ -7,7 +7,9 @@ const questions = [
     { type: GeoquizzQuestionType.TEXT, question: 'Question textuel' },
     { type: GeoquizzQuestionType.AUDIO, question: 'Question audio', audio: 'https://freesound.org/data/previews/612/612673_11861866-lq.mp3' },
     { type: GeoquizzQuestionType.IMAGE, question: 'Question image', image: 'https://cdna.artstation.com/p/assets/images/images/036/415/176/large/jun-seong-park-juns-league-of-legends-orchestra-art-freljord.jpg?1617631996' },
-]
+];
+
+const msClock = process.env.NODE_ENV === 'production' ? 1000 : 100;
 
 export class Geoquizz extends Game {
 
@@ -37,16 +39,20 @@ export class Geoquizz extends Game {
         this.questionsPlayed = new Set();
         this.hasStarded = true;
         this.currentQuestion = 0;
+        this.currentUserChecking = 0;
 
         this.pickQuestion();
         this.update();
     }
 
     public reset(): void {
+
+        this.answers = {};
+        this.scores = {};
+        this.questionsPlayed = new Set();
         
         console.log('[GEOQUIZZ] Reset game on lobby: ', this.lobby.id);
         clearInterval(this.clock);
-        this.start();
     }
 
     protected pickQuestion(): void {
@@ -140,7 +146,7 @@ export class Geoquizz extends Game {
                 this.scores[ userChecking.id ] = 0;
 
             this.scores[ userChecking.id ] += (this.validAnswer) ? 1 : 0
-
+          
             if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
                   
                 const sortedArr = Object.entries(this.scores)

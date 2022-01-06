@@ -72,7 +72,11 @@ export default class GameServer {
 							lobby.game.start();
 						}, 3000);
 					} else if(data.event === 'reset') {
+						
 						lobby.game.reset();
+						lobby.step = 0;
+						lobby.broadcast('updatestep', { step: 0 });
+
 					} else if(data.event === 'updateconfig') {
 
 						const configurations = data;
