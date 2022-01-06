@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useParams } from 'react-router-dom';
 
-import { LobbyPlayers } from './LobbyPlayers';
-import { LobbyGames } from './LobbyGames';
-import { LobbyConfiguration } from './LobbyConfiguration';
+import { RoomPlayers } from './RoomPlayers';
+import { RoomGames } from './RoomGames';
+import { RoomConfiguration } from './RoomConfiguration';
 import { SessionContext } from '../../store';
 import { GameContext } from '../../store/game';
 
@@ -15,9 +15,9 @@ let websocket: WebSocket;
 import Login from '../../components/Login';
 import Countdown from '../../components/Countdown';
 import Geoquizz from '../../games/geoquizz';
-import LobbyScores from './LobbyScores';
+import RoomScores from './RoomScores';
 
-export function Lobby() {
+export function Room() {
 
     const { user } = useContext(SessionContext);
     const { id } = useParams<{id: string}>();
@@ -36,7 +36,7 @@ export function Lobby() {
             return;
 
         const websocketUrl = new URL(import.meta.env.VITE_WS);
-        websocketUrl.searchParams.append('lobby', id);
+        websocketUrl.searchParams.append('Room', id);
         websocketUrl.searchParams.append('token', localStorage.getItem('token') as string);
 
         websocket = new WebSocket(websocketUrl.href);
@@ -50,7 +50,7 @@ export function Lobby() {
             
             const data = JSON.parse(raw.data);
             
-            if(data.event === 'joinlobby') {
+            if(data.event === 'joinRoom') {
                 setPlayers(data.players);
                 setOwner(data.owner);
                 setStep(data.step);
@@ -80,9 +80,9 @@ export function Lobby() {
 
     return (
         <GameContext.Provider value={{ players, owner, step, websocket }}>
-            <div className="lobby">
+            <div className="room">
                 <h1 className="page-title">
-                    {step >= 3 ? 'Game' : 'Lobby'}
+                    {step >= 3 ? 'Game' : 'Room'}
                 </h1>
 
                 {countdown &&
@@ -91,13 +91,13 @@ export function Lobby() {
                 
                 <AnimatePresence>
                     {step === 0 ? (
-                        <LobbyPlayers />
+                        <RoomPlayers />
                     ) : step === 1 ? (
-                        <LobbyGames />
+                        <RoomGames />
                     ) : step === 2 ? (
-                        <LobbyConfiguration />
+                        <RoomConfiguration />
                     ) : step === 6 ?
-                        <LobbyScores scores={scores} /> :
+                        <RoomScores scores={scores} /> :
                     (
                         <Geoquizz />
                     )}

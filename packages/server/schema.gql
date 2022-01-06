@@ -3,27 +3,27 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Lobby {
-  id: String!
-  mode: Float!
-  owner: Player!
-  players: [Player!]!
-}
-
 type Mutation {
   auth(username: String!): String!
-  clearLobbies: [Lobby!]!
-  createLobby: Lobby!
+  clearLobbies: [Room!]!
+  createRoom: Room!
 }
 
 type Player {
   id: String!
-  lobby: Lobby
+  room: Room
   username: String!
 }
 
 type Query {
-  getLobbies: [Lobby!]!
-  getLobby(id: String!): Lobby
+  getLobbies: [Room!]!
+  getRoom(id: String!): Room
   me: Player
+}
+
+type Room {
+  id: String!
+  mode: Float!
+  owner: Player!
+  players: [Player!]!
 }

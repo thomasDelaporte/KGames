@@ -1,15 +1,15 @@
-import { Lobby, Player } from '../entity';
+import { Room, Player } from '../entity';
 
 export abstract class Game {
 
-    protected lobby: Lobby;
+    protected room: Room;
 
     public configuration: any;
 
     public hasStarded: boolean = false;
 
-    constructor(lobby: Lobby) {
-        this.lobby = lobby;
+    constructor(Room: Room) {
+        this.room = Room;
     }
 
     public abstract start(): void;

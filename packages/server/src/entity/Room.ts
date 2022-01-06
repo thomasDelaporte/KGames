@@ -3,10 +3,10 @@ import { Player } from './Player';
 import { GameMode } from '@kgames/common';
 import { Game } from '../game/Game';
 import Container from 'typedi';
-import { LobbyService } from '../services';
+import { RoomService } from '../services';
 
 @ObjectType()
-export class Lobby {
+export class Room {
 
     @Field()
     public id: string;
@@ -31,9 +31,9 @@ export class Lobby {
         }))
     }
 
-    leaveLobby(player: Player): void {
+    leaveRoom(player: Player): void {
 
-        player.lobby = undefined;
+        player.room = undefined;
         this.players.delete(player);
 
         let hasNewOwner = false;
@@ -52,7 +52,7 @@ export class Lobby {
             setTimeout(() => {
 
                 if(this.players.size === 0)
-                    Container.get(LobbyService).deleteLobby(this.id);
+                    Container.get(RoomService).deleteRoom(this.id);
             })
         }
 	}
@@ -63,7 +63,7 @@ export class Lobby {
            return;
     
         
-        player.lobby = this;
+        player.room = this;
 		this.players.add(player);
 
         this.players.forEach(player => {

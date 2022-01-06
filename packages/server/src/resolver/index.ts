@@ -1,2 +1,2 @@
-export * from './LobbyResolver';
+export * from './RoomResolver';
 export * from './PlayerResolver';

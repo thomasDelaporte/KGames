@@ -8,7 +8,7 @@ const GET_ME = gql`
     query me {
         me {
             username
-            lobby {
+            room {
                 id
             }
         }
@@ -27,8 +27,8 @@ export function SessionProvider(props: { children: ReactNode }): JSX.Element {
 
     const { loading, error, data: user, refetch } = useQuery(GET_ME, {
         onCompleted: ({ me }) => {
-            if(history && me.lobby)
-                history.push(`/lobby/${me.lobby.id}`);
+            if(history && me.room)
+                history.push(`/room/${me.room.id}`);
         }
     });
 

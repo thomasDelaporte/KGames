@@ -1,7 +1,6 @@
-import { Socket } from 'dgram';
 import { Field, ObjectType } from 'type-graphql';
-import WebSocket from 'ws';
-import { Lobby } from './Lobby';
+import { WebSocket } from 'ws';
+import { Room } from './Room';
 
 @ObjectType()
 export class Player {
@@ -12,9 +11,8 @@ export class Player {
     @Field()
     public username: string;
 
-    @Field(() => Lobby, { nullable: true })
-    public lobby?: Lobby;
+    @Field(() => Room, { nullable: true })
+    public room?: Room;
     
     public socket?: WebSocket;
-    
 }

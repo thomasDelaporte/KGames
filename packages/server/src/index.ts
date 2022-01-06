@@ -7,7 +7,7 @@ import { buildSchema } from 'type-graphql';
 import { ApolloServer, AuthenticationError } from 'apollo-server';
 import jwt from 'jsonwebtoken';
 
-import { LobbyResolver, PlayerResolver } from './resolver';
+import { RoomResolver, PlayerResolver } from './resolver';
 import { PlayerService } from './services';
 import { AuthorizationDerective } from './directives/Authorization';
 import GameServer from './game/GameServer';
@@ -16,7 +16,7 @@ import GameServer from './game/GameServer';
 		
 	const schema = await buildSchema({
 		container: Container,
-		resolvers: [ LobbyResolver, PlayerResolver ],
+		resolvers: [ RoomResolver, PlayerResolver ],
 		authChecker: AuthorizationDerective,
 		emitSchemaFile: true
 	});

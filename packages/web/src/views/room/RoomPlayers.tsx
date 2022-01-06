@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { GameContext } from '../../store/game';
 
-export const LobbyPlayers = () => {
+export const RoomPlayers = () => {
 
     const { players, owner, websocket } = useContext<{ owner: boolean, players: [], websocket: WebSocket}>(GameContext);
     const [showCopy, setShowCopy] = useState(false);
@@ -26,11 +26,11 @@ export const LobbyPlayers = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 1, x: 50 }}
-            className="lobby__content"
+            className="room__content"
         >
-            <h2 className="lobby__content__title">Inviter vos amis</h2>
+            <h2 className="room__content__title">Inviter vos amis</h2>
 
-            <div className="lobby__players players">
+            <div className="room__players players">
                 {players.map((player: any, i: number) => (
                     <div className="players__item" key={i}>
 

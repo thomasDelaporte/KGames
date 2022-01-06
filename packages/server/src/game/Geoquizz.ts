@@ -32,7 +32,7 @@ export class Geoquizz extends Game {
 
     public start(): void {
 
-        console.log('[GEOQUIZZ] Start game on lobby: ', this.lobby.id, ' with players:', this.lobby.players.size);
+        console.log('[GEOQUIZZ] Start game on Room: ', this.room.id, ' with players:', this.room.players.size);
 
         this.timer = this.configuration.time;
         this.answers = {};
@@ -51,7 +51,7 @@ export class Geoquizz extends Game {
         this.scores = {};
         this.questionsPlayed = new Set();
         
-        console.log('[GEOQUIZZ] Reset game on lobby: ', this.lobby.id);
+        console.log('[GEOQUIZZ] Reset game on Room: ', this.room.id);
         clearInterval(this.clock);
     }
 
@@ -74,11 +74,11 @@ export class Geoquizz extends Game {
         this.questionsPlayed.add(question);
 
         this.clock = setInterval(this.update.bind(this), msClock);
-        this.lobby.broadcast('question', { question: { ...question, number: this.currentQuestion + 1 } });
+        this.room.broadcast('question', { question: { ...question, number: this.currentQuestion + 1 } });
     }
 
     protected retrieveAnswer(): void {
-        this.lobby.broadcast('questionretrieve');
+        this.room.broadcast('questionretrieve');
     }
 
     protected pickResult(): void {
@@ -87,13 +87,13 @@ export class Geoquizz extends Game {
 
         const question = Array.from(this.questionsPlayed)[this.currentQuestion];
         const answersOfCurrentQuestion = this.answers[this.currentQuestion];
-        const userChecking = Array.from(this.lobby.players)[this.currentUserChecking];
+        const userChecking = Array.from(this.room.players)[this.currentUserChecking];
         
         const answer = answersOfCurrentQuestion[userChecking.id];
         console.log(Object.keys(answersOfCurrentQuestion).length, this.currentUserChecking)
 
         
-        this.lobby.broadcast('updatestep', { step: 5, 
+        this.room.broadcast('updatestep', { step: 5, 
             question: { ...question, number: this.currentQuestion + 1 }, answer: { answer, username: userChecking.username } });
 
         if( this.currentUserChecking < Object.keys(answersOfCurrentQuestion).length - 1 ) {
@@ -109,7 +109,7 @@ export class Geoquizz extends Game {
         if(this.timer > 0) {
 
             this.timer -= 1;
-            this.lobby.broadcast('timer', { time: this.timer });
+            this.room.broadcast('timer', { time: this.timer });
         } else {
 
             this.timer = this.configuration.time;
@@ -132,7 +132,7 @@ export class Geoquizz extends Game {
 
             this.answers[this.currentQuestion][player.id] = data.response;
 
-            if(Object.keys(this.answers[this.currentQuestion]).length === this.lobby.players.size) {
+            if(Object.keys(this.answers[this.currentQuestion]).length === this.room.players.size) {
                 console.log('next question');
 
                 this.currentQuestion += 1;
@@ -140,7 +140,7 @@ export class Geoquizz extends Game {
             }
         } else if(action === 'validquestion') {
 
-            const userChecking = Array.from(this.lobby.players)[this.currentUserChecking];
+            const userChecking = Array.from(this.room.players)[this.currentUserChecking];
 
             if(!this.scores[ userChecking.id ])
                 this.scores[ userChecking.id ] = 0;
@@ -152,13 +152,13 @@ export class Geoquizz extends Game {
                 const sortedArr = Object.entries(this.scores)
                     .sort(([, v1]: any, [, v2]: any) => v2 - v1)
 
-                this.lobby.broadcast('scores', { scores: Object.fromEntries(sortedArr) } );
+                this.room.broadcast('scores', { scores: Object.fromEntries(sortedArr) } );
             } else {
                 this.pickResult();
             }
         } else if(action === 'togglevalidity') {
             this.validAnswer = data.valid;
-            this.lobby.broadcast('togglevalidity', { valid: this.validAnswer });
+            this.room.broadcast('togglevalidity', { valid: this.validAnswer });
         }
     }
 }

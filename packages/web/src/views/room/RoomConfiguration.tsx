@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { GameContext } from '../../store/game';
 
-export const LobbyConfiguration = () => {
+export const RoomConfiguration = () => {
 
     const { websocket, owner } = useContext<{ websocket: WebSocket, owner: boolean }>(GameContext);
 
@@ -46,11 +46,11 @@ export const LobbyConfiguration = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}
-            className="lobby__content"
+            className="room__content"
         >
-            <h2 className="lobby__content__title">Configurer votre partie</h2>
+            <h2 className="room__content__title">Configurer votre partie</h2>
 
-            <form className="lobby__configuration" onSubmit={startGame}>
+            <form className="room__configuration" onSubmit={startGame}>
                 <label className="input-group label">Thême
                     <select className="input" value={theme} {...owner && { onChange: (e) => setTheme(e.target.value) }}>
                         <option disabled={!owner} value={'default'}>Thème par défault</option>

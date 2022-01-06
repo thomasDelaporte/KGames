@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { GameContext } from '../../store/game';
 
-export default function LobbyScores({ scores }: { scores: any }) {
+export default function RoomScores({ scores }: { scores: any }) {
 
     const { owner, websocket } = useContext(GameContext);
 

@@ -29,9 +29,9 @@ export default function Geoquizz() {
     }, []);
 
     return (
-        <div className="lobby__content geoquizz">
-            <h2 className="lobby__content__title">Geoquizz</h2>
-            <p className="lobby__content__desc">Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des 
+        <div className="room__content geoquizz">
+            <h2 className="room__content__title">Geoquizz</h2>
+            <p className="room__content__desc">Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des 
                 capitales pour gagner le plus de points</p>
             
             { step === 4 ?

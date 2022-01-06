@@ -3,7 +3,7 @@ import { WebSocketServer } from 'ws';
 import Authentication from '../directives/Authentication';
 
 import url from 'url';
-import { LobbyService } from '../services';
+import { RoomService } from '../services';
 import Container, { Inject, Service } from 'typedi';
 import { isFunction } from 'util';
 import { Geoquizz } from './Geoquizz';
@@ -12,7 +12,7 @@ export default class GameServer {
 
 	private server: WebSocketServer;
 
-	public lobbyService: LobbyService = Container.get(LobbyService);
+	public RoomService: RoomService = Container.get(RoomService);
 
 	constructor(server: any) {
 
@@ -32,60 +32,60 @@ export default class GameServer {
 				const player = Authentication(query.token as string);
 				player.socket = socket;
 
-				const lobby = this.lobbyService.getLobbyOrCreate(player, query.lobby as string);
+				const Room = this.RoomService.getRoomOrCreate(player, query.room as string);
 
-				if(lobby == null)
+				if(Room == null)
 					throw new Error('oui');
 
-				if(lobby.game === undefined)
-					lobby.game = new Geoquizz(lobby);
+				if(Room.game === undefined)
+					Room.game = new Geoquizz(Room);
 					
-				if(lobby.game && lobby.game.hasStarded)
+				if(Room.game && Room.game.hasStarded)
 					socket.close();
 
-				lobby.addPlayer(player);
+				Room.addPlayer(player);
 				
-				console.log(`Player ${player.username} connected to ${query.lobby}`);
+				console.log(`Player ${player.username} connected to ${query.room}`);
 
 				socket.send(JSON.stringify({ 
-					event: 'joinlobby', 
-					players: lobby.getPlayers(), 
-					owner: (lobby.owner === player),
-					step: lobby.step
+					event: 'joinRoom', 
+					players: Room.getPlayers(), 
+					owner: (Room.owner === player),
+					step: Room.step
 				}));
 
-				socket.on('close', () => lobby.leaveLobby(player));
+				socket.on('close', () => Room.leaveRoom(player));
 				socket.on('message', (message) => {
 					
 					const data = JSON.parse(message.toString());
 
-					if(data.event === 'updatestep' && lobby.owner === player) {
-						lobby.step = data.step;
-						lobby.broadcast('updatestep', { step: lobby.step });
+					if(data.event === 'updatestep' && Room.owner === player) {
+						Room.step = data.step;
+						Room.broadcast('updatestep', { step: Room.step });
 					} else if(data.event === 'startgame' ) {
 
-						lobby.broadcast('startgame');
+						Room.broadcast('startgame');
 
 						setTimeout(() => {
-							lobby.step = 4;
-							lobby.broadcast('updatestep', { step: lobby.step });
-							lobby.game.start();
+							Room.step = 4;
+							Room.broadcast('updatestep', { step: Room.step });
+							Room.game.start();
 						}, 3000);
 					} else if(data.event === 'reset') {
 						
-						lobby.game.reset();
-						lobby.step = 0;
-						lobby.broadcast('updatestep', { step: 0 });
+						Room.game.reset();
+						Room.step = 0;
+						Room.broadcast('updatestep', { step: 0 });
 
 					} else if(data.event === 'updateconfig') {
 
 						const configurations = data;
 						delete configurations['delete'];
 
-						lobby.game.configuration = configurations;
-						lobby.broadcast('updateconfig', configurations);
-					} else if(lobby.game.hasStarded && player) {
-						lobby.game.on(data.event, data, player);
+						Room.game.configuration = configurations;
+						Room.broadcast('updateconfig', configurations);
+					} else if(Room.game.hasStarded && player) {
+						Room.game.on(data.event, data, player);
 					}
 				})
 			} catch (error) {

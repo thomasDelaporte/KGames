@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import { GameContext } from '../../store/game';
 
-export const LobbyGames = () => {
+export const RoomGames = () => {
 
     const { websocket, owner } = useContext<{ websocket: WebSocket, owner: boolean }>(GameContext);
     const [selectedGame, setSelectedGame] = useState(3);
@@ -17,11 +17,11 @@ export const LobbyGames = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}
-            className="lobby__content"
+            className="room__content"
         >
-            <h2 className="lobby__content__title">Selectionner les jeux</h2>
+            <h2 className="room__content__title">Selectionner les jeux</h2>
 
-            <div className="lobby__games games">
+            <div className="room__games games">
                 <div className={`games__item games__item--disabled`}>
                     <img className="games__item__thumbnail" src="https://kgames.fr/games/icons/undercover.jpg" />
                     <div className="games__item__content">

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { SessionProvider } from '../store';
 
-import { Lobby, Hub } from '../views/';
+import { Room, Hub } from '../views/';
 
 export default function App() {
     return (
@@ -11,7 +11,7 @@ export default function App() {
                 <SessionProvider>
                     <Switch>
                         <Route exact path='/' component={Hub} />
-                        <Route path='/lobby/:id' component={Lobby}/>
+                        <Route path='/room/:id' component={Room}/>
                     </Switch>
                 </SessionProvider>
             </BrowserRouter>
