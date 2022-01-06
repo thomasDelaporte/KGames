@@ -15,6 +15,7 @@ let websocket: WebSocket;
 import Login from '../../components/Login';
 import Countdown from '../../components/Countdown';
 import Geoquizz from '../../games/geoquizz';
+import LobbyScores from './LobbyScores';
 
 export function Lobby() {
 
@@ -27,6 +28,7 @@ export function Lobby() {
     const [owner, setOwner] = useState(false);
     const [step, setStep] = useState(0);
     const [countdown, setCountdown] = useState(false);
+    const [scores, setScores] = useState({});
 
     useEffect(() => {
 
@@ -60,6 +62,9 @@ export function Lobby() {
                 setOwner(data.owner);
             } else if(data.event === 'startgame') {
                 setCountdown(true);
+            } else if(data.event === 'scores') {
+                setStep(6);
+                setScores(data.scores);
             }
         });
     }, [user]);
@@ -91,7 +96,9 @@ export function Lobby() {
                         <LobbyGames />
                     ) : step === 2 ? (
                         <LobbyConfiguration />
-                    ) : (
+                    ) : step === 6 ?
+                        <LobbyScores scores={scores} /> :
+                    (
                         <Geoquizz />
                     )}
                 </AnimatePresence>

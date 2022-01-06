@@ -6,6 +6,7 @@ import { off } from 'process';
 const questions = [
     { type: GeoquizzQuestionType.TEXT, question: 'Question textuel' },
     { type: GeoquizzQuestionType.AUDIO, question: 'Question audio', audio: 'https://freesound.org/data/previews/612/612673_11861866-lq.mp3' },
+    { type: GeoquizzQuestionType.IMAGE, question: 'Question image', image: 'https://cdna.artstation.com/p/assets/images/images/036/415/176/large/jun-seong-park-juns-league-of-legends-orchestra-art-freljord.jpg?1617631996' },
 ]
 
 export class Geoquizz extends Game {
@@ -67,7 +68,7 @@ export class Geoquizz extends Game {
         this.questionsPlayed.add(question);
 
         this.clock = setInterval(this.update.bind(this), 100);
-        this.lobby.broadcast('question', { question: { ...question, number: this.currentQuestion} });
+        this.lobby.broadcast('question', { question: { ...question, number: this.currentQuestion + 1 } });
     }
 
     protected retrieveAnswer(): void {
@@ -144,7 +145,7 @@ export class Geoquizz extends Game {
                   
                 const sortedArr = Object.entries(this.scores)
                     .sort(([, v1]: any, [, v2]: any) => v2 - v1)
-
+                
                 this.lobby.broadcast('scores', { scores: Object.fromEntries(sortedArr) } );
             } else {
                 this.pickResult();
