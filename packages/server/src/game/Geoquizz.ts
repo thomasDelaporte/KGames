@@ -88,7 +88,7 @@ export class Geoquizz extends Game {
 
         
         this.lobby.broadcast('updatestep', { step: 5, 
-            question: { ...question, number: this.currentQuestion }, answer: { answer, username: userChecking.username } });
+            question: { ...question, number: this.currentQuestion + 1 }, answer: { answer, username: userChecking.username } });
 
         if( this.currentUserChecking < Object.keys(answersOfCurrentQuestion).length - 1 ) {
             this.currentUserChecking += 1;
@@ -145,7 +145,7 @@ export class Geoquizz extends Game {
                   
                 const sortedArr = Object.entries(this.scores)
                     .sort(([, v1]: any, [, v2]: any) => v2 - v1)
-                
+
                 this.lobby.broadcast('scores', { scores: Object.fromEntries(sortedArr) } );
             } else {
                 this.pickResult();
