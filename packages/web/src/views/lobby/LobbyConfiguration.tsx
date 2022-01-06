@@ -6,7 +6,7 @@ export const LobbyConfiguration = () => {
 
     const { websocket, owner } = useContext<{ websocket: WebSocket, owner: boolean }>(GameContext);
 
-    const [theme, setTheme] = useState<string>('');
+    const [theme, setTheme] = useState<string>('default');
     const [time, setTime] = useState<string>('30');
 
     useEffect(() => {
@@ -53,7 +53,7 @@ export const LobbyConfiguration = () => {
             <form className="lobby__configuration" onSubmit={startGame}>
                 <label className="input-group label">Thême
                     <select className="input" value={theme} {...owner && { onChange: (e) => setTheme(e.target.value) }}>
-                        <option disabled={!owner}>Thème par défault</option>
+                        <option disabled={!owner} value={'default'}>Thème par défault</option>
                     </select>
                 </label>
 

@@ -20,7 +20,6 @@ export default function Geoquizz() {
             const data = JSON.parse(raw.data);
             
             if(data.event === 'updatestep') {
-
                 if(data.step === 5) {
                     setQuestion(data.question);
                     setAnswer(data.answer);

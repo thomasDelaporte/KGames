@@ -97,8 +97,8 @@ export function Lobby() {
                     ) : step === 2 ? (
                         <LobbyConfiguration />
                     ) : step === 6 ?
-                        <LobbyScores scores={scores} />
-                    : (
+                        <LobbyScores scores={scores} /> :
+                    (
                         <Geoquizz />
                     )}
                 </AnimatePresence>

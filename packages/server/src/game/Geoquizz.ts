@@ -6,6 +6,7 @@ import { off } from 'process';
 const questions = [
     { type: GeoquizzQuestionType.TEXT, question: 'Question textuel' },
     { type: GeoquizzQuestionType.AUDIO, question: 'Question audio', audio: 'https://freesound.org/data/previews/612/612673_11861866-lq.mp3' },
+    { type: GeoquizzQuestionType.IMAGE, question: 'Question image', image: 'https://cdna.artstation.com/p/assets/images/images/036/415/176/large/jun-seong-park-juns-league-of-legends-orchestra-art-freljord.jpg?1617631996' },
 ];
 
 const msClock = process.env.NODE_ENV === 'production' ? 1000 : 100;
@@ -26,6 +27,8 @@ export class Geoquizz extends Game {
     private questionsPlayed: Set<any> = new Set();
     private answers: any = {};
     private scores: any = {};
+
+    private validAnswer: boolean = false;
 
     public start(): void {
 
@@ -70,8 +73,8 @@ export class Geoquizz extends Game {
 
         this.questionsPlayed.add(question);
 
-        this.clock = setInterval(this.update.bind(this), msClock);
-        this.lobby.broadcast('question', { question: { ...question, number: this.currentQuestion} });
+        this.clock = setInterval(this.update.bind(this), 100);
+        this.lobby.broadcast('question', { question: { ...question, number: this.currentQuestion + 1 } });
     }
 
     protected retrieveAnswer(): void {
@@ -91,7 +94,7 @@ export class Geoquizz extends Game {
 
         
         this.lobby.broadcast('updatestep', { step: 5, 
-            question: { ...question, number: this.currentQuestion }, answer: { answer, username: userChecking.username } });
+            question: { ...question, number: this.currentQuestion + 1 }, answer: { answer, username: userChecking.username } });
 
         if( this.currentUserChecking < Object.keys(answersOfCurrentQuestion).length - 1 ) {
             this.currentUserChecking += 1;
@@ -142,18 +145,20 @@ export class Geoquizz extends Game {
             if(!this.scores[ userChecking.id ])
                 this.scores[ userChecking.id ] = 0;
 
-            this.scores[ userChecking.id ] += (data.valid) ? 1 : 0
-
+            this.scores[ userChecking.id ] += (this.validAnswer) ? 1 : 0
+          
             if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
                   
                 const sortedArr = Object.entries(this.scores)
                     .sort(([, v1]: any, [, v2]: any) => v2 - v1)
 
-                console.log(Object.fromEntries(sortedArr));
                 this.lobby.broadcast('scores', { scores: Object.fromEntries(sortedArr) } );
             } else {
                 this.pickResult();
             }
+        } else if(action === 'togglevalidity') {
+            this.validAnswer = data.valid;
+            this.lobby.broadcast('togglevalidity', { valid: this.validAnswer });
         }
     }
 }
