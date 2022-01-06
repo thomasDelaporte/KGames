@@ -73,7 +73,7 @@ export class Geoquizz extends Game {
 
         this.questionsPlayed.add(question);
 
-        this.clock = setInterval(this.update.bind(this), 100);
+        this.clock = setInterval(this.update.bind(this), msClock);
         this.lobby.broadcast('question', { question: { ...question, number: this.currentQuestion + 1 } });
     }
 
