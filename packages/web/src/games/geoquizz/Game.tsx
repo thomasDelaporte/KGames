@@ -52,7 +52,7 @@ export default function GeoquizzGame() {
             ): null }
 
             { question.type === GeoquizzQuestionType.AUDIO ?
-                (<QuestionAudio question={question} />)
+                (<QuestionAudio question={question} autoPlay={true} />)
             : question.type === GeoquizzQuestionType.IMAGE ? 
                 (<QuestionImage question={question} />)
             : (<Question question={question} />) }

@@ -40,7 +40,7 @@ export default function ResultQuestion({ question, answer}: any) {
         <div className="result">
             
             { question.type === GeoquizzQuestionType.AUDIO ?
-                (<QuestionAudio question={question} />)
+                (<QuestionAudio question={question} autoPlay={false} />)
             : question.type === GeoquizzQuestionType.IMAGE ? 
                 (<QuestionImage question={question} />)
             : (<Question question={question} />) }
