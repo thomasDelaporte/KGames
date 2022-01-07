@@ -148,12 +148,15 @@
         &__owner {
             position: absolute;
             background-color: #bb3fdd;
-            padding: 6px;
+            height: 31px;
+            width: 31px;
+            line-height: 34px;
+            text-align: center;
             top: 0;
             transform: translateY(-50%);
             right: 20px;
             transition: transform .2s;
-            border-radius: 20px;
+            border-radius: 50%;
         }
 
         &__thumbnail {

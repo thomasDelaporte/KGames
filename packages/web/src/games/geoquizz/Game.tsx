@@ -4,6 +4,7 @@ import { GeoquizzQuestionType } from '@kgames/common';
 import { Question, QuestionAudio, QuestionImage } from './questions';
 import { GameContext } from '../../store/game';
 import { AnswerOrder } from './answers/AnswerOrder';
+import { AnswerPlaceOnImage } from './answers/AnswerPlaceOnImage';
 
 export default function GeoquizzGame() {
 
@@ -62,7 +63,9 @@ export default function GeoquizzGame() {
 
                 { question.type === GeoquizzQuestionType.ORDER ?
                     <AnswerOrder question={question} response={response} setResponse={setResponse} />
-                : 
+                : question.type === 5 ?
+                    <AnswerPlaceOnImage question={question} response={response} setResponse={setResponse} />
+                :
                     <input type="text" className="input" placeholder="Réponse" value={response} onChange={(e) => setResponse(e.target.value)} />            
                 }
             </div>

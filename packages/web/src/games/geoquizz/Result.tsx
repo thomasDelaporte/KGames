@@ -51,7 +51,9 @@ export default function ResultQuestion({ question, answer}: any) {
 
                     { Array.isArray(answer.answer) ?
                         <b>Un array ici</b>
-                    :  <div>{answer.answer}</div> }
+                    : typeof answer.answer === 'object' ?
+                        <div>Un objet</div>
+                    : <div>{answer.answer}</div> }
                    
                     <label className="geoquizz__results__switch switch">
                         <input type="checkbox" checked={valid} { ...owner && { onChange: toggleValidity } }  />

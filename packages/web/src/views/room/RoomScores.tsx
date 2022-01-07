@@ -11,7 +11,8 @@ export default function RoomScores({ scores }: { scores: any }) {
         show: {
             opacity: 1,
             transition: {
-                delayChildren: 0.5
+                staggerChildren: .1,
+                delayChildren: 0.3
             }
         }
     }
