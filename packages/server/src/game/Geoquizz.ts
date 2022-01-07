@@ -14,7 +14,7 @@ import { Player } from '../entity';
     ] },
  */
 const questions = [
-    { type: GeoquizzQuestionType.MARKER, question: 'Marquer ahah' }
+    { type: GeoquizzQuestionType.BAC, question: 'BAC avec la lettre B' }
 ]
 
 const msClock = process.env.NODE_ENV === 'production' ? 1000 : 1000;

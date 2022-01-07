@@ -5,6 +5,7 @@ import { Question, QuestionAudio, QuestionImage } from './questions';
 import { GameContext } from '../../store/game';
 import { AnswerOrder } from './answers/AnswerOrder';
 import { AnswerPlaceOnImage } from './answers/AnswerPlaceOnImage';
+import { AnswerBac } from './answers/AnswerBac';
 
 export default function GeoquizzGame() {
 
@@ -65,6 +66,8 @@ export default function GeoquizzGame() {
                     <AnswerOrder question={question} response={response} setResponse={setResponse} />
                 : question.type === 5 ?
                     <AnswerPlaceOnImage question={question} response={response} setResponse={setResponse} />
+                : question.type === GeoquizzQuestionType.BAC ?
+                    <AnswerBac response={response} setResponse={setResponse} />
                 :
                     <input type="text" className="input" placeholder="Réponse" value={response} onChange={(e) => setResponse(e.target.value)} />            
                 }
