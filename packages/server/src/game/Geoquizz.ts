@@ -148,16 +148,20 @@ export class Geoquizz extends Game {
             const userChecking = Array.from(this.room.players)[this.currentUserChecking];
 
             if(!this.scores[ userChecking.id ])
-                this.scores[ userChecking.id ] = 0;
+                this.scores[ userChecking.id ] = {
+                    username: Array.from(this.room.players).find(e => e.id === userChecking.id)?.username,
+                    score: 0
+                };
 
-            this.scores[ userChecking.id ] += (this.validAnswer) ? 1 : 0
+            this.scores[ userChecking.id ].score += (this.validAnswer) ? 1 : 0
           
             if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
                   
                 const sortedArr = Object.entries(this.scores)
-                    .sort(([, v1]: any, [, v2]: any) => v2 - v1)
+                    .sort(([, v1]: any, [, v2]: any) => v2 - v1);
 
-                this.room.broadcast('scores', { scores: Object.fromEntries(sortedArr) } );
+                const scores = Object.fromEntries(sortedArr);
+                this.room.broadcast('scores', { scores } );
             } else {
                 this.pickResult();
             }

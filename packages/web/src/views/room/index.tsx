@@ -36,7 +36,7 @@ export function Room() {
             return;
 
         const websocketUrl = new URL(import.meta.env.VITE_WS);
-        websocketUrl.searchParams.append('Room', id);
+        websocketUrl.searchParams.append('room', id);
         websocketUrl.searchParams.append('token', localStorage.getItem('token') as string);
 
         websocket = new WebSocket(websocketUrl.href);
@@ -84,6 +84,8 @@ export function Room() {
                 <h1 className="page-title">
                     {step >= 3 ? 'Game' : 'Room'}
                 </h1>
+
+                <Countdown active={countdown} setActive={setCountdown} />
                 
                 <AnimatePresence>
                     {step === 0 ? (
