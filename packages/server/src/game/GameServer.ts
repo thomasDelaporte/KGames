@@ -64,11 +64,11 @@ export default class GameServer {
 						Room.broadcast('updatestep', { step: Room.step });
 					} else if(data.event === 'startgame' ) {
 
+						Room.step = 4;
 						Room.broadcast('startgame');
 
 						setTimeout(() => {
-							Room.step = 4;
-							Room.broadcast('updatestep', { step: Room.step });
+							Room.broadcast('disablecountdown');
 							Room.currentGame.start();
 						}, 3000);
 					} else if(data.event === 'reset') {

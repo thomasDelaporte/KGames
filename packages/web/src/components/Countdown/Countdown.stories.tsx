@@ -7,5 +7,5 @@ export default {
 }
 
 export const Default = () => (
-    <Countdown active={true} setActive={() => null}/>
+    <Countdown />
 )

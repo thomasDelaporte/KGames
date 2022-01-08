@@ -16,6 +16,7 @@ import Login from '../../components/Login/Login';
 import Countdown from '../../components/Countdown/Countdown';
 import Geoquizz from '../../games/geoquizz';
 import RoomScores from './RoomScores';
+import { GameStep } from '@kgames/common';
 
 export function Room() {
 
@@ -62,9 +63,12 @@ export function Room() {
                 setOwner(data.owner);
             } else if(data.event === 'startgame') {
                 setCountdown(true);
+                setStep(4);
             } else if(data.event === 'scores') {
                 setStep(6);
                 setScores(data.scores);
+            } else if(data.event === 'disablecountdown') {
+                setCountdown(false);
             }
         });
     }, [user]);
@@ -85,7 +89,7 @@ export function Room() {
                     {step >= 3 ? 'Game' : 'Room'}
                 </h1>
 
-                <Countdown active={countdown} setActive={setCountdown} />
+                {countdown && <Countdown />}
                 
                 <AnimatePresence>
                     {step === 0 ? (

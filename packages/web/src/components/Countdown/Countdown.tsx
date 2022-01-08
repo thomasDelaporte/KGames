@@ -3,34 +3,26 @@ import { motion } from 'framer-motion';
 
 import './Countdown.style.scss';
 
-export default function Countdown({ active, setActive }: { active: boolean, setActive: any }) {
+export default function Countdown() {
 
-    const [timer, setTimer] = React.useState(3);
+    const [timer, setTimer] = React.useState<string | number>(3);
 
     useEffect(() => {
 
-        if(!active)
-            return;
-        
         const interval = setInterval(() => {
 
-            setTimer((prev) => {
+            setTimer((prev: any) => {
 
-                if(prev <= 1) {
-
-                    setActive(false);
+                if(prev < 1) {
                     clearInterval(interval);
-                    return 3;
+                    return 'GO!';
                 }
-
+                
                 return prev - 1
             }) }, 1000)
 
         return () => clearInterval(interval);
-    }, [active]);
-
-    if(!active)
-        return null;
+    }, []);
 
     return (
         <motion.div className="countdown" animate={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: -100 }}>
