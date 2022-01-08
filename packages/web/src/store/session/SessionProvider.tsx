@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { SessionContext } from '.';
 
-const GET_ME = gql`
+export const GET_ME = gql`
     query me {
         me {
             username

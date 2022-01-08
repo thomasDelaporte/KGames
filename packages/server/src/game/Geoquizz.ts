@@ -2,8 +2,9 @@ import { Game } from './Game';
 import { GeoquizzQuestionType } from '@kgames/common';
 import { Player } from '../entity';
 
-/**
- *     { type: GeoquizzQuestionType.TEXT, question: 'Question textuel' },
+const questions = [
+    { type: GeoquizzQuestionType.BAC, question: 'BAC avec la lettre B' },
+    { type: GeoquizzQuestionType.TEXT, question: 'Question textuel' },
     { type: GeoquizzQuestionType.AUDIO, question: 'Question audio', audio: 'https://freesound.org/data/previews/612/612673_11861866-lq.mp3' },
     { type: GeoquizzQuestionType.IMAGE, question: 'Question image', image: 'https://cdna.artstation.com/p/assets/images/images/036/415/176/large/jun-seong-park-juns-league-of-legends-orchestra-art-freljord.jpg?1617631996' },
     { type: GeoquizzQuestionType.ORDER, question: 'Ranger dans lordre', items: [
@@ -12,9 +13,7 @@ import { Player } from '../entity';
         { id: 'kennen', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Kennen_0.jpg' },
         { id: 'zyra', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Zyra_0.jpg' }
     ] },
- */
-const questions = [
-    { type: GeoquizzQuestionType.BAC, question: 'BAC avec la lettre B' }
+    { type: GeoquizzQuestionType.MARKER, question: 'Marquer limage', image: 'https://cdna.artstation.com/p/assets/images/images/036/415/176/large/jun-seong-park-juns-league-of-legends-orchestra-art-freljord.jpg?1617631996' }
 ]
 
 const msClock = process.env.NODE_ENV === 'production' ? 1000 : 1000;

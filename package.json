@@ -8,7 +8,7 @@
 
         "web:dev": "lerna run dev --stream --scope @kgames/web",
         "web:build": "lerna run build --scope @kgames/web",
-        "web:storybook": "lerna run storybook --scope @kgames/web",
+        "web:storybook": "lerna run storybook --stream --scope @kgames/web",
 
         "server:dev": "lerna run dev --parallel --scope @kgames/server",
         "server:build": "lerna run build --scope @kgames/server",

@@ -12,8 +12,8 @@ import './index.scss';
 
 let websocket: WebSocket;
 
-import Login from '../../components/Login';
-import Countdown from '../../components/Countdown';
+import Login from '../../components/Login/Login';
+import Countdown from '../../components/Countdown/Countdown';
 import Geoquizz from '../../games/geoquizz';
 import RoomScores from './RoomScores';
 

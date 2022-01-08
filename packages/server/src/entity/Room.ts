@@ -22,7 +22,9 @@ export class Room {
 
     public step: number = 0;
 
-    public game: Game;
+    public currentGame: Game;
+    
+    public games: Game[] = [];
 
     public getPlayers(): {} {
         return Array.from(this.players).map((p: Player) => ({

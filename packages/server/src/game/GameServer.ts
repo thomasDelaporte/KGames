@@ -37,10 +37,10 @@ export default class GameServer {
 				if(Room == null)
 					throw new Error('oui');
 
-				if(Room.game === undefined)
-					Room.game = new Geoquizz(Room);
+				if(Room.currentGame === undefined)
+					Room.currentGame = new Geoquizz(Room);
 					
-				if(Room.game && Room.game.hasStarded)
+				if(Room.currentGame && Room.currentGame.hasStarded)
 					socket.close();
 
 				Room.addPlayer(player);
@@ -69,11 +69,11 @@ export default class GameServer {
 						setTimeout(() => {
 							Room.step = 4;
 							Room.broadcast('updatestep', { step: Room.step });
-							Room.game.start();
+							Room.currentGame.start();
 						}, 3000);
 					} else if(data.event === 'reset') {
 						
-						Room.game.reset();
+						Room.currentGame.reset();
 						Room.step = 0;
 						Room.broadcast('updatestep', { step: 0 });
 
@@ -82,10 +82,10 @@ export default class GameServer {
 						const configurations = data;
 						delete configurations['delete'];
 
-						Room.game.configuration = configurations;
+						Room.currentGame.configuration = configurations;
 						Room.broadcast('updateconfig', configurations);
-					} else if(Room.game.hasStarded && player) {
-						Room.game.on(data.event, data, player);
+					} else if(Room.currentGame.hasStarded && player) {
+						Room.currentGame.on(data.event, data, player);
 					}
 				})
 			} catch (error) {

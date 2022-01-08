@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
-import { SessionContext } from '../store';
+import { SessionContext } from '../../store';
+
+import './Account.style.scss';
 
 export default function Account() {
 

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
+import './Countdown.style.scss';
+
 export default function Countdown({ active, setActive }: { active: boolean, setActive: any }) {
 
     const [timer, setTimer] = React.useState(3);

@@ -1,5 +1,7 @@
-import React, { useState, useRef, useContext, EventHandler, SyntheticEvent } from 'react';
-import { SessionContext } from '../store';
+import React, { useState, useRef, useContext, SyntheticEvent } from 'react';
+import { SessionContext } from '../../store';
+
+import './Login.style.scss';
 
 export default function Login() {
 

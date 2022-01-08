@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-.main {
+body {
 	background-color: #181820;
 	color: #fff;
 	font-family: Inter, sans-serif;
@@ -39,7 +39,3 @@ button {
 @import './components/input';
 @import './components/label';
 @import './components/switch';
-
-@import './modules/login';
-@import './modules/countdown';
-@import './modules/account';

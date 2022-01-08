@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useRef } from 'react';
+import { Question } from '../questions';
 
-export const AnswerPlaceOnImage = ({ response, setResponse }: any) => {
+export const AnswerPlaceOnImage = ({ question, response, setResponse }: any) => {
 
     const image = useRef<HTMLElement>(null);
 
@@ -23,7 +24,7 @@ export const AnswerPlaceOnImage = ({ response, setResponse }: any) => {
                 <div className="geoquizz__image-place__marker" style={{ top: response.y, left: response.x }}></div>
             }
 
-            <img src="https://fantadys.files.wordpress.com/2020/10/frise.jpg?w=1024" />
+            <img src={question.image} />
         </div>
     )
 }

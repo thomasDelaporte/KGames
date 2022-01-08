@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { gql, useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 
-import Login from '../../components/Login';
+import Login from '../../components/Login/Login';
+import Account from '../../components/Account/Account';
+
 import { SessionContext } from '../../store';
 
 import './index.scss';
-import { useHistory } from 'react-router-dom';
-import Account from '../../components/Account';
 
 const CREATE_Room = gql`
 	mutation createRoom {
@@ -21,7 +22,7 @@ export function Hub() {
 	const { user } = useContext(SessionContext);
 	const history = useHistory();
 
-	const [createRoom, { data: Room, loading, error }] = useMutation(CREATE_Room, {
+	const [createRoom] = useMutation(CREATE_Room, {
 		onCompleted: ({ createRoom }) => history.push(`/room/${createRoom.id}`)
 	});
 
