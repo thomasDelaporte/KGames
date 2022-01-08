@@ -6,15 +6,13 @@ import { Room, Hub } from '../views/';
 
 export default function App() {
     return (
-        <main className="main">            
-            <BrowserRouter>
-                <SessionProvider>
-                    <Switch>
-                        <Route exact path='/' component={Hub} />
-                        <Route path='/room/:id' component={Room} />
-                    </Switch>
-                </SessionProvider>
-            </BrowserRouter>
-        </main>
+        <BrowserRouter>
+            <SessionProvider>
+                <Switch>
+                    <Route exact path='/' component={Hub} />
+                    <Route path='/room/:id' component={Room} />
+                </Switch>
+            </SessionProvider>
+        </BrowserRouter>
     );
 }
