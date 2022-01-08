@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
-import { SessionContext } from '.';
+import { SessionContext } from './SessionContext';
 
 export const GET_ME = gql`
     query me {

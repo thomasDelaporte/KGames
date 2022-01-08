@@ -1,0 +1,21 @@
+.room {
+    min-width: 800px;
+
+    &__content {
+
+        &__title {
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, .6);
+        }
+
+        &__desc {
+            width: 60%;
+            margin-bottom: 2rem;
+            opacity: .6;
+        }
+
+        .btn {
+            float: right;
+        }
+    }
+}

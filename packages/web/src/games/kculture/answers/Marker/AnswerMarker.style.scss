@@ -1,0 +1,18 @@
+.geoquizz__answer-marker {
+    position: relative;
+
+    &__marker {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 10px;
+        width: 10px;
+        background-color: red;
+        border-radius: 5px;
+        transform: translate(-50%, -50%);
+    }
+
+    &__image {
+        width: 100%;
+    }
+}

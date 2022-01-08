@@ -1,0 +1,43 @@
+.lobby__scores {
+
+    &__item {
+        padding: 0 20px;
+        border-radius: 10px;
+        background: linear-gradient(45deg, rgba(18, 18, 31, .6), rgba(60, 60, 97, .3) );
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        &__username {
+            padding: 20px 0;
+        }
+
+        &__score {
+            background-color: rgba(255, 255, 255, .1);
+            padding: 10px 20px;
+            border-radius: inherit;
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+
+        &:nth-child(n-3) {
+            .room__scores__item__score {
+                font-weight: 800;
+            }
+        }
+        
+        &:nth-child(1) {
+            background-color: #AF9500;
+        }
+
+        &:nth-child(2) {
+            background-color: #D7D7D7;
+        }
+
+        &:nth-child(3) {
+            background-color: #AD8A56;
+        }
+    }
+}

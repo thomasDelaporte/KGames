@@ -1,2 +1,2 @@
-export * from './room';
-export * from './hub'
+export * from './Room/Room';
+export * from './Hub/Hub'
