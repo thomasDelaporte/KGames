@@ -6,12 +6,13 @@
 
     &__item {
         flex-basis: calc(50% - 10px);
-        background-color: #272732;
+        background-color: rgba(39, 39, 50, 0.3);
         padding: 20px;
         border-radius: 10px;
         display: flex;
         align-items: center;
         cursor: pointer;
+        position: relative;
 
         &__thumbnail {
             border-radius: inherit;

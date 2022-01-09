@@ -25,7 +25,7 @@ export function LobbyPlayers() {
 
     return (
         <motion.div key={0} initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 1, x: 50 }} className="room__content">
-            <h2 className="room__content__title">Inviter vos amis</h2>
+            <h2 className="page-title__subtitle">Inviter vos amis</h2>
 
             <div className="lobby__players">
                 {players.map((player: any, i: number) => (

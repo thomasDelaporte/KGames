@@ -6,7 +6,7 @@ import { CSS } from '@dnd-kit/utilities';
 
 import './AnswerOrder.style.scss';
 
-export const AnswerOrder = ({ question, response, setResponse }: any) => {
+export const AnswerOrder = ({ response, setResponse }: any) => {
 
     if(!Array.isArray(response))
         return null;

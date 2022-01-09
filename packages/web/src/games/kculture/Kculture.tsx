@@ -64,7 +64,7 @@ export default function Kculture() {
 
     return (
         <div className="room__content kculture">
-            <h2 className="room__content__title">Kculture</h2>
+            <h2 className="page-title__subtitle">Kculture</h2>
 
             { timer ? (
                 <span className="kculture__time">{String(timer).padStart(2, '0')}</span>
@@ -77,9 +77,7 @@ export default function Kculture() {
                     (<QuestionAudio question={question} autoPlay={true} />)
                 : question.type === GeoquizzQuestionType.IMAGE ? 
                     (<QuestionImage question={question} />)
-                : 
-                    question.question 
-                }
+                : null }
             </div>
 
             <div className="kculture__answer">
@@ -93,7 +91,7 @@ export default function Kculture() {
                     <label className="kculture__results__switch switch">
                         <input type="checkbox" checked={valid} { ...owner && { onChange: toggleValidity } }  />
                         <span className="switch__label" ></span>
-                    </label> 
+                    </label>
                 }
 
                 { question.type === GeoquizzQuestionType.ORDER ?

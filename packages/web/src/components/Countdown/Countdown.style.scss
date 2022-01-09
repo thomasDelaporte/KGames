@@ -8,11 +8,25 @@
     backdrop-filter: blur(10px);
     z-index: 9;
 
-    &__timer {
+    &::before {
+        content: '';
+        display: block;
+        background-image: url('https://beamtic.com/i/design/radial-stripes.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 70%;
+        width: 70%;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        animation: rotate 60s infinite linear;
+    }
+
+    &__timer {
+        position: absolute;
+        top: 50%;
+        left: 50%;
         
         font-weight: 900;
         font-size: 12rem;
@@ -20,7 +34,12 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         color: #bb3fdd;
-        -webkit-filter: drop-shadow(0 6px rgb(0, 0, 0, .2));
-        filter: drop-shadow(0 6px rgb(0, 0, 0, .2));
+        -webkit-filter: drop-shadow(0 10px rgb(0, 0, 0, .4));
+        filter: drop-shadow(0 10px rgb(0, 0, 0, .4));
     }
+}
+
+@keyframes rotate {
+    from { transform:translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 }

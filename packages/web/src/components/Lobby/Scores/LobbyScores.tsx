@@ -27,11 +27,11 @@ export function LobbyScores({ scores }: { scores: any }) {
 
     return (
         <React.Fragment>
-            <motion.ul className="room__scores" variants={container} initial="hidden" animate="show">
+            <motion.ul className="lobby__scores" variants={container} initial="hidden" animate="show">
                 {Object.keys(scores).map((playerid, i) => (
-                    <motion.li className="room__scores__item" variants={item}>
-                        <span className="room__scores__item__username">{scores[playerid].username}</span>
-                        <span className="room__scores__item__score">{scores[playerid].score}</span>
+                    <motion.li className="lobby__scores__item" variants={item}>
+                        <span className="lobby__scores__item__username">{scores[playerid].username}</span>
+                        <span className="lobby__scores__item__score">{scores[playerid].score}</span>
                     </motion.li>
                 ))}
             </motion.ul>

@@ -26,7 +26,7 @@ export default function Countdown() {
 
     return (
         <motion.div className="countdown" animate={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: -100 }}>
-            <motion.span className="countdown__timer" animate={{ y: '-50%' }} initial={{ y: '100%' }}>{timer}</motion.span>
+            <motion.span className="countdown__timer" animate={{ y: '-50%', x: '-50%' }} initial={{ y: '100%' }}>{timer}</motion.span>
         </motion.div>
     )
 }

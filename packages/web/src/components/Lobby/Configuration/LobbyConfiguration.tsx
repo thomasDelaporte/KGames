@@ -43,7 +43,7 @@ export function LobbyConfiguration() {
 
     return (
         <motion.div key={2} initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }} className="room__content">
-            <h2 className="room__content__title">Configurer votre partie</h2>
+            <h2 className="page-title__subtitle">Configurer votre partie</h2>
 
             <form className="lobby__configuration" onSubmit={startGame}>
                 <label className="input-group label">Thême

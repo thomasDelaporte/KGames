@@ -1,4 +1,9 @@
 .page-title {
 	margin-bottom: 4rem;
 	font-size: 3.25rem;
+
+	&__subtitle {
+		color: rgba(255, 255, 255, .8);
+		margin-bottom: 2rem;
+	}
 }

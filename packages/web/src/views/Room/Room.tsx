@@ -18,13 +18,13 @@ export function Room() {
     const { user } = useContext(SessionContext);
     const { id } = useParams<{id: string}>();
 
-    const [error, setError] = useState(false);
+    const [ error, setError ] = useState(false);
+    const [ countdown, setCountdown ] = useState(false);
 
-    const [players, setPlayers] = useState([]);
-    const [owner, setOwner] = useState(false);
-    const [step, setStep] = useState(0);
-    const [countdown, setCountdown] = useState(false);
-    const [scores, setScores] = useState({});
+    const [ players, setPlayers ] = useState([]);
+    const [ owner, setOwner ] = useState(false);
+    const [ step, setStep ] = useState(0);
+    const [ scores, setScores ] = useState({});
 
     useEffect(() => {
 

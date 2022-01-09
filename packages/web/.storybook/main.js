@@ -14,5 +14,12 @@ module.exports = {
 		"@storybook/addon-essentials"
     ],
 
-    framework: "@storybook/react"
+    framework: "@storybook/react",
+
+	async viteFinal(config, { configType }) {
+
+		config.optimizeDeps.include.push('@kgames/common');
+
+		return config;
+	},
 }

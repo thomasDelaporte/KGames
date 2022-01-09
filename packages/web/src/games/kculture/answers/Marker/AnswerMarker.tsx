@@ -21,7 +21,7 @@ export const AnswerMarker = ({ question, response, setResponse }: any) => {
     return (
         <div className="geoquizz__answer-marker" ref={image} onClick={onPlaceMarker}>
 
-            {response &&
+            {response && Object.keys(response).length !== 0 &&
                 <div className="geoquizz__answer-marker__marker" style={{ top: response.y, left: response.x }}></div>
             }
 
