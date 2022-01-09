@@ -1,5 +1,5 @@
 import { Service } from "typedi";
-import { Player, Room } from "../entity";
+import { Player, Room } from "../entities";
 
 import shortUUID from 'short-uuid';
 const translator = shortUUID();

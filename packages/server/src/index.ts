@@ -7,10 +7,10 @@ import { buildSchema } from 'type-graphql';
 import { ApolloServer, AuthenticationError } from 'apollo-server';
 import jwt from 'jsonwebtoken';
 
-import { RoomResolver, PlayerResolver } from './resolver';
+import { RoomResolver, PlayerResolver } from './resolvers';
 import { PlayerService } from './services';
 import { AuthorizationDerective } from './directives/Authorization';
-import GameServer from './game/GameServer';
+import GameServer from './games/GameServer';
 
 (async function() {
 		

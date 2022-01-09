@@ -2,7 +2,7 @@ import { ForbiddenError } from 'apollo-server';
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { Inject, Service } from 'typedi';
 
-import { Player } from '../entity';
+import { Player } from '../entities';
 import { PlayerService } from '../services';
 
 @Service()

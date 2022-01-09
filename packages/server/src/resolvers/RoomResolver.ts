@@ -1,7 +1,7 @@
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { Inject, Service } from 'typedi';
 
-import { Room } from '../entity';
+import { Room } from '../entities';
 import { RoomService } from '../services';
 
 @Service()

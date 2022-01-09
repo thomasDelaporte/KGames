@@ -1,4 +1,4 @@
-import { Room, Player } from '../entity';
+import { Room, Player } from '../entities';
 
 export abstract class Game {
 

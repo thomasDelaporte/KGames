@@ -1,6 +1,6 @@
 import { Game } from './Game';
 import { GeoquizzQuestionType } from '@kgames/common';
-import { Player } from '../entity';
+import { Player } from '../entities';
 
 const questions = [
     { type: GeoquizzQuestionType.BAC, question: 'BAC avec la lettre B' },

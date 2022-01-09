@@ -1,7 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
 import { Player } from './Player';
 import { GameMode } from '@kgames/common';
-import { Game } from '../game/Game';
+import { Game } from '../games/Game';
 import Container from 'typedi';
 import { RoomService } from '../services';
 
