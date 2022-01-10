@@ -1,0 +1,10 @@
+.kculture__answer-scattergory {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(48%, 1fr));
+    gap: 20px;
+
+    .input-group.label {
+        margin-top: 0;
+    }
+}

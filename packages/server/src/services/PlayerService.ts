@@ -1,5 +1,5 @@
 import { Service } from 'typedi';
-import { Player } from '../entity';
+import { Player } from '../entities';
 
 import jwt from 'jsonwebtoken';
 

@@ -1,0 +1,64 @@
+.lobby__games {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 20px;
+
+    &__item {
+        flex-basis: calc(50% - 10px);
+        background-color: rgba(39, 39, 50, 0.3);
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+
+        &__thumbnail {
+            border-radius: inherit;
+            overflow: hidden;
+            height: 72px;
+            min-width: 72px;
+            margin-right: 20px;
+        }
+
+        &__content {
+
+            h2 {
+                margin-bottom: .5rem;
+                font-size: 1.1rem;
+            }
+
+            p {
+                opacity: .6;
+            }
+        }
+
+        &:not(&--active):not(&--disabled):hover {
+            background-color: #343343;
+        }
+
+        &--disabled {
+            background: linear-gradient(45deg, #272732, transparent);
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        &--active:not(&--disabled) {
+            background-color: rgb(187, 63, 221);
+            position: relative;
+
+            &:after {
+                content: '';
+                display: block;
+                background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjAuMjg1IDJsLTExLjI4NSAxMS41NjctNS4yODYtNS4wMTEtMy43MTQgMy43MTYgOSA4LjcyOCAxNS0xNS4yODV6Ii8+PC9zdmc+');
+                height: 24px;
+                width: 24px;
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                filter: invert(1);
+            }
+        }
+    }
+}

@@ -21,5 +21,6 @@ export enum GeoquizzQuestionType {
     IMAGE,
     AUDIO,
     BAC,
-    ORDER
+    ORDER,
+    MARKER
 }

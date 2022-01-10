@@ -1,2 +1,2 @@
-export * from './LobbyService';
+export * from './RoomService';
 export * from './PlayerService';
