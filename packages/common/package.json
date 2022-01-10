@@ -10,5 +10,11 @@
     "scripts": {
         "build": "tsc",
         "clean": "rimraf -rf ./dist *.tsbuildinfo"
+    },
+    "dependencies": {
+        "apollo-server-core": "^3.6.1",
+        "apollo-server-express": "^3.6.1",
+        "express": "^4.17.2",
+        "prisma": "^3.7.0"
     }
 }

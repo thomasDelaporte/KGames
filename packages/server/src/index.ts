@@ -4,7 +4,11 @@ import 'reflect-metadata';
 import { Container } from 'typedi';
 
 import { buildSchema } from 'type-graphql';
-import { ApolloServer, AuthenticationError } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-express';
+import { ApolloServerPluginDrainHttpServer, AuthenticationError } from 'apollo-server-core';
+
+import express from 'express';
+import http from 'http';
 import jwt from 'jsonwebtoken';
 
 import { RoomResolver, PlayerResolver } from './resolvers';
@@ -21,7 +25,9 @@ import GameServer from './games/GameServer';
 		emitSchemaFile: true
 	});
 
-	const port = process.env.PORT || 4000;
+	const app = express();
+	const httpServer = http.createServer(app);
+	
 	const server = new ApolloServer({ 
 		schema,
 		context: ({ req }): any => {
@@ -39,12 +45,16 @@ import GameServer from './games/GameServer';
 				throw new AuthenticationError('The player not existing anymore');
 			
 			return { player };
-		}
+		},
+		plugins: [ ApolloServerPluginDrainHttpServer({ httpServer })]
 	});
 
-	await server.listen({ port }).then(({ url, server }) => {
-		console.log(`🚀 Server ready at ${url}`);
+	await server.start();
+	server.applyMiddleware({ app });
 
-		new GameServer(server);
-	});
+	const port = process.env.PORT || 4000;
+	await new Promise<void>(resolve => httpServer.listen({ port }, resolve));
+	console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
+
+	new GameServer(httpServer);
 })();

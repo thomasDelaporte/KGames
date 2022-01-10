@@ -11,11 +11,15 @@
     },
     "dependencies": {
         "@apollo/client": "^3.4.4",
-        "@kgames/common": "^0.0.0",
         "@dnd-kit/core": "^4.0.3",
         "@dnd-kit/sortable": "^5.1.0",
+        "@kgames/common": "^0.0.0",
+        "apollo-server-core": "^3.6.1",
+        "apollo-server-express": "^3.6.1",
+        "express": "^4.17.2",
         "framer-motion": "^4.1.17",
         "graphql": "^15.5.1",
+        "prisma": "^3.7.0",
         "react": "^17.0.0",
         "react-dom": "^17.0.0",
         "react-router-dom": "^5.2.0"

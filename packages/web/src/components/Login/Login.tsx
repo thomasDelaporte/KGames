@@ -24,6 +24,19 @@ export default function Login() {
         authenticate({ variables: { username } });
     }
 
+    const onLoginTwitch = (e: SyntheticEvent) => {
+
+        e.preventDefault();
+
+        const twitchURL = new URL('https://id.twitch.tv/oauth2/authorize');
+        twitchURL.searchParams.append('client_id', import.meta.env.VITE_TWITCH_CLIENT);
+        twitchURL.searchParams.append('redirect_uri', import.meta.env.VITE_API);
+        twitchURL.searchParams.append('response_type', 'token');
+        twitchURL.searchParams.append('scope', 'user:edit');
+        
+        window.open(twitchURL.href, '_blank');
+    }
+
     return (
         <form className="login" onSubmit={login}>
             <h1 className="page-title">Connexion.</h1>
@@ -35,7 +48,7 @@ export default function Login() {
                 Continuer avec Google
             </button>
 
-            <button className="btn btn--clear">
+            <button className="btn btn--clear" onClick={onLoginTwitch}>
                 <svg className="btn__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="M2.149 0l-1.612 4.119v16.836h5.731v3.045h3.224l3.045-3.045h4.657l6.269-6.269v-14.686h-21.314zm19.164 13.612l-3.582 3.582h-5.731l-3.045 3.045v-3.045h-4.836v-15.045h17.194v11.463zm-3.582-7.343v6.262h-2.149v-6.262h2.149zm-5.731 0v6.262h-2.149v-6.262h2.149z" fillRule="evenodd" clipRule="evenodd" />
                 </svg>
