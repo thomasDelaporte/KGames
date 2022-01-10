@@ -13,7 +13,10 @@
     }
 
     &__image {
+        max-height: 400px;
+        object-fit: cover;
         width: 100%;
         pointer-events: none;
+        border-radius: 10px;
     }
 }

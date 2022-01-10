@@ -39,7 +39,6 @@ export default function Kculture() {
             } else if(data.event  == 'questionretrieve') {
                 
                 setAnswer((prevResponse: any) => {
-                    console.log('send response', prevResponse);
                     websocket.send(JSON.stringify({ event: 'response', response: prevResponse }));
                     return '';
                 });
