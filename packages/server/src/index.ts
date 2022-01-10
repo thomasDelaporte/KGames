@@ -50,7 +50,7 @@ import GameServer from './games/GameServer';
 	});
 
 	await server.start();
-	server.applyMiddleware({ app });
+	server.applyMiddleware({ app, path: '/' });
 
 	const port = process.env.PORT || 4000;
 	await new Promise<void>(resolve => httpServer.listen({ port }, resolve));
