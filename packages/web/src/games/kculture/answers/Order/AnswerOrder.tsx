@@ -6,7 +6,7 @@ import { CSS } from '@dnd-kit/utilities';
 
 import './AnswerOrder.style.scss';
 
-export const AnswerOrder = ({ response, setResponse }: any) => {
+export const AnswerOrder = ({ response, setResponse, disabled }: any) => {
 
     if(!Array.isArray(response))
         return null;
@@ -27,11 +27,11 @@ export const AnswerOrder = ({ response, setResponse }: any) => {
     }
 
     return (
-        <DndContext onDragEnd={onDragEnd}>
+        <DndContext {...!disabled && { onDragEnd: onDragEnd }} >
             <div className="kculture__answer-order">
                 <SortableContext items={response} strategy={horizontalListSortingStrategy}>
                     {response.map((order: any, i: number) => (
-                        <OrderItem order={order} index={i} key={order.id} />
+                        <OrderItem order={order} index={i} key={order.id} disabled={disabled} />
                     ))}
                 </SortableContext>
             </div>
@@ -39,7 +39,7 @@ export const AnswerOrder = ({ response, setResponse }: any) => {
     )
 }
 
-const OrderItem = ({ order, index }: { order: any, index: number }) => {
+const OrderItem = ({ order, index, disabled }: { order: any, index: number, disabled: boolean }) => {
 
     const { attributes, listeners, transform, transition, setNodeRef } = useSortable({ id: order.id });
 
@@ -49,7 +49,7 @@ const OrderItem = ({ order, index }: { order: any, index: number }) => {
     };
 
     return (
-        <div className="kculture__answer-order__item" key={index} data-index={index + 1} ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        <div className="kculture__answer-order__item" key={index} data-index={index + 1} ref={setNodeRef} style={style} {...attributes} {...!disabled && listeners}>
             <img src={order.image} />
         </div>
     )

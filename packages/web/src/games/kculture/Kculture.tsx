@@ -52,7 +52,10 @@ export default function Kculture() {
     }, []);
 
     const validQuestion = () => {
-        websocket.send(JSON.stringify({ event: 'validquestion' }));
+        setValid(() => {
+            websocket.send(JSON.stringify({ event: 'validquestion' }));
+            return false;
+        });
     }
 
     const toggleValidity = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +87,7 @@ export default function Kculture() {
                 <span className="kculture__answer__label">Réponse {question.number}</span>
 
                 { step === 5 &&
-                    <h3>{answer.username}</h3>
+                    <h3 className="kculture__answer__username">{question.username}</h3>
                 }
 
                 { step === 5 &&
@@ -95,13 +98,13 @@ export default function Kculture() {
                 }
 
                 { question.type === GeoquizzQuestionType.ORDER ?
-                    <AnswerOrder question={question} response={answer} setResponse={setAnswer} />
+                    <AnswerOrder question={question} response={answer} setResponse={setAnswer} disabled={step === 5} />
                 : question.type === 5 ?
-                    <AnswerMarker question={question} response={answer} setResponse={setAnswer} />
+                    <AnswerMarker question={question} response={answer} setResponse={setAnswer} disabled={step === 5} />
                 : question.type === GeoquizzQuestionType.BAC ?
-                    <AnswerScattergory response={answer} setResponse={setAnswer} />
+                    <AnswerScattergory response={answer} setResponse={setAnswer} disabled={step === 5} />
                 :
-                    <input type="text" className="input" placeholder="Réponse" value={answer} onChange={(e) => setAnswer(e.target.value)} />            
+                    <input type="text" className="input" placeholder="Réponse" value={answer} onChange={(e) => setAnswer(e.target.value)} disabled={step === 5} />            
                 }
             </div>
 

@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 import './AnswerMarker.style.scss';
 
-export const AnswerMarker = ({ question, response, setResponse }: any) => {
+export const AnswerMarker = ({ question, response, setResponse, disabled }: any) => {
 
     const image = useRef<HTMLDivElement>(null);
 
@@ -19,7 +19,7 @@ export const AnswerMarker = ({ question, response, setResponse }: any) => {
     }
     
     return (
-        <div className="geoquizz__answer-marker" ref={image} onClick={onPlaceMarker}>
+        <div className="geoquizz__answer-marker" ref={image} {...!disabled && { onClick: onPlaceMarker }}>
 
             {response && Object.keys(response).length !== 0 &&
                 <div className="geoquizz__answer-marker__marker" style={{ top: response.y, left: response.x }}></div>

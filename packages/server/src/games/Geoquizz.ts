@@ -1,6 +1,8 @@
 import { Game } from './Game';
 import { GeoquizzQuestionType } from '@kgames/common';
 import { Player } from '../entities';
+import { Inject } from 'typedi';
+import { KcultureService } from '../services/KcultureService';
 
 const questions = [
     { type: GeoquizzQuestionType.BAC, question: 'BAC avec la lettre B' },
@@ -16,9 +18,12 @@ const questions = [
     { type: GeoquizzQuestionType.MARKER, question: 'Marquer limage', image: 'https://cdna.artstation.com/p/assets/images/images/036/415/176/large/jun-seong-park-juns-league-of-legends-orchestra-art-freljord.jpg?1617631996' }
 ]
 
-const msClock = process.env.NODE_ENV === 'production' ? 1000 : 1000;
+const msClock = process.env.NODE_ENV === 'production' ? 1000 : 100;
 
 export class Geoquizz extends Game {
+
+    @Inject()
+    private kcultureService: KcultureService;
 
     public configuration: any = {
         theme: 'default', // Default theme not used 
@@ -99,9 +104,8 @@ export class Geoquizz extends Game {
         const answer = answersOfCurrentQuestion[userChecking.id];
         console.log(Object.keys(answersOfCurrentQuestion).length, this.currentUserChecking)
 
-        
         this.room.broadcast('updatestep', { step: 5, 
-            question: { ...question, number: this.currentQuestion + 1 }, answer: { answer, username: userChecking.username } });
+            question: { ...question, number: this.currentQuestion + 1, username: userChecking.username }, answer });
 
         if( this.currentUserChecking < Object.keys(answersOfCurrentQuestion).length - 1 ) {
             this.currentUserChecking += 1;
@@ -165,6 +169,7 @@ export class Geoquizz extends Game {
                 const scores = Object.fromEntries(sortedArr);
                 this.room.broadcast('scores', { scores } );
             } else {
+                this.validAnswer = false;
                 this.pickResult();
             }
         } else if(action === 'togglevalidity') {

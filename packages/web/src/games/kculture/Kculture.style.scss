@@ -44,33 +44,23 @@
             line-height: 2.25rem;
             text-align: center;
         }
-
-        &__answer {
-            margin-top: 1rem;
-            border: 2px solid #fb6da9;
-            box-shadow: inset 0 0 0 2px #343434, inset 0 0 4px 0 #ffffff;
-            color: #fb6da9;
-            font-weight: 600;
-            padding: 1.4rem;
-            border-radius: 10px;
-
-            .geoquizz__orders {
-                margin-top: 0;
-
-                &__item {
-                    border: none;
-                    padding: 0;
-                }
-            }
-        }
     }
 
     &__answer {
         margin-top: 1.5rem;
+        position: relative;
 
         &__label {
             display: block;
             margin-bottom: .75rem;
+        }
+    }
+
+    &__answer {
+        margin-top: 1rem;
+
+        &__username {
+            margin-bottom: 1rem;
         }
     }
 
@@ -80,7 +70,7 @@
         &__switch {
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 0;
         }
 
         h3 {
