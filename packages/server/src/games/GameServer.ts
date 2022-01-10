@@ -14,11 +14,10 @@ export default class GameServer {
 
 	public RoomService: RoomService = Container.get(RoomService);
 
-	constructor(server: any) {
+	constructor(httpServer: any) {
 
-		this.server = new WebSocketServer({ server }, () => {
-			console.log(`🚃 Websocket server ready`);
-		});
+		this.server = new WebSocketServer({ server: httpServer });
+		console.log(`🚃 Websocket server ready`);
 
 		this.server.on('connection', (socket, req) => {
 

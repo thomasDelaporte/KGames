@@ -29,6 +29,7 @@
     "devDependencies": {
         "@types/jsonwebtoken": "^8.5.6",
         "@types/node": "^10.17.60",
-        "@types/ws": "^8.2.1"
+        "@types/ws": "^8.2.1",
+        "@types/express": "^4.17.13"
     }
 }
