@@ -12,6 +12,6 @@ export const Default = () => {
     const [ response, setResponse ] = useState({});
 
     return (
-        <AnswerScattergory response={response} setResponse={setResponse} />
+        <AnswerScattergory response={response} setResponse={setResponse} disabled={false} />
     )
 }
