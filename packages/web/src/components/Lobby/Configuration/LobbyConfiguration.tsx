@@ -32,6 +32,11 @@ export function LobbyConfiguration({ configuration }: any) {
                         {...owner && { onChange: (e) => updateConfig('time', e.target.value) }}/>
                 </label>
 
+                <label className="input-group label">Questions
+                    <input type="number" className="input" value={configuration.questions || ''} readOnly={!owner} required min={3} max={6}
+                        {...owner && { onChange: (e) => updateConfig('questions', e.target.value) }}/>
+                </label>
+
                 {owner &&
                     <button className="btn" >Démarrer la partie</button>
                 }

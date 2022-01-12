@@ -9,7 +9,7 @@ import './Kculture.style.scss';
 
 export default function Kculture() {
 
-    const { websocket, step, owner } = useContext<GameContext>(GameContext);
+    const { websocket, step, owner, configuration } = useContext<GameContext>(GameContext);
     
     const [ question, setQuestion ] = useState<any>();
     const [ answer, setAnswer ] = useState<any>();
@@ -71,6 +71,10 @@ export default function Kculture() {
             { timer ? (
                 <span className="kculture__time">{String(timer).padStart(2, '0')}</span>
             ): null }
+
+            <div className="kculture__step">
+                <div className="kculture__step__progress" style={{ width: `${question.number * 100 / configuration.questions}%` }}></div>
+            </div>
 
             <div className="kculture__question" data-question={question.number}>
                 <h3>{question.question}</h3>

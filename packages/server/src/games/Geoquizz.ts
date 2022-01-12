@@ -27,7 +27,8 @@ export class Geoquizz extends Game {
 
     public configuration: any = {
         theme: 'default', // Default theme not used 
-        time: 30 // 10 seconds per question
+        time: 30, // 10 seconds per question,
+        questions: 6 // total questions
     };
 
     private timer: number;
