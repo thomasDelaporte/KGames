@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Login from '../../components/Login/Login';
 import Account from '../../components/Account/Account';
@@ -20,10 +20,10 @@ const CREATE_Room = gql`
 export function Hub() {
 
 	const { user } = useContext(SessionContext);
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	const [createRoom] = useMutation(CREATE_Room, {
-		onCompleted: ({ createRoom }) => history.push(`/room/${createRoom.id}`)
+		onCompleted: ({ createRoom }) => navigate(`/room/${createRoom.id}`)
 	});
 
 	if(!user)

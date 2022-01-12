@@ -28,7 +28,7 @@ export function Room() {
 
     useEffect(() => {
 
-        if( !user || localStorage.getItem('token') === null )
+        if( !user || id == null || localStorage.getItem('token') === null )
             return;
 
         const websocketUrl = new URL(import.meta.env.VITE_WS);
