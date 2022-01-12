@@ -54,8 +54,6 @@ import { onAuthenticateTwitch } from './controllers/AuthenticationController';
 		plugins: [ ApolloServerPluginDrainHttpServer({ httpServer })]
 	});
 
-	app.get('/auth/twitch', onAuthenticateTwitch);
-
 	await server.start();
 	server.applyMiddleware({ app, path: '/' });
 
