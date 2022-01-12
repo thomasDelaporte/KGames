@@ -1,11 +1,11 @@
-import React, { useState, useRef, useContext, SyntheticEvent } from 'react';
+import React, { useState, useRef, useContext, SyntheticEvent, useEffect } from 'react';
 import { SessionContext } from '../../store';
 
 import './Login.style.scss';
 
 export default function Login() {
 
-    const { authenticate } = useContext(SessionContext);
+    const { authenticate, authenticateAsUser } = useContext(SessionContext);
 
     const [username, setUsername] = useState(localStorage.getItem('username') || '');
 	const usernameRef = useRef<HTMLInputElement>(null);
@@ -30,12 +30,35 @@ export default function Login() {
 
         const twitchURL = new URL('https://id.twitch.tv/oauth2/authorize');
         twitchURL.searchParams.append('client_id', import.meta.env.VITE_TWITCH_CLIENT);
-        twitchURL.searchParams.append('redirect_uri', import.meta.env.VITE_API + '/auth/twitch/');
-        twitchURL.searchParams.append('response_type', 'code');
-        twitchURL.searchParams.append('scope', 'user:edit');
+        twitchURL.searchParams.append('redirect_uri', 'http://localhost:3000/');
+        twitchURL.searchParams.append('response_type', 'token');
+        twitchURL.searchParams.append('scope', 'user:read:email');
         
-        window.open(twitchURL.href, '_blank');
+        const twitchWindow = window.open(twitchURL.href, 'twitch', 'height=640,width=1006,location=yes');
+
+        window.addEventListener('message', (e) => {
+
+            if(!e.data.token)
+                return;
+
+            authenticateAsUser({ variables: { accessToken: e.data.token }});
+        }, false);
     }
+
+    useEffect(() => {
+
+        if(!window.opener)
+            return;
+
+        const params = new URLSearchParams(window.location.hash.substring(1));
+        const access_token = params.get('access_token');
+
+        if(!access_token)
+            return;
+
+        window.opener.postMessage({ token: access_token });
+        window.close();
+    }, [])
 
     return (
         <form className="login" onSubmit={login}>

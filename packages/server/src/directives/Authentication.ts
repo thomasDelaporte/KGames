@@ -1,6 +1,6 @@
 import { Container } from 'typedi';
 import { PlayerService } from '../services';
-import { AuthenticationError } from 'apollo-server';
+import { AuthenticationError } from 'apollo-server-core';
 
 import jwt from 'jsonwebtoken';
 
