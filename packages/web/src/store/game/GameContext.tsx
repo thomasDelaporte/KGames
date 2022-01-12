@@ -5,7 +5,8 @@ const defaultState: any = {};
 export type GameContext = {
     step: number,
     websocket: WebSocket,
-    owner: boolean
+    owner: boolean,
+    configuration: any
 }
 
 export const GameContext = createContext(defaultState);
