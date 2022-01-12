@@ -30,7 +30,7 @@ export default function Login() {
 
         const twitchURL = new URL('https://id.twitch.tv/oauth2/authorize');
         twitchURL.searchParams.append('client_id', import.meta.env.VITE_TWITCH_CLIENT);
-        twitchURL.searchParams.append('redirect_uri', 'http://localhost:3000/');
+        twitchURL.searchParams.append('redirect_uri', import.meta.env.VITE_TWITCH_REDIRECT);
         twitchURL.searchParams.append('response_type', 'token');
         twitchURL.searchParams.append('scope', 'user:read:email');
         
