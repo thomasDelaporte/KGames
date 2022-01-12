@@ -17,7 +17,8 @@
         "apollo-server-express": "^3.6.1",
         "express": "^4.17.2",
         "node-fetch": "2",
-        "prisma": "^3.7.0"
+        "prisma": "^3.7.0",
+        "react-router-dom": "6"
     },
     "devDependencies": {
         "@types/node-fetch": "^3.0.3"

@@ -50,7 +50,8 @@ export default class GameServer {
 					event: 'joinRoom', 
 					players: Room.getPlayers(), 
 					owner: (Room.owner === player),
-					step: Room.step
+					step: Room.step,
+					configuration: Room.currentGame.configuration
 				}));
 
 				socket.on('close', () => Room.leaveRoom(player));
@@ -78,11 +79,8 @@ export default class GameServer {
 
 					} else if(data.event === 'updateconfig') {
 
-						const configurations = data;
-						delete configurations['delete'];
-
-						Room.currentGame.configuration = configurations;
-						Room.broadcast('updateconfig', configurations);
+						Room.currentGame.configuration[data.key] = data.value;
+						Room.broadcast('updateconfig', { configuration: Room.currentGame.configuration });
 					} else if(Room.currentGame.hasStarded && player) {
 						Room.currentGame.on(data.event, data, player);
 					}

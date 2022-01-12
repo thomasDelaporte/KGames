@@ -25,10 +25,11 @@ export function Room() {
     const [ owner, setOwner ] = useState(false);
     const [ step, setStep ] = useState(0);
     const [ scores, setScores ] = useState({});
+    const [ configuration, setConfiguration ] = useState({});
 
     useEffect(() => {
 
-        if( !user || localStorage.getItem('token') === null )
+        if( !user || id == null || localStorage.getItem('token') === null )
             return;
 
         const websocketUrl = new URL(import.meta.env.VITE_WS);
@@ -50,6 +51,7 @@ export function Room() {
                 setPlayers(data.players);
                 setOwner(data.owner);
                 setStep(data.step);
+                setConfiguration(data.configuration);
             } else if(data.event === 'playerupdate') {
                 setPlayers(data.players);
             } else if(data.event === 'updatestep') {
@@ -64,6 +66,8 @@ export function Room() {
                 setScores(data.scores);
             } else if(data.event === 'disablecountdown') {
                 setCountdown(false);
+            } else if(data.event === 'updateconfig') {
+                setConfiguration(data.configuration);
             }
         });
     }, [user]);
@@ -92,7 +96,7 @@ export function Room() {
                     ) : step === 1 ? (
                         <LobbyGames />
                     ) : step === 2 ? (
-                        <LobbyConfiguration />
+                        <LobbyConfiguration configuration={configuration} />
                     ) : step === 6 ?
                         <LobbyScores scores={scores} /> :
                     (

@@ -1,6 +1,6 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { SessionContext } from './SessionContext';
 
@@ -29,12 +29,12 @@ const AUTHENTICATE_TWITCH = gql`
 
 export function SessionProvider(props: { children: ReactNode }): JSX.Element {
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const { loading, error, data: user, refetch } = useQuery(GET_ME, {
         onCompleted: ({ me }) => {
             if(history && me.room)
-                history.push(`/room/${me.room.id}`);
+                navigate(`/room/${me.room.id}`);
         }
     });
 
