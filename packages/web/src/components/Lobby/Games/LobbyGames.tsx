@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AnimateSharedLayout, motion } from 'framer-motion';
 
 import { GameContext } from '../../../store';
@@ -23,13 +23,20 @@ const item = {
     show: { opacity: 1 }
 }
 
-export function LobbyGames() {
+export function LobbyGames({ game }: any) {
 
     const { websocket, owner } = useContext<{ websocket: WebSocket, owner: boolean }>(GameContext);
-    const [ selectedGame, setSelectedGame ] = useState<string>('kculture');
 
     const setStep = () => {
+
+        if(!game)
+            return;
+            
         websocket.send(JSON.stringify({ event: 'updatestep', step: 2 }));
+    }
+
+    const updateGame = (game: string) => {
+        websocket.send(JSON.stringify({ event: 'updategame', game }));
     }
     
     return (
@@ -42,43 +49,43 @@ export function LobbyGames() {
                     desc={'Trouvez qui est l\'imposteur! À moins que ce soit vous ?'}
                     image={'https://kgames.fr/games/icons/undercover.jpg'}
                     disabled={true}
-                    selected={selectedGame === 'imposteur'}
-                    onSelect={() => setSelectedGame('imposteur')} />
+                    selected={game === 'imposteur'}
+                    {...owner && { onSelect: updateGame.bind(null, 'imposteur')}}  />
 
                 <Item 
                     name={'Spyfall'}
                     desc={'Débusquez l\'espion ou trouvez le lieu!'}
                     image="https://kgames.fr/games/icons/spyfall.jpg"
                     disabled={true}
-                    selected={selectedGame === 'spyfall'}
-                    onSelect={() => setSelectedGame('spyfall')} />
+                    selected={game === 'spyfall'}
+                    {...owner && { onSelect: updateGame.bind(null, 'spyfall')}}  />
 
                 <Item 
                     name={'Géoquizz'}
                     desc={'Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des capitales pour gagner le plus de points'}
                     image={'https://kgames.fr/games/icons/geoquizz.jpg'}
                     disabled={true}
-                    selected={selectedGame === 'geoquizz'}
-                    onSelect={() => setSelectedGame('geoquizz')} />
+                    selected={game === 'geoquizz'}
+                    {...owner && { onSelect: updateGame.bind(null, 'geoquizz')}}  />
 
                 <Item 
                     name={'Kculture'}
                     desc={'Testez votre culture générale entre amis !'}
                     image={'https://kgames.fr/games/icons/kculture.jpg'}
-                    selected={selectedGame === 'kculture'}
-                    onSelect={() => setSelectedGame('kculture')} />
+                    selected={game === 'kculture'}
+                    {...owner && { onSelect: updateGame.bind(null, 'kculture')}}  />
 
                 <Item 
                     name={'L\'infiltré'} 
                     desc={'Trouvez le mot caché, mais trouvez aussi l\'infiltré'} 
                     image={'https://kgames.fr/games/icons/infiltre.png'}
                     disabled={true}
-                    selected={selectedGame === 'infiltre'}
-                    onSelect={() => setSelectedGame('infiltre')} />
+                    selected={game === 'infiltre'}
+                    {...owner && { onSelect: updateGame.bind(null, 'infiltre')}} />
             </motion.div>
 
             {owner &&
-                <button className="btn" onClick={() => selectedGame && setStep()}>
+                <button className="btn" {...game && owner && { onClick: setStep }}>
                     Configurer le jeu
                 </button>
             }

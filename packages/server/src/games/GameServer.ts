@@ -36,9 +36,6 @@ export default class GameServer {
 
 				if(Room == null)
 					throw new Error('oui');
-
-				if(Room.currentGame === undefined)
-					Room.currentGame = new Geoquizz(Room);
 					
 				if(Room.currentGame && Room.currentGame.hasStarded)
 					socket.close();
@@ -51,8 +48,7 @@ export default class GameServer {
 					event: 'joinRoom', 
 					players: Room.getPlayers(), 
 					owner: (Room.owner === player),
-					step: Room.step,
-					configuration: Room.currentGame.configuration
+					step: Room.step
 				}));
 
 				socket.on('close', () => Room.leaveRoom(player));
@@ -69,6 +65,9 @@ export default class GameServer {
 
 						if(Room.step === 2) {
 
+							if(Room.selectedGame === 'kculture' && !(Room.currentGame instanceof Geoquizz))
+								Room.currentGame = new Geoquizz(Room);
+
 							let configurationFields = {};
 
 							if(Room.currentGame instanceof Geoquizz)
@@ -79,7 +78,7 @@ export default class GameServer {
 								}
 
 
-							Room.broadcast('showconfig', { fields: configurationFields });
+							Room.broadcast('showconfig', { fields: configurationFields, configuration: Room.currentGame.configuration });
 						}
 						Room.broadcast('updatestep', { step: Room.step });
 					} else if(data.event === 'startgame' ) {
@@ -110,6 +109,13 @@ export default class GameServer {
 
 						Room.currentGame.configuration[data.key] = data.value;
 						Room.broadcast('updateconfig', { configuration: Room.currentGame.configuration });
+					} else if(data.event === 'updategame') {
+						
+						if(Room.owner !== player)
+							return;
+
+						Room.selectedGame = data.game;
+						Room.broadcast('updategame', { game: Room.selectedGame });
 					} else if(Room.currentGame.hasStarded && player) {
 						Room.currentGame.on(data.event, data, player);
 					}
