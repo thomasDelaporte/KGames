@@ -60,9 +60,16 @@ export default class GameServer {
 					const data = JSON.parse(message.toString());
 
 					if(data.event === 'updatestep' && Room.owner === player) {
+
+						if(Room.owner !== player)
+							return;
+							
 						Room.step = data.step;
 						Room.broadcast('updatestep', { step: Room.step });
 					} else if(data.event === 'startgame' ) {
+
+						if(Room.owner !== player)
+							return;
 
 						Room.step = 4;
 						Room.broadcast('startgame');
@@ -72,12 +79,18 @@ export default class GameServer {
 							Room.currentGame.start();
 						}, 3000);
 					} else if(data.event === 'reset') {
+
+						if(Room.owner !== player)
+							return;
 						
 						Room.currentGame.reset();
 						Room.step = 0;
 						Room.broadcast('updatestep', { step: 0 });
 
 					} else if(data.event === 'updateconfig') {
+
+						if(Room.owner !== player)
+							return;
 
 						Room.currentGame.configuration[data.key] = data.value;
 						Room.broadcast('updateconfig', { configuration: Room.currentGame.configuration });
