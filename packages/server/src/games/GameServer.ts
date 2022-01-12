@@ -7,6 +7,7 @@ import { RoomService } from '../services';
 import Container, { Inject, Service } from 'typedi';
 import { isFunction } from 'util';
 import { Geoquizz } from './Geoquizz';
+import { KcultureService } from '../services/KcultureService';
 
 export default class GameServer {
 
@@ -63,8 +64,18 @@ export default class GameServer {
 
 						if(Room.owner !== player)
 							return;
-							
+
 						Room.step = data.step;
+
+						if(Room.step === 2) {
+							Room.broadcast('showconfig', { 
+								fields: {
+									theme: { label: 'Thème', type: 'select', items: Container.get(KcultureService).themes },
+									time: { label: 'Temps par question', type: 'number' },
+									questions: { label: 'Questions', type: 'number' }
+								} 
+							});
+						}
 						Room.broadcast('updatestep', { step: Room.step });
 					} else if(data.event === 'startgame' ) {
 

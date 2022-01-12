@@ -1,6 +1,6 @@
 import { Game } from './Game';
 import { GeoquizzQuestionType } from '@kgames/common';
-import { Player } from '../entities';
+import { Player, Room } from '../entities';
 import { Inject } from 'typedi';
 import { KcultureService } from '../services/KcultureService';
 
