@@ -9,8 +9,8 @@ export default function App() {
         <BrowserRouter>
             <SessionProvider>
                 <Routes>
-                    <Route path='/' element={Hub} />
-                    <Route path='/room/:id' element={Room} />
+                    <Route path='/' element={<Hub />} />
+                    <Route path='/room/:id' element={<Room />} />
                 </Routes>
             </SessionProvider>
         </BrowserRouter>
