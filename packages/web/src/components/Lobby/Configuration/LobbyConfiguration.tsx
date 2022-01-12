@@ -22,11 +22,11 @@ export function LobbyConfiguration({ fields, configuration }: any) {
 
             <form className="lobby__configuration" onSubmit={startGame}>
 
-                {Object.keys(fields).map((field, i) => (
+                {Object.keys(fields).map((field: any, i: number) => (
                     <label className="input-group label" key={i}>{fields[field].label}
                         { fields[field].type === 'select' ?
                             <select className="input" value={configuration[field] || ''} {...owner && { onChange: (e) => updateConfig(field, e.target.value) }}>
-                                {fields[field].items.map((item, k) => (
+                                {fields[field].items.map((item: any, k: number) => (
                                     <option disabled={!owner} value={item} key={k}>{item}</option>
                                 ))}
                             </select>

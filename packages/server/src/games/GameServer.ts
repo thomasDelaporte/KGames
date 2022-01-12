@@ -68,13 +68,18 @@ export default class GameServer {
 						Room.step = data.step;
 
 						if(Room.step === 2) {
-							Room.broadcast('showconfig', { 
-								fields: {
+
+							let configurationFields = {};
+
+							if(Room.currentGame instanceof Geoquizz)
+								configurationFields = {
 									theme: { label: 'Thème', type: 'select', items: Container.get(KcultureService).themes },
 									time: { label: 'Temps par question', type: 'number' },
 									questions: { label: 'Questions', type: 'number' }
-								} 
-							});
+								}
+
+
+							Room.broadcast('showconfig', { fields: configurationFields });
 						}
 						Room.broadcast('updatestep', { step: Room.step });
 					} else if(data.event === 'startgame' ) {
