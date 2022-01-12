@@ -55,8 +55,8 @@ export default function Login() {
 
         if(!access_token)
             return;
-
-        window.opener.postMessage({ token: access_token });
+        
+        window.opener.postMessage({ token: access_token }, '*');
         window.close();
     }, [])
 
