@@ -1,10 +1,10 @@
 import { Service } from 'typedi';
 import { Player } from '../entities';
+import { User } from '@prisma/client';
 
 import jwt from 'jsonwebtoken';
 
 import shortUUID from 'short-uuid';
-import { User } from '@prisma/client';
 const translator = shortUUID();
 
 @Service()

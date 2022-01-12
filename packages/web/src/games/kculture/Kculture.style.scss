@@ -23,6 +23,21 @@
         }
     }
 
+    &__step {
+        height: 5px;
+        border-radius: 2px;
+        background-color: #343343;
+        margin-bottom: .5rem;
+        opacity: .6;
+
+        &__progress {
+            height: 100%;
+            border-radius: inherit;
+            background-color: #fb6da9;
+            transition: width .4s;
+        }
+    }
+
     &__question {
         background-color: #343343;
         padding: 20px;
