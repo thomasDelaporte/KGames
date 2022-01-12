@@ -16,7 +16,6 @@ import { RoomResolver, PlayerResolver } from './resolvers';
 import { PlayerService } from './services';
 import { AuthorizationDerective } from './directives/Authorization';
 import GameServer from './games/GameServer';
-import { onAuthenticateTwitch } from './controllers/AuthenticationController';
 
 (async function() {
 	
