@@ -26,6 +26,8 @@ export function Room() {
     const [ step, setStep ] = useState(0);
     const [ scores, setScores ] = useState({});
     const [ configuration, setConfiguration ] = useState({});
+    const [ configurationFields, setConfigurationFields] = useState({});
+    const [ game, setGame ] = useState();
 
     useEffect(() => {
 
@@ -51,7 +53,9 @@ export function Room() {
                 setPlayers(data.players);
                 setOwner(data.owner);
                 setStep(data.step);
-                setConfiguration(data.configuration);
+
+                if(data.configuration)
+                    setConfiguration(data.configuration);
             } else if(data.event === 'playerupdate') {
                 setPlayers(data.players);
             } else if(data.event === 'updatestep') {
@@ -68,6 +72,12 @@ export function Room() {
                 setCountdown(false);
             } else if(data.event === 'updateconfig') {
                 setConfiguration(data.configuration);
+            } else if(data.event === 'showconfig') {
+                setConfigurationFields(data.fields);
+                setConfiguration(data.configuration);
+                setStep(2);
+            } else if(data.event === 'updategame' ) {
+                setGame(data.game);
             }
         });
     }, [user]);
@@ -94,9 +104,9 @@ export function Room() {
                     {step === 0 ? (
                         <LobbyPlayers />
                     ) : step === 1 ? (
-                        <LobbyGames />
+                        <LobbyGames game={game} />
                     ) : step === 2 ? (
-                        <LobbyConfiguration configuration={configuration} />
+                        <LobbyConfiguration fields={configurationFields} configuration={configuration} />
                     ) : step === 6 ?
                         <LobbyScores scores={scores} /> :
                     (

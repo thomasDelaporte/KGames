@@ -26,4 +26,8 @@ export class KcultureService {
         'other_theme': [],
         'another_one': []
     }
+
+    get themes() {
+        return Object.keys(this.questions);
+    }
 }

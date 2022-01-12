@@ -7,6 +7,7 @@ import { RoomService } from '../services';
 import Container, { Inject, Service } from 'typedi';
 import { isFunction } from 'util';
 import { Geoquizz } from './Geoquizz';
+import { KcultureService } from '../services/KcultureService';
 
 export default class GameServer {
 
@@ -35,9 +36,6 @@ export default class GameServer {
 
 				if(Room == null)
 					throw new Error('oui');
-
-				if(Room.currentGame === undefined)
-					Room.currentGame = new Geoquizz(Room);
 					
 				if(Room.currentGame && Room.currentGame.hasStarded)
 					socket.close();
@@ -50,8 +48,7 @@ export default class GameServer {
 					event: 'joinRoom', 
 					players: Room.getPlayers(), 
 					owner: (Room.owner === player),
-					step: Room.step,
-					configuration: Room.currentGame.configuration
+					step: Room.step
 				}));
 
 				socket.on('close', () => Room.leaveRoom(player));
@@ -60,9 +57,34 @@ export default class GameServer {
 					const data = JSON.parse(message.toString());
 
 					if(data.event === 'updatestep' && Room.owner === player) {
+
+						if(Room.owner !== player)
+							return;
+
 						Room.step = data.step;
+
+						if(Room.step === 2) {
+
+							if(Room.selectedGame === 'kculture' && !(Room.currentGame instanceof Geoquizz))
+								Room.currentGame = new Geoquizz(Room);
+
+							let configurationFields = {};
+
+							if(Room.currentGame instanceof Geoquizz)
+								configurationFields = {
+									theme: { label: 'Thème', type: 'select', items: Container.get(KcultureService).themes },
+									time: { label: 'Temps par question', type: 'number' },
+									questions: { label: 'Questions', type: 'number' }
+								}
+
+
+							Room.broadcast('showconfig', { fields: configurationFields, configuration: Room.currentGame.configuration });
+						}
 						Room.broadcast('updatestep', { step: Room.step });
 					} else if(data.event === 'startgame' ) {
+
+						if(Room.owner !== player)
+							return;
 
 						Room.step = 4;
 						Room.broadcast('startgame');
@@ -72,6 +94,9 @@ export default class GameServer {
 							Room.currentGame.start();
 						}, 3000);
 					} else if(data.event === 'reset') {
+
+						if(Room.owner !== player)
+							return;
 						
 						Room.currentGame.reset();
 						Room.step = 0;
@@ -79,8 +104,18 @@ export default class GameServer {
 
 					} else if(data.event === 'updateconfig') {
 
+						if(Room.owner !== player)
+							return;
+
 						Room.currentGame.configuration[data.key] = data.value;
 						Room.broadcast('updateconfig', { configuration: Room.currentGame.configuration });
+					} else if(data.event === 'updategame') {
+						
+						if(Room.owner !== player)
+							return;
+
+						Room.selectedGame = data.game;
+						Room.broadcast('updategame', { game: Room.selectedGame });
 					} else if(Room.currentGame.hasStarded && player) {
 						Room.currentGame.on(data.event, data, player);
 					}

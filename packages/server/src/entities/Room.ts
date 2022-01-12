@@ -22,6 +22,7 @@ export class Room {
 
     public step: number = 0;
 
+    public selectedGame: string;
     public currentGame: Game;
     
     public games: Game[] = [];

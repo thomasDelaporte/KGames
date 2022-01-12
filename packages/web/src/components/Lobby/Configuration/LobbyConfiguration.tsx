@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 import { GameContext } from '../../../store';
 
-export function LobbyConfiguration({ configuration }: any) {
+export function LobbyConfiguration({ fields, configuration }: any) {
 
     const { websocket, owner } = useContext<{ websocket: WebSocket, owner: boolean }>(GameContext);
 
@@ -21,22 +21,22 @@ export function LobbyConfiguration({ configuration }: any) {
             <h2 className="page-title__subtitle">Configurer votre partie</h2>
 
             <form className="lobby__configuration" onSubmit={startGame}>
-                <label className="input-group label">Thême
-                    <select className="input" value={configuration.theme || 'default'} {...owner && { onChange: (e) => updateConfig('theme', e.target.value) }}>
-                        <option disabled={!owner} value={'default'}>Thème par défault</option>
-                    </select>
-                </label>
 
-                <label className="input-group label">Temps
-                    <input type="number" className="input" value={configuration.time || ''} readOnly={!owner} required min={3}
-                        {...owner && { onChange: (e) => updateConfig('time', e.target.value) }}/>
-                </label>
-
-                <label className="input-group label">Questions
-                    <input type="number" className="input" value={configuration.questions || ''} readOnly={!owner} required min={3} max={6}
-                        {...owner && { onChange: (e) => updateConfig('questions', e.target.value) }}/>
-                </label>
-
+                {Object.keys(fields).map((field: any, i: number) => (
+                    <label className="input-group label" key={i}>{fields[field].label}
+                        { fields[field].type === 'select' ?
+                            <select className="input" value={configuration[field] || ''} {...owner && { onChange: (e) => updateConfig(field, e.target.value) }}>
+                                {fields[field].items.map((item: any, k: number) => (
+                                    <option disabled={!owner} value={item} key={k}>{item}</option>
+                                ))}
+                            </select>
+                        : fields[field].type === 'number' ?
+                            <input type="number" className="input" value={configuration[field] || ''} readOnly={!owner} required min={0}
+                                {...owner && { onChange: (e) => updateConfig(field, e.target.value) }}/>
+                        : null }
+                    </label>
+                ))}
+                
                 {owner &&
                     <button className="btn" >Démarrer la partie</button>
                 }
