@@ -21,6 +21,12 @@ const AUTHENTICATE = gql`
 	}
 `;
 
+const AUTHENTICATE_TWITCH = gql`
+    mutation AuthTwitch($accessToken: String!) {
+        authTwitch(access_token: $accessToken)
+    }
+`;
+
 export function SessionProvider(props: { children: ReactNode }): JSX.Element {
 
     const history = useHistory();
@@ -32,17 +38,18 @@ export function SessionProvider(props: { children: ReactNode }): JSX.Element {
         }
     });
 
-    const [authenticate, { data, loading: loadingAuthenticate, error: errorAuthenticate}] = useMutation(AUTHENTICATE, {
-        onCompleted: ({ auth: token }) => {
-            localStorage.setItem('token', token);
-            refetch();
-        }
-    });
+    const onAuthenticate = (token: string) => {
+        localStorage.setItem('token', token);
+        refetch();
+    }
+
+    const [authenticate] = useMutation(AUTHENTICATE, { onCompleted: ({ auth: token}) => onAuthenticate(token) });
+    const [authenticateAsUser] = useMutation(AUTHENTICATE_TWITCH, { onCompleted: ({ authTwitch: token }) => onAuthenticate(token) })
 
     if(loading) return <p>Loading...</p>;
 
     return (
-        <SessionContext.Provider value={{ user, authenticate }}>
+        <SessionContext.Provider value={{ user, authenticate, authenticateAsUser }}>
             {props.children}
         </SessionContext.Provider>
     );

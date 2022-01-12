@@ -12,20 +12,26 @@
     },
     "dependencies": {
         "@kgames/common": "^0.0.0",
-        "apollo-server": "^3.0.2",
+        "@prisma/client": "^3.7.0",
+        "apollo-server-core": "^3.6.1",
+        "apollo-server-express": "^3.6.1",
         "dotenv": "^10.0.0",
+        "express": "^4.17.2",
         "graphql": "^15.5.1",
+        "jsonwebtoken": "^8.5.1",
+        "node-fetch": "2",
+        "prisma": "^3.7.0",
         "reflect-metadata": "^0.1.13",
         "short-uuid": "^4.2.0",
-        "jsonwebtoken": "^8.5.1",
         "ts-node-dev": "^1.1.8",
         "type-graphql": "^1.1.1",
         "typedi": "^0.10.0",
         "ws": "^8.3.0"
     },
     "devDependencies": {
-        "@types/node": "^10.17.60",
+        "@types/express": "^4.17.13",
         "@types/jsonwebtoken": "^8.5.6",
+        "@types/node": "^10.17.60",
         "@types/ws": "^8.2.1"
     }
 }
