@@ -74,6 +74,10 @@ export class Geoquizz extends Game {
 
         this.questionsPlayed.add(question);
 
+        // Hide answer to the player, and clone the object so we keep the data on the main array.
+        question = Object.assign({}, question);
+        delete question.answer;
+
         this.clock = setInterval(this.update.bind(this), msClock);
         this.room.broadcast('question', { question: { ...question, number: this.currentQuestion + 1 } });
     }

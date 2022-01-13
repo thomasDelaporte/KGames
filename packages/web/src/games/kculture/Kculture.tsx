@@ -84,6 +84,14 @@ export default function Kculture() {
                 : question.type === GeoquizzQuestionType.IMAGE ? 
                     (<QuestionImage question={question} />)
                 : null }
+
+                { step === 5 && question.answer &&
+                    <div className="kculture__question__answer">
+                        { question.type === GeoquizzQuestionType.ORDER ?
+                            <AnswerOrder response={question.answer} disabled={true} />
+                        : question.answer }
+                    </div>
+                }
             </div>
 
             <div className="kculture__answer">

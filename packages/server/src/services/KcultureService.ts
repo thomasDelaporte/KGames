@@ -15,7 +15,7 @@ export class KcultureService {
                 { id: 'seraphine', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Seraphine_0.jpg' },
                 { id: 'kennen', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Kennen_0.jpg' },
                 { id: 'zyra', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Zyra_0.jpg' }
-            ], answers: [
+            ], answer: [
                 { id: 'zyra', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Zyra_0.jpg' },
                 { id: 'swain', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Swain_0.jpg' },
                 { id: 'seraphine', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Seraphine_0.jpg' },
