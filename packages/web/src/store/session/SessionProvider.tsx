@@ -8,6 +8,7 @@ export const GET_ME = gql`
     query me {
         me {
             username
+            picture
             room {
                 id
             }

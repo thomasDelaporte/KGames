@@ -9,7 +9,7 @@ export default function Account() {
 
     return (
         <div className="account">
-            <img className="account__thumbnail" src={`https://avatars.dicebear.com/api/adventurer-neutral/${user.me.username}.svg`} />
+            <img className="account__thumbnail" src={user.me.picture || `https://avatars.dicebear.com/api/adventurer-neutral/${user.me.username}.svg`} />
             <span className="account__username">{user.me.username}</span>
         </div>
     )

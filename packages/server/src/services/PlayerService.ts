@@ -45,6 +45,7 @@ export class PlayerService {
         const player = new Player();
         player.id = user.id.toString();
         player.username = user.name;
+        player.picture = user.picture;
 
         this.players[player.id] = player;
 

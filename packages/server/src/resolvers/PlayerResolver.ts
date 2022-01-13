@@ -59,9 +59,15 @@ export class PlayerResolver {
             user = await this.prisma.user.create({
                 data: {
                     name: twitchUser.display_name,
+                    picture: twitchUser.profile_image_url,
                     twitch_token: twitchUser.id
                 }
             });
+        } else {
+            user = await this.prisma.user.update({
+                where: { id: user.id },
+                data: { picture: twitchUser.profile_image_url }
+            })
         }
 
         return this.playerService.authenticateAsUser(user).token;
@@ -86,9 +92,15 @@ export class PlayerResolver {
             user = await this.prisma.user.create({
                 data: {
                     name: googleVerify.name,
+                    picture: googleVerify.picture,
                     google_token: googleVerify.sub
                 }
             })
+        } else {
+            user = await this.prisma.user.update({
+                where: {  id: user.id },
+                data: { picture: googleVerify.picture }
+            });
         }
 
         return this.playerService.authenticateAsUser(user).token;

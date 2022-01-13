@@ -13,6 +13,9 @@ export class Player {
 
     @Field(() => Room, { nullable: true })
     public room?: Room;
+
+    @Field(() => String, { nullable: true })
+    public picture: string | null;
     
     public socket?: WebSocket;
 }
