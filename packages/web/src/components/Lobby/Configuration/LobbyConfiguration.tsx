@@ -25,7 +25,7 @@ export function LobbyConfiguration({ fields, configuration }: any) {
                 {Object.keys(fields).map((field: any, i: number) => (
                     <label className="input-group label" key={i}>{fields[field].label}
                         { fields[field].type === 'select' ?
-                            <select className="input" value={configuration[field] || ''} {...owner && { onChange: (e) => updateConfig(field, e.target.value) }}>
+                            <select className="input input--select" value={configuration[field] || ''} {...owner && { onChange: (e) => updateConfig(field, e.target.value) }}>
                                 {fields[field].items.map((item: any, k: number) => (
                                     <option disabled={!owner} value={item} key={k}>{item}</option>
                                 ))}
