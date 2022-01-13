@@ -5,10 +5,8 @@ export abstract class Game {
     protected room: Room;
 
     public configuration: any;
-    public static configurationFields: any;
 
     public hasStarded: boolean = false;
-
 
     constructor(Room: Room) {
         this.room = Room;
