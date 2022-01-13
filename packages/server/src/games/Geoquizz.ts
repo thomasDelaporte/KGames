@@ -1,34 +1,18 @@
 import { Game } from './Game';
 import { GeoquizzQuestionType } from '@kgames/common';
 import { Player, Room } from '../entities';
-import { Inject } from 'typedi';
+import Container, { Inject, Service } from 'typedi';
 import { KcultureService } from '../services/KcultureService';
-
-const questions = [
-    { type: GeoquizzQuestionType.BAC, question: 'BAC avec la lettre B' },
-    { type: GeoquizzQuestionType.TEXT, question: 'Question textuel' },
-    { type: GeoquizzQuestionType.AUDIO, question: 'Question audio', audio: 'https://freesound.org/data/previews/612/612673_11861866-lq.mp3' },
-    { type: GeoquizzQuestionType.IMAGE, question: 'Question image', image: 'https://cdna.artstation.com/p/assets/images/images/036/415/176/large/jun-seong-park-juns-league-of-legends-orchestra-art-freljord.jpg?1617631996' },
-    { type: GeoquizzQuestionType.ORDER, question: 'Ranger dans lordre', items: [
-        { id: 'swain', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Swain_0.jpg' },
-        { id: 'seraphine', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Seraphine_0.jpg' },
-        { id: 'kennen', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Kennen_0.jpg' },
-        { id: 'zyra', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Zyra_0.jpg' }
-    ] },
-    { type: GeoquizzQuestionType.MARKER, question: 'Marquer limage', image: 'https://cdna.artstation.com/p/assets/images/images/036/415/176/large/jun-seong-park-juns-league-of-legends-orchestra-art-freljord.jpg?1617631996' }
-]
 
 const msClock = process.env.NODE_ENV === 'production' ? 1000 : 100;
 
 export class Geoquizz extends Game {
 
-    @Inject()
-    private kcultureService: KcultureService;
+    private kcultureService: KcultureService = Container.get(KcultureService);
 
     public configuration: any = {
-        theme: 'default', // Default theme not used 
+        theme: 'Thème de dinguo', // Default theme not used 
         time: 30, // 10 seconds per question,
-        questions: 6 // total questions
     };
 
     private timer: number;
@@ -37,7 +21,9 @@ export class Geoquizz extends Game {
     private currentQuestion: number = 1;
     private currentUserChecking: number = 0;
 
+    private questions: any = [];
     private questionsPlayed: Set<any> = new Set();
+
     private answers: any = {};
     private scores: any = {};
 
@@ -53,6 +39,8 @@ export class Geoquizz extends Game {
         this.hasStarded = true;
         this.currentQuestion = 0;
         this.currentUserChecking = 0;
+
+        this.questions = this.kcultureService.getQuestions(this.configuration.theme);
 
         this.pickQuestion();
         this.update();
@@ -70,7 +58,7 @@ export class Geoquizz extends Game {
 
     protected pickQuestion(): void {
 
-        if( questions.length === this.questionsPlayed.size ) {
+        if( this.questions.length === this.questionsPlayed.size ) {
             console.log('GO AU REPONSE INDIVI', this.answers);
 
             this.currentQuestion = 0;
@@ -79,12 +67,16 @@ export class Geoquizz extends Game {
             return clearInterval(this.clock);
         }
 
-        let question = questions[Math.floor(Math.random() * questions.length)];
+        let question = this.questions[Math.floor(Math.random() * this.questions.length)];
         
         while( this.questionsPlayed.has(question) )
-            question = questions[Math.floor(Math.random() * questions.length)];
+            question = this.questions[Math.floor(Math.random() * this.questions.length)];
 
         this.questionsPlayed.add(question);
+
+        // Hide answer to the player, and clone the object so we keep the data on the main array.
+        question = Object.assign({}, question);
+        delete question.answer;
 
         this.clock = setInterval(this.update.bind(this), msClock);
         this.room.broadcast('question', { question: { ...question, number: this.currentQuestion + 1 } });

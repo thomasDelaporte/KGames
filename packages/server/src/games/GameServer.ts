@@ -73,10 +73,9 @@ export default class GameServer {
 							if(Room.currentGame instanceof Geoquizz)
 								configurationFields = {
 									theme: { label: 'Thème', type: 'select', items: Container.get(KcultureService).themes },
-									time: { label: 'Temps par question', type: 'number' },
-									questions: { label: 'Questions', type: 'number' }
+									time: { label: 'Temps par question', type: 'number' }
 								}
-
+								
 
 							Room.broadcast('showconfig', { fields: configurationFields, configuration: Room.currentGame.configuration });
 						}

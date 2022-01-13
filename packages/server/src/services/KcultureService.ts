@@ -4,8 +4,8 @@ import { Service } from 'typedi';
 @Service()
 export class KcultureService {
 
-    private questions: {} = {
-        'default': [
+    private questions: Record<string, Array<any>> = {
+        'Thème de dinguo': [
             { type: GeoquizzQuestionType.BAC, question: 'BAC avec la lettre B' },
             { type: GeoquizzQuestionType.TEXT, question: 'Question textuel', answer: 'La réponse' },
             { type: GeoquizzQuestionType.AUDIO, question: 'Question audio', audio: 'https://freesound.org/data/previews/612/612673_11861866-lq.mp3', answer: 'Réponse audio' },
@@ -15,7 +15,7 @@ export class KcultureService {
                 { id: 'seraphine', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Seraphine_0.jpg' },
                 { id: 'kennen', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Kennen_0.jpg' },
                 { id: 'zyra', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Zyra_0.jpg' }
-            ], answers: [
+            ], answer: [
                 { id: 'zyra', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Zyra_0.jpg' },
                 { id: 'swain', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Swain_0.jpg' },
                 { id: 'seraphine', image: 'https://static.u.gg/assets/lol/riot_static/11.15.1/img/splash/Seraphine_0.jpg' },
@@ -23,8 +23,12 @@ export class KcultureService {
             ] },
         ],
 
-        'other_theme': [],
-        'another_one': []
+        'Autre thème vide': [],
+        'Un autre truc vide': []
+    }
+
+    public getQuestions(theme: string, excluded?: {}): Array<any> {
+        return this.questions[theme];
     }
 
     get themes() {
