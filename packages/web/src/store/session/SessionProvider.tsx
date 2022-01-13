@@ -8,6 +8,7 @@ export const GET_ME = gql`
     query me {
         me {
             username
+            picture
             room {
                 id
             }
@@ -24,6 +25,12 @@ const AUTHENTICATE = gql`
 const AUTHENTICATE_TWITCH = gql`
     mutation AuthTwitch($accessToken: String!) {
         authTwitch(access_token: $accessToken)
+    }
+`;
+
+const AUTHENTICATE_GOOGLE = gql`
+    mutation AuthGoogle($idToken: String!) {
+        authGoogle(id_token: $idToken)
     }
 `;
 
@@ -44,12 +51,13 @@ export function SessionProvider(props: { children: ReactNode }): JSX.Element {
     }
 
     const [authenticate] = useMutation(AUTHENTICATE, { onCompleted: ({ auth: token}) => onAuthenticate(token) });
-    const [authenticateAsUser] = useMutation(AUTHENTICATE_TWITCH, { onCompleted: ({ authTwitch: token }) => onAuthenticate(token) })
+    const [authenticateTwitch] = useMutation(AUTHENTICATE_TWITCH, { onCompleted: ({ authTwitch: token }) => onAuthenticate(token) });
+    const [authenticateGoogle] = useMutation(AUTHENTICATE_GOOGLE, { onCompleted: ({ authGoogle: token }) => onAuthenticate(token) })
 
     if(loading) return <p>Loading...</p>;
 
     return (
-        <SessionContext.Provider value={{ user, authenticate, authenticateAsUser }}>
+        <SessionContext.Provider value={{ user, authenticate, authenticateTwitch, authenticateGoogle }}>
             {props.children}
         </SessionContext.Provider>
     );

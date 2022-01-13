@@ -30,7 +30,8 @@ export class Room {
     public getPlayers(): {} {
         return Array.from(this.players).map((p: Player) => ({
             username: p.username,
-            owner: p === this.owner
+            owner: p === this.owner,
+            picture: p.picture
         }))
     }
 
