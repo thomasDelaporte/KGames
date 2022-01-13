@@ -66,4 +66,31 @@ export class PlayerResolver {
 
         return this.playerService.authenticateAsUser(user).token;
     }
+
+    @Mutation(() => String)
+    async authGoogle(@Arg('id_token') token: string): Promise<string> {
+        
+        const googleVerifyResponse = await fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`);
+        const googleVerify = await googleVerifyResponse.json();
+
+        if(!googleVerify.sub)
+            throw new ApolloError('Google verification didnt work properly.');
+
+        let user = await this.prisma.user.findFirst({
+            where: {
+                google_token: googleVerify.sub
+            }
+        });
+
+        if(user === null) {
+            user = await this.prisma.user.create({
+                data: {
+                    name: googleVerify.name,
+                    google_token: googleVerify.sub
+                }
+            })
+        }
+
+        return this.playerService.authenticateAsUser(user).token;
+    }
 }

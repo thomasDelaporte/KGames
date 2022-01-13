@@ -5,6 +5,7 @@
 
 type Mutation {
   auth(username: String!): String!
+  authGoogle(id_token: String!): String!
   authTwitch(access_token: String!): String!
   clearLobbies: [Room!]!
   createRoom: Room!
