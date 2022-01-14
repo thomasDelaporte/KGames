@@ -16,6 +16,7 @@ import { RoomResolver, PlayerResolver } from './resolvers';
 import { PlayerService } from './services';
 import { AuthorizationDerective } from './directives/Authorization';
 import GameServer from './games/GameServer';
+import { onFlagImage } from './controllers/GeoquizzController';
 
 (async function() {
 	
@@ -52,6 +53,8 @@ import GameServer from './games/GameServer';
 		},
 		plugins: [ ApolloServerPluginDrainHttpServer({ httpServer })]
 	});
+
+	app.get('/geoquizz/flag/:roomId', onFlagImage);
 
 	await server.start();
 	server.applyMiddleware({ app, path: '/' });

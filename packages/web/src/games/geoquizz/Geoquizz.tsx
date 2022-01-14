@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { QuestionWorld } from './questions/QuestionWorld';
+import { AnswerWorld } from './answers/World/AnswerWorld';
 
 export default function Geoquizz() {
 
@@ -16,8 +16,6 @@ export default function Geoquizz() {
 
             <div className="geoquizz__question">
                 <span className="geoquizz__question__label">Placez le pays</span>
-
-                <QuestionWorld />
             </div>
 
             <input type="text" className="input" placeholder="Réponse" value={answer} onChange={(e) => setAnswer(e.target.value)} />            
