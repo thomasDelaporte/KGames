@@ -1,12 +1,12 @@
+import Container from 'typedi';
+
 import { Game } from './Game';
-import { GeoquizzQuestionType } from '@kgames/common';
-import { Player, Room } from '../entities';
-import Container, { Inject, Service } from 'typedi';
+import { Player } from '../entities';
 import { KcultureService } from '../services/KcultureService';
 
 const msClock = process.env.NODE_ENV === 'production' ? 1000 : 100;
 
-export class Geoquizz extends Game {
+export class Kculture extends Game {
 
     private kcultureService: KcultureService = Container.get(KcultureService);
 
