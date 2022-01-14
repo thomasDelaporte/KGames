@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AnswerWorld } from './AnswerWorld';
 
 export default {
@@ -6,6 +6,11 @@ export default {
     component: AnswerWorld
 }
 
-export const Default = () => (
-    <AnswerWorld />
-)
+export const Default = () => {
+
+    const [ answer, setAnswer ] = useState();
+
+    return (
+        <AnswerWorld setAnswer={setAnswer} answer={answer} />
+    )
+}

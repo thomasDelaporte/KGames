@@ -23,6 +23,7 @@
         "react-simple-maps": "^2.3.0"
     },
     "devDependencies": {
-        "@types/node-fetch": "^3.0.3"
+        "@types/node-fetch": "^3.0.3",
+        "react-simple-maps": "^2.3.0"
     }
 }

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { GeoquizzQuestionType } from '@kgames/common';
+import { KcultureQuestionType } from '@kgames/common';
 import { GameContext } from '../../store';
 import { QuestionAudio, QuestionImage } from './questions';
 import { AnswerMarker, AnswerOrder, AnswerScattergory } from './answers';
@@ -29,7 +29,7 @@ export default function Kculture() {
                 }
             } else if(data.event === 'question') {
 
-                if(data.question.type === GeoquizzQuestionType.ORDER) {
+                if(data.question.type === KcultureQuestionType.ORDER) {
                     setAnswer(data.question.items);
                 } else {
                     setAnswer('');
@@ -79,15 +79,15 @@ export default function Kculture() {
             <div className="kculture__question" data-question={question.number}>
                 <h3>{question.question}</h3>
 
-                { question.type === GeoquizzQuestionType.AUDIO ?
+                { question.type === KcultureQuestionType.AUDIO ?
                     (<QuestionAudio question={question} autoPlay={true} />)
-                : question.type === GeoquizzQuestionType.IMAGE ? 
+                : question.type === KcultureQuestionType.IMAGE ? 
                     (<QuestionImage question={question} />)
                 : null }
 
                 { step === 5 && question.answer &&
                     <div className="kculture__question__answer">
-                        { question.type === GeoquizzQuestionType.ORDER ?
+                        { question.type === KcultureQuestionType.ORDER ?
                             <AnswerOrder response={question.answer} disabled={true} />
                         : question.answer }
                     </div>
@@ -108,11 +108,11 @@ export default function Kculture() {
                     </label>
                 }
 
-                { question.type === GeoquizzQuestionType.ORDER ?
+                { question.type === KcultureQuestionType.ORDER ?
                     <AnswerOrder question={question} response={answer} setResponse={setAnswer} disabled={step === 5} />
                 : question.type === 5 ?
                     <AnswerMarker question={question} response={answer} setResponse={setAnswer} disabled={step === 5} />
-                : question.type === GeoquizzQuestionType.BAC ?
+                : question.type === KcultureQuestionType.BAC ?
                     <AnswerScattergory response={answer} setResponse={setAnswer} disabled={step === 5} />
                 :
                     <input type="text" className="input" placeholder="Réponse" value={answer} onChange={(e) => setAnswer(e.target.value)} disabled={step === 5} />            
