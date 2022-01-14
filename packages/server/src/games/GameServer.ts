@@ -6,6 +6,7 @@ import { RoomService } from '../services';
 import Container, { Inject, Service } from 'typedi';
 import { Kculture } from './Kculture';
 import { KcultureService } from '../services/KcultureService';
+import { Geoquizz } from './Geoquizz';
 
 export default class GameServer {
 
@@ -63,8 +64,10 @@ export default class GameServer {
 
 						if(Room.step === 2) {
 
-							if(Room.selectedGame === 'kculture' && !(Room.currentGame instanceof Kculture))
+							if(Room.selectedGame === 'kculture')
 								Room.currentGame = new Kculture(Room);
+							else if(Room.selectedGame === 'geoquizz')
+								Room.currentGame = new Geoquizz(Room);
 
 							let configurationFields = {};
 
@@ -73,7 +76,12 @@ export default class GameServer {
 									theme: { label: 'Thème', type: 'select', items: Container.get(KcultureService).themes },
 									time: { label: 'Temps par question', type: 'number' }
 								}
-								
+							else if(Room.currentGame instanceof Geoquizz) 
+								configurationFields = {
+									questionCountries: { label: 'Nombre de questions pays', type: 'number' },
+									questionFlags: { label: 'Nombre de questions drapeaux', type: 'number' },
+									questionCapitals: { label: 'Nombre de questions capitales', type: 'number' }
+								}
 
 							Room.broadcast('showconfig', { fields: configurationFields, configuration: Room.currentGame.configuration });
 						}

@@ -64,7 +64,7 @@ export function LobbyGames({ game }: any) {
                     name={'Géoquizz'}
                     desc={'Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des capitales pour gagner le plus de points'}
                     image={'https://kgames.fr/games/icons/geoquizz.jpg'}
-                    disabled={true}
+                    disabled={false}
                     selected={game === 'geoquizz'}
                     {...owner && { onSelect: updateGame.bind(null, 'geoquizz')}}  />
 

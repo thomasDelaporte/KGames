@@ -29,9 +29,7 @@ const mocks = [
 export const decorators = [
 	(Story) => (
 		<MockedProvider mocks={mocks}>
-			<SessionProvider>
-				<Story />
-			</SessionProvider>
+			<Story />
 		</MockedProvider>
 	)
 ]
