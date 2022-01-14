@@ -1,6 +1,10 @@
+import Container from 'typedi';
+import { GeoquizzService } from '../services';
 import { Game } from './Game';
 
 export class Geoquizz extends Game {
+
+    private geoquizzService = Container.get(GeoquizzService);
 
     public configuration: any = {
         questionCountries: 5,
