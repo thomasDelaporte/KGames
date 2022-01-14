@@ -1,12 +1,10 @@
-import { IncomingMessage } from 'http';
 import { WebSocketServer } from 'ws';
 import Authentication from '../directives/Authentication';
 
 import url from 'url';
 import { RoomService } from '../services';
 import Container, { Inject, Service } from 'typedi';
-import { isFunction } from 'util';
-import { Geoquizz } from './Geoquizz';
+import { Kculture } from './Kculture';
 import { KcultureService } from '../services/KcultureService';
 
 export default class GameServer {
@@ -65,12 +63,12 @@ export default class GameServer {
 
 						if(Room.step === 2) {
 
-							if(Room.selectedGame === 'kculture' && !(Room.currentGame instanceof Geoquizz))
-								Room.currentGame = new Geoquizz(Room);
+							if(Room.selectedGame === 'kculture' && !(Room.currentGame instanceof Kculture))
+								Room.currentGame = new Kculture(Room);
 
 							let configurationFields = {};
 
-							if(Room.currentGame instanceof Geoquizz)
+							if(Room.currentGame instanceof Kculture)
 								configurationFields = {
 									theme: { label: 'Thème', type: 'select', items: Container.get(KcultureService).themes },
 									time: { label: 'Temps par question', type: 'number' }
