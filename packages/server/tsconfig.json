@@ -12,7 +12,8 @@
 		"emitDecoratorMetadata": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"outDir": "dist"
+		"outDir": "dist",
+		"resolveJsonModule": true
 	},
 
 	"references": [

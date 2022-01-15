@@ -13,7 +13,7 @@ import http from 'http';
 import jwt from 'jsonwebtoken';
 
 import { RoomResolver, PlayerResolver } from './resolvers';
-import { PlayerService } from './services';
+import { GeoquizzService, PlayerService } from './services';
 import { AuthorizationDerective } from './directives/Authorization';
 import GameServer from './games/GameServer';
 import { onFlagImage } from './controllers/GeoquizzController';
@@ -65,3 +65,5 @@ import { onFlagImage } from './controllers/GeoquizzController';
 
 	new GameServer(httpServer);
 })();
+
+Container.get(GeoquizzService).getQuestions(5, 5, 5);
