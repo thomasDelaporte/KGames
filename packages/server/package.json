@@ -5,7 +5,7 @@
     "author": "Thomas Delaporte <thomas.delaporte30@gmail.com>",
     "license": "ISC",
     "scripts": {
-        "start": "node dist/index.js",
+        "start": "node dist/src/index.js",
         "dev": "ts-node-dev src/index.ts",
         "build": "tsc --build --verbose",
         "clean": "rimraf -rf ./dist"
