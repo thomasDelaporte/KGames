@@ -101,7 +101,7 @@ export function Room() {
         return <p>Loading...</p>
 
     return (
-        <GameContext.Provider value={{ players, owner, step, websocket, configuration }}>
+        <GameContext.Provider value={{ players, owner, step, websocket, configuration, id, setStep }}>
             <div className="room">
                 <h1 className="page-title">
                     {step >= 3 ? 'Game' : 'Room'}

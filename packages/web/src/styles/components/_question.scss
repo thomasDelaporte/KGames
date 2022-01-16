@@ -1,0 +1,26 @@
+.question {
+    background-color: #343343;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 1.5rem;
+
+    &:after {
+        content: attr(data-question);
+        position: absolute;
+        top: 0;
+        transform: translateY(-50%);
+        right: 20px;
+        font-weight: 600;
+        background-color: #fb6da9;
+        border-radius: 10px;
+        width: 2.25rem;
+        height: 2.25rem;
+        line-height: 2.25rem;
+        text-align: center;
+    }
+
+    &__answer {
+        margin-top: 1rem;
+    }
+}

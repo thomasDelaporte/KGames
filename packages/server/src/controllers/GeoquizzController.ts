@@ -4,6 +4,7 @@ import { RoomService } from '../services';
 
 // @ts-ignore
 import fetch from 'node-fetch';
+import { Geoquizz } from '../games/Geoquizz';
 
 export const onFlagImage = async (req: Request, res: Response) => {
     
@@ -14,10 +15,19 @@ export const onFlagImage = async (req: Request, res: Response) => {
     
     if(room == null && roomId !== 'example' )
         return res.status(500).send({ error: 'No room find with this id.' });
-    
-    const image = await fetch('https://flagcdn.com/fr.svg');
+
+    if(!(room?.currentGame instanceof Geoquizz))
+        return res.status(500).send({ error: 'Not playing the Geoquizz game mode.' });
+
+    const game: Geoquizz = room.currentGame;
+    const flag = game.getCurrentFlag();
+
+    if(flag === false)
+        return res.status(500).send({ error: 'No flag found.' });
+
+    const image = await fetch(flag);
     const imageBuffer = await image.buffer();
 
     res.header('Content-Type', 'image/svg+xml');
-    res.send(imageBuffer)
+    res.send(imageBuffer);
 }

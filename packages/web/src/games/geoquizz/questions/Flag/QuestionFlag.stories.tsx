@@ -7,5 +7,5 @@ export default {
 }
 
 export const Default = () => (
-    <QuestionFlag />
+    <QuestionFlag room='example' />
 )

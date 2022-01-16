@@ -1,7 +1,9 @@
 import React from 'react';
 
-export const QuestionFlag = () => {
+import './QuestionFlag.style.scss';
+
+export const QuestionFlag = ({ room, number }: any) => {
     return (
-        <img className="kculture__question-flag" src={import.meta.env.VITE_API + '/geoquizz/flag/example'} />
+        <img className="question-flag" src={import.meta.env.VITE_API + '/geoquizz/flag/' + room + '?' + number} />
     )
 }

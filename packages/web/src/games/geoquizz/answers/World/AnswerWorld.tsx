@@ -5,10 +5,10 @@ import './AnswerWorld.style.scss';
 
 const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json"
 
-export const AnswerWorld = ({ setAnswer, answer}: any) => {
+export const AnswerWorld = ({ question, setAnswer, answer}: any) => {
 
     const onCountryClick = (geo: any) => {
-        setAnswer(geo.rsmKey);
+        setAnswer(geo.properties.ISO_A2);
     }
 
     return (
@@ -16,11 +16,12 @@ export const AnswerWorld = ({ setAnswer, answer}: any) => {
             <ZoomableGroup zoom={1}>
                 <Geographies geography={geoUrl}>
                     {({geographies}: any) => geographies.map((geo: any) =>
-                        <Geography 
+                        <Geography
                             key={geo.rsmKey} 
                             geography={geo} 
                             onClick={onCountryClick.bind(null, geo)} 
-                            { ...answer === geo.rsmKey && {style: { fill: 'red' }}} />
+                            { ...answer === geo.properties.ISO_A2 && { fill: 'red' }}
+                            { ...question && question.answer && geo.properties.ISO_A2 === question.answer && { fill: 'green' }} />
                     )}
                 </Geographies>
             </ZoomableGroup>

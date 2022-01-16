@@ -76,7 +76,7 @@ export default function Kculture() {
                 <div className="kculture__step__progress" style={{ width: `${question.number * 100 / configuration.questions}%` }}></div>
             </div>
 
-            <div className="kculture__question" data-question={question.number}>
+            <div className="question" data-question={question.number}>
                 <h3>{question.question}</h3>
 
                 { question.type === KcultureQuestionType.AUDIO ?
@@ -86,7 +86,7 @@ export default function Kculture() {
                 : null }
 
                 { step === 5 && question.answer &&
-                    <div className="kculture__question__answer">
+                    <div className="question__answer">
                         { question.type === KcultureQuestionType.ORDER ?
                             <AnswerOrder response={question.answer} disabled={true} />
                         : question.answer }

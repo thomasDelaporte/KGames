@@ -1,7 +1,7 @@
 import { GeoquizzQuestionType } from '@kgames/common';
 import { Service } from 'typedi';
 
-import countries from '../../ressources/countries.json';
+import countries from '../../ressources/countries_5m.json';
 
 @Service()
 export class GeoquizzService {
@@ -17,7 +17,7 @@ export class GeoquizzService {
             const country = countries[randomCountryIndex];
 
             questions.push({
-                label: country.name,
+                label: country.translations.fr || country.name,
                 answer: country.alpha2Code,
                 type: GeoquizzQuestionType.WORLD
             });
@@ -31,7 +31,7 @@ export class GeoquizzService {
             questions.push({
                 label: 'Trouvez le nom du pays',
                 flag: country.flags.svg,
-                answer: country.name,
+                answer: country.translations.fr ||country.name,
                 type: GeoquizzQuestionType.FLAG
             });
         }
@@ -42,8 +42,7 @@ export class GeoquizzService {
             const country = countries[randomCountryIndex];
 
             questions.push({
-                label: 'Trouvez la capitale',
-                country: country.name,
+                label: 'Trouvez la capitale de ' + country.translations.fr || country.name,
                 answer: country.capital,
                 type: GeoquizzQuestionType.CAPITAL
             });
