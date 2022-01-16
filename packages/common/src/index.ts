@@ -16,11 +16,17 @@ export enum GameStep {
     RESULT
 }
 
-export enum GeoquizzQuestionType {
+export enum KcultureQuestionType {
     TEXT,
     IMAGE,
     AUDIO,
     BAC,
     ORDER,
     MARKER
+}
+
+export enum GeoquizzQuestionType {
+    WORLD,
+    FLAG,
+    CAPITAL
 }

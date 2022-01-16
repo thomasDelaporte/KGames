@@ -19,9 +19,11 @@
         "node-fetch": "2",
         "prisma": "^3.7.0",
         "react-google-login": "^5.2.2",
-        "react-router-dom": "6"
+        "react-router-dom": "6",
+        "react-simple-maps": "^2.3.0"
     },
     "devDependencies": {
-        "@types/node-fetch": "^3.0.3"
+        "@types/node-fetch": "^3.0.3",
+        "react-simple-maps": "^2.3.0"
     }
 }

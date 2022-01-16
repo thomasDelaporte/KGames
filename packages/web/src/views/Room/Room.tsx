@@ -10,6 +10,7 @@ import Kculture from '../../games/kculture/Kculture';
 import { SessionContext, GameContext } from '../../store';
 
 import './Room.style.scss';
+import Geoquizz from '../../games/geoquizz/Geoquizz';
 
 let websocket: WebSocket;
 
@@ -82,6 +83,14 @@ export function Room() {
         });
     }, [user]);
 
+    const getGameComponent = () => {
+
+        if(game === 'geoquizz')
+            return <Geoquizz />
+        else if(game === 'kculture')
+            return <Kculture />
+    }
+
     if(!user)
         return <Login />
 
@@ -92,7 +101,7 @@ export function Room() {
         return <p>Loading...</p>
 
     return (
-        <GameContext.Provider value={{ players, owner, step, websocket, configuration }}>
+        <GameContext.Provider value={{ players, owner, step, websocket, configuration, id, setStep }}>
             <div className="room">
                 <h1 className="page-title">
                     {step >= 3 ? 'Game' : 'Room'}
@@ -108,10 +117,7 @@ export function Room() {
                     ) : step === 2 ? (
                         <LobbyConfiguration fields={configurationFields} configuration={configuration} />
                     ) : step === 6 ?
-                        <LobbyScores scores={scores} /> :
-                    (
-                        <Kculture />
-                    )}
+                        <LobbyScores scores={scores} /> : getGameComponent() }
                 </AnimatePresence>
             </div>
         </GameContext.Provider>

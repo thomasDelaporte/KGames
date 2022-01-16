@@ -1,0 +1,12 @@
+.geoquizz__answer-world {
+    width: 100%;
+    height: 800px;
+
+    path {
+        outline: none;
+
+        &:hover {
+            fill: red;
+        }
+    }
+}
