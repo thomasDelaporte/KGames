@@ -1,5 +1,5 @@
 .question {
-    background-color: #343343;
+    background-color: $gray;
     padding: 20px;
     border-radius: 10px;
     position: relative;
@@ -12,7 +12,7 @@
         transform: translateY(-50%);
         right: 20px;
         font-weight: 600;
-        background-color: #fb6da9;
+        background-color: $primary;
         border-radius: 10px;
         width: 2.25rem;
         height: 2.25rem;

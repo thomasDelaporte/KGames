@@ -1,17 +1,19 @@
+@use '../../styles/base/variables' as *;
+
 .countdown {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    background: linear-gradient(45deg, #23204eb4, rgb(39, 36, 85)b4);
+    background: linear-gradient(45deg, $gray, transparentize($primary, .4));
     backdrop-filter: blur(10px);
     z-index: 9;
 
     &::before {
         content: '';
         display: block;
-        background-image: url('https://beamtic.com/i/design/radial-stripes.svg');
+        background-image: url('../../assets/radial-stripes.svg');
         background-position: center;
         background-repeat: no-repeat;
         height: 70%;
@@ -30,7 +32,7 @@
         
         font-weight: 900;
         font-size: 12rem;
-        background: linear-gradient(to right top, #bb3fdd, #fb6da9, #ff9e7c);
+        background: linear-gradient(45deg, $primary, $secondary);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         color: #bb3fdd;

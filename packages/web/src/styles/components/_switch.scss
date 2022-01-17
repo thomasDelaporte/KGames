@@ -3,12 +3,12 @@
     width: 4rem;
     height: 2rem;
     border-radius: 10px;
-    background-color: #343343;
+    background-color: $gray;
     padding: 5px;
     transition: background-color .2s;
 
     &:hover {
-        background-color: #272732;
+        background-color: $dark;
     }
 
     &__label {
@@ -17,7 +17,7 @@
         height: 100%;
         width: 50%;
         border-radius: inherit;
-        background-color: #fb6da9;
+        background-color: $error;
         cursor: inherit;
         transition: all .2s;
     }
@@ -27,7 +27,7 @@
 
         &:checked ~ .switch__label {
             margin-left: auto;
-            background-color: #71BC78;
+            background-color: $success;
         }
     }
 }

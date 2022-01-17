@@ -1,5 +1,7 @@
+@use '../../styles/base/variables' as *;
+
 .account {
-    background: linear-gradient(45deg, rgba(87, 87, 124, 0.4), rgba(60, 60, 97, .3) );
+    background: $gray;
     padding: 20px;
     border-radius: 10px;
     display: flex;
