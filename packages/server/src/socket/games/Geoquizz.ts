@@ -1,8 +1,10 @@
 import { GeoquizzQuestionType } from '@kgames/common';
 import Container from 'typedi';
-import { Player } from '../entities';
-import { GeoquizzService } from '../services';
-import { Game } from './Game';
+import { Player } from '../../entities';
+import { GeoquizzService } from '../../services';
+import { Game } from '../core/Game';
+
+const msClock = process.env.NODE_ENV === 'production' ? 1000 : 100;
 
 export class Geoquizz extends Game {
 
@@ -30,12 +32,11 @@ export class Geoquizz extends Game {
             this.configuration.questionCountries, this.configuration.questionFlags, this.configuration.questionCapitals);
         this.hasStarded = true;
 
+        this.on('answer', this.onAnswer.bind(this))
+            .on('nextquestion', this.onNextQuestion.bind(this));
+
         this.pickQuestion();
         this.update();
-    }
-
-    public reset(): void {
-        //throw new Error('Method not implemented.');
     }
 
     private update(): void {
@@ -57,7 +58,7 @@ export class Geoquizz extends Game {
 
         if(this.currentQuestion >= this.questions.length) {
 
-            this.currentQuestion = -1;
+            this.currentQuestion = 0;
 
             this.room.step = 5;
             this.pickResult();
@@ -69,7 +70,7 @@ export class Geoquizz extends Game {
         delete question.flag;
 
         if(!this.clock)
-            this.clock = setInterval(this.update.bind(this), 500);
+            this.clock = setInterval(this.update.bind(this), msClock);
 
         this.room.broadcast('question', { question });
         this.answers[this.currentQuestion] = {};
@@ -77,62 +78,60 @@ export class Geoquizz extends Game {
 
     private pickResult(): void {
 
-        this.currentQuestion += 1;
-
         const question = this.questions[this.currentQuestion];
         const answersOfCurrentQuestion = this.answers[this.currentQuestion];
         const currentUser = Array.from(this.room.players)[this.currentUserChecking];
+        
+        if(currentUser === undefined) {
+            return console.error('currentUser undefined');
+        }
 
-        if(currentUser === null)
-            return;
-
-        let answer = undefined;
-
+        let answer = '';
+        
         if(answersOfCurrentQuestion && answersOfCurrentQuestion[currentUser.id])
             answer = answersOfCurrentQuestion[currentUser.id];
 
         if(!this.scores[currentUser.id])
-            this.scores[currentUser.id] = {
-                username: currentUser.username,
-                score: 0
-            };
+            this.scores[currentUser.id] = { username: currentUser.username, score: 0  };
 
         if(answer && question.answer) {
             this.scores[currentUser.id].score += (String(answer).toLocaleLowerCase() === String(question.answer).toLocaleLowerCase()) ? 1 : 0;
         }
 
         this.room.broadcast('resultquestion', { question: { ...question, number: this.currentQuestion + 1, username: currentUser.username }, answer });
-
-        if( this.currentUserChecking < Object.keys(answersOfCurrentQuestion).length - 1 ) {
-            this.currentQuestion -= 1;
-            this.currentUserChecking += 1;
-        } else {
-            this.currentUserChecking = 0;
-        }
     }
 
-    public on(action: string, data: any, player: Player): void {
+    protected onAnswer({ answer }: any, player: Player) {
+        this.answers[this.currentQuestion][player.id] = answer;
+    }
 
-        if(action === 'answer' && this.room.step !== 5) {
-            this.answers[this.currentQuestion][player.id] = data.answer;
-        } else if(action === 'nextquestion') {
+    protected onNextQuestion() {
 
-            if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
+        if( this.currentQuestion + 2 > Object.keys(this.answers).length ) {
 
-                const sortedArr = Object.entries(this.scores)
-                .sort(([, v1]: any, [, v2]: any) => v2 - v1);
+            const sortedArr = Object.entries(this.scores)
+            .sort(([, v1]: any, [, v2]: any) => v2 - v1);
 
-                const scores = Object.fromEntries(sortedArr);
-                this.room.broadcast('scores', { scores } );
+            const scores = Object.fromEntries(sortedArr);
+            this.room.broadcast('scores', { scores } );
+        } else {
+
+            const answersOfCurrentQuestion = this.answers[this.currentQuestion]; // 5
+
+            if( this.currentUserChecking < this.room.players.size - 1 ) {
+                this.currentUserChecking += 1;
             } else {
-                this.pickResult();
+                this.currentQuestion += 1;
+                this.currentUserChecking = 0;
             }
+
+            console.log('Checking the question', this.currentQuestion, ' with user:', this.currentUserChecking);
+            this.pickResult();
         }
     }
 
     public getCurrentFlag() {
 
-        console.log(this.questions, this.currentQuestion);
         if(this.questions[this.currentQuestion].type !== GeoquizzQuestionType.FLAG)
             return false;
 

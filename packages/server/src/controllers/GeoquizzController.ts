@@ -4,7 +4,7 @@ import { RoomService } from '../services';
 
 // @ts-ignore
 import fetch from 'node-fetch';
-import { Geoquizz } from '../games/Geoquizz';
+import { Geoquizz } from '../socket/games/Geoquizz';
 
 export const onFlagImage = async (req: Request, res: Response) => {
     

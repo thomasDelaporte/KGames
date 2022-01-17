@@ -19,6 +19,8 @@ export class RoomService {
         room.owner = owner;
         owner.room = room;
 
+        room.initialize();
+
         return this.lobbies[id] = room;
     }
 
@@ -32,7 +34,6 @@ export class RoomService {
             return this.lobbies[id];
 
         return this.createRoom(owner, id);
-
     }
 
     public getLobbies(): Room[] {

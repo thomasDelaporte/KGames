@@ -18,4 +18,8 @@ export class Player {
     public picture: string | null;
     
     public socket?: WebSocket;
+
+    connectToSocket(socket: import('ws')): void {
+		this.socket = socket;
+	}
 }
