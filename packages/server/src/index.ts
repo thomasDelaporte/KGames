@@ -13,10 +13,10 @@ import http from 'http';
 import jwt from 'jsonwebtoken';
 
 import { RoomResolver, PlayerResolver } from './resolvers';
-import { GeoquizzService, PlayerService } from './services';
+import { PlayerService } from './services';
 import { AuthorizationDerective } from './directives/Authorization';
-import GameServer from './games/GameServer';
 import { onFlagImage } from './controllers/GeoquizzController';
+import { initializeSocketServer } from './socket';
 
 (async function() {
 	
@@ -63,7 +63,5 @@ import { onFlagImage } from './controllers/GeoquizzController';
 	await new Promise<void>(resolve => httpServer.listen({ port }, resolve));
 	console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
 
-	new GameServer(httpServer);
+	initializeSocketServer(httpServer);
 })();
-
-Container.get(GeoquizzService).getQuestions(5, 5, 5);

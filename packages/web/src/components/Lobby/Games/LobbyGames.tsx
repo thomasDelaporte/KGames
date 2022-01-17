@@ -3,6 +3,12 @@ import { AnimateSharedLayout, motion } from 'framer-motion';
 
 import { GameContext } from '../../../store';
 
+import UndercoverIcon from '../../../assets/icons/undercover.jpg';
+import SpyfallIcon from '../../../assets/icons/spyfall.jpg';
+import GeoquizzIcon from '../../../assets/icons/geoquizz.jpg';
+import KcultureIcon from '../../../assets/icons/kculture.jpg';
+import InfiltreIcon from '../../../assets/icons/infiltre.jpg';
+
 import './LobbyGames.style.scss';
 
 const container = {
@@ -47,7 +53,7 @@ export function LobbyGames({ game }: any) {
                 <Item 
                     name={'Imposteur'} 
                     desc={'Trouvez qui est l\'imposteur! À moins que ce soit vous ?'}
-                    image={'https://kgames.fr/games/icons/undercover.jpg'}
+                    image={UndercoverIcon}
                     disabled={true}
                     selected={game === 'imposteur'}
                     {...owner && { onSelect: updateGame.bind(null, 'imposteur')}}  />
@@ -55,7 +61,7 @@ export function LobbyGames({ game }: any) {
                 <Item 
                     name={'Spyfall'}
                     desc={'Débusquez l\'espion ou trouvez le lieu!'}
-                    image="https://kgames.fr/games/icons/spyfall.jpg"
+                    image={SpyfallIcon}
                     disabled={true}
                     selected={game === 'spyfall'}
                     {...owner && { onSelect: updateGame.bind(null, 'spyfall')}}  />
@@ -63,7 +69,7 @@ export function LobbyGames({ game }: any) {
                 <Item 
                     name={'Géoquizz'}
                     desc={'Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des capitales pour gagner le plus de points'}
-                    image={'https://kgames.fr/games/icons/geoquizz.jpg'}
+                    image={GeoquizzIcon}
                     disabled={false}
                     selected={game === 'geoquizz'}
                     {...owner && { onSelect: updateGame.bind(null, 'geoquizz')}}  />
@@ -71,14 +77,14 @@ export function LobbyGames({ game }: any) {
                 <Item 
                     name={'Kculture'}
                     desc={'Testez votre culture générale entre amis !'}
-                    image={'https://kgames.fr/games/icons/kculture.jpg'}
+                    image={KcultureIcon}
                     selected={game === 'kculture'}
                     {...owner && { onSelect: updateGame.bind(null, 'kculture')}}  />
 
                 <Item 
                     name={'L\'infiltré'} 
                     desc={'Trouvez le mot caché, mais trouvez aussi l\'infiltré'} 
-                    image={'https://kgames.fr/games/icons/infiltre.png'}
+                    image={InfiltreIcon}
                     disabled={true}
                     selected={game === 'infiltre'}
                     {...owner && { onSelect: updateGame.bind(null, 'infiltre')}} />

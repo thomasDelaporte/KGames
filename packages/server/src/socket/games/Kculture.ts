@@ -1,8 +1,8 @@
 import Container from 'typedi';
 
-import { Game } from './Game';
-import { Player } from '../entities';
-import { KcultureService } from '../services/KcultureService';
+import { Game } from '../core/Game';
+import { Player } from '../../entities';
+import { KcultureService } from '../../services/KcultureService';
 
 const msClock = process.env.NODE_ENV === 'production' ? 1000 : 100;
 
@@ -29,6 +29,15 @@ export class Kculture extends Game {
 
     private validAnswer: boolean = false;
 
+    constructor() {
+        super();
+
+        this.on('response', this.onResponse.bind(this))
+            .on('validquestion', this.onValidQuestion.bind(this))
+            .on('togglevalidity', this.onToggleValidity.bind(this));
+
+    }
+
     public start(): void {
 
         console.log('[GEOQUIZZ] Start game on Room: ', this.room.id, ' with players:', this.room.players.size);
@@ -41,7 +50,7 @@ export class Kculture extends Game {
         this.currentUserChecking = 0;
 
         this.questions = this.kcultureService.getQuestions(this.configuration.theme);
-
+      
         this.pickQuestion();
         this.update();
     }
@@ -122,52 +131,48 @@ export class Kculture extends Game {
         }
     }
 
-    public on(action: string, data: any, player: Player): void {
-        
-        console.log(action, data);
+    protected onResponse({ response }: any, player: Player): void {
 
-        if(action === 'response') {
-            
-            // On récupére les réponses des gens & si c'est good on relance le jeu
-            console.log('Retrieve response of user', player.username, data);
-            
-            if(!this.answers[this.currentQuestion])
-                this.answers[this.currentQuestion] = [];
+        if(!this.answers[this.currentQuestion])
+            this.answers[this.currentQuestion] = [];
 
-            this.answers[this.currentQuestion][player.id] = data.response;
+        this.answers[this.currentQuestion][player.id] = response;
 
-            if(Object.keys(this.answers[this.currentQuestion]).length === this.room.players.size) {
-                console.log('next question');
+        if(Object.keys(this.answers[this.currentQuestion]).length === this.room.players.size) {
+            console.log('next question');
 
-                this.currentQuestion += 1;
-                this.pickQuestion();
-            }
-        } else if(action === 'validquestion') {
-
-            const userChecking = Array.from(this.room.players)[this.currentUserChecking];
-
-            if(!this.scores[ userChecking.id ])
-                this.scores[ userChecking.id ] = {
-                    username: Array.from(this.room.players).find(e => e.id === userChecking.id)?.username,
-                    score: 0
-                };
-
-            this.scores[ userChecking.id ].score += (this.validAnswer) ? 1 : 0
-          
-            if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
-                  
-                const sortedArr = Object.entries(this.scores)
-                    .sort(([, v1]: any, [, v2]: any) => v2 - v1);
-
-                const scores = Object.fromEntries(sortedArr);
-                this.room.broadcast('scores', { scores } );
-            } else {
-                this.validAnswer = false;
-                this.pickResult();
-            }
-        } else if(action === 'togglevalidity') {
-            this.validAnswer = data.valid;
-            this.room.broadcast('togglevalidity', { valid: this.validAnswer });
+            this.currentQuestion += 1;
+            this.pickQuestion();
         }
+    }
+
+    protected onValidQuestion(): void {
+
+        const userChecking = Array.from(this.room.players)[this.currentUserChecking];
+
+        if(!this.scores[ userChecking.id ])
+            this.scores[ userChecking.id ] = {
+                username: Array.from(this.room.players).find(e => e.id === userChecking.id)?.username,
+                score: 0
+            };
+
+        this.scores[ userChecking.id ].score += (this.validAnswer) ? 1 : 0
+        
+        if( this.currentQuestion + 1 > Object.keys(this.answers).length ) {
+                
+            const sortedArr = Object.entries(this.scores)
+                .sort(([, v1]: any, [, v2]: any) => v2 - v1);
+
+            const scores = Object.fromEntries(sortedArr);
+            this.room.broadcast('scores', { scores } );
+        } else {
+            this.validAnswer = false;
+            this.pickResult();
+        }
+    }
+    
+    protected onToggleValidity({ valid }: any): void {
+        this.validAnswer = valid;
+        this.room.broadcast('togglevalidity', { valid: this.validAnswer });
     }
 }
