@@ -29,6 +29,15 @@ export class Kculture extends Game {
 
     private validAnswer: boolean = false;
 
+    constructor() {
+        super();
+
+        this.on('response', this.onResponse.bind(this))
+            .on('validquestion', this.onValidQuestion.bind(this))
+            .on('togglevalidity', this.onToggleValidity.bind(this));
+
+    }
+
     public start(): void {
 
         console.log('[GEOQUIZZ] Start game on Room: ', this.room.id, ' with players:', this.room.players.size);
@@ -41,11 +50,7 @@ export class Kculture extends Game {
         this.currentUserChecking = 0;
 
         this.questions = this.kcultureService.getQuestions(this.configuration.theme);
-
-        this.on('response', this.onResponse.bind(this))
-            .on('validquestion', this.onValidQuestion.bind(this))
-            .on('togglevalidity', this.onToggleValidity.bind(this));
-
+      
         this.pickQuestion();
         this.update();
     }

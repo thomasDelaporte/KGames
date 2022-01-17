@@ -26,14 +26,18 @@ export class Geoquizz extends Game {
         questionCapitals: 1
     }
 
+    constructor() {
+        super();
+
+        this.on('answer', this.onAnswer.bind(this))
+            .on('nextquestion', this.onNextQuestion.bind(this));
+    }
+
     public start(): void {
         
         this.questions = this.geoquizzService.getQuestions(
             this.configuration.questionCountries, this.configuration.questionFlags, this.configuration.questionCapitals);
         this.hasStarded = true;
-
-        this.on('answer', this.onAnswer.bind(this))
-            .on('nextquestion', this.onNextQuestion.bind(this));
 
         this.pickQuestion();
         this.update();
