@@ -1,11 +1,13 @@
-@use './base/reset';
-@use './base/typography';
+@import './base/variables';
 
-@use './layouts/root';
+@import './base/reset';
+@import './base/typography';
 
-@use './components/button';
-@use './components/input';
-@use './components/label';
-@use './components/switch';
-@use './components/page-title';
-@use './components/question';
+@import './layouts/root';
+
+@import './components/button';
+@import './components/input';
+@import './components/label';
+@import './components/switch';
+@import './components/page-title';
+@import './components/question';

@@ -1,12 +1,31 @@
 #root {
-	background-color: #181820;
+	background-color: $dark; //#181820;
 	color: #fff;
 	font-family: Inter, sans-serif;
 	min-height: 100vh;
 	padding: 2rem 12rem;
 	font-size: 14px;
-
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	&::before {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 40%;
+		right: 40%;
+		bottom: 40%;
+		left: 40%;
+		z-index: 0;
+		filter: blur(200px);
+		backface-visibility: hidden;
+		background: linear-gradient(290deg, rgba(174, 121, 237, 0.5), rgba(101, 81, 243, 0.5), rgba(33, 218, 215, 0.5), rgba(101, 81, 243, 0.5), rgba(174, 121, 237, 0.5), rgba(33, 218, 215, 0.5)) 0% 0% / 300% 300%;
+		border-radius: 25%;
+	}
+
+	* {
+		z-index: 1;
+	}
 }

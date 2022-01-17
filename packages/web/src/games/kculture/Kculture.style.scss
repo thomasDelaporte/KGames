@@ -1,3 +1,5 @@
+@use '../../styles/base/variables' as *;
+
 .kculture {
 
     &__time {
@@ -5,7 +7,7 @@
         right: 0;
         top: 0;
         padding: 1rem;
-        border: 2px solid #343343;
+        border: 2px solid $gray;
         border-radius: 10px;
         aspect-ratio: 1/1;
         transition: clip-path .1s;
@@ -26,14 +28,14 @@
     &__step {
         height: 5px;
         border-radius: 2px;
-        background-color: #343343;
+        background-color: $gray;
         margin-bottom: .5rem;
         opacity: .6;
 
         &__progress {
             height: 100%;
             border-radius: inherit;
-            background-color: #fb6da9;
+            background-color: $secondary;
             transition: width .4s;
         }
     }
@@ -72,7 +74,7 @@
         &__item {
             position: relative;
             
-            border: 2px solid #343343;
+            border: 2px solid $gray;
             border-radius: 10px;
             padding: 20px;
 

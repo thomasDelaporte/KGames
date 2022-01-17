@@ -1,12 +1,17 @@
+@use '../../../../styles/base/variables' as *;
+
 .geoquizz__answer-world {
     width: 100%;
-    height: 800px;
+    max-height: 400px;
 
     path {
         outline: none;
+        fill: $secondary;
+        stroke: #fff;
+        stroke-width: .4px;
+    }
 
-        &:hover {
-            fill: red;
-        }
+    &:not(&--disabled) path:hover {
+        fill: $primary;
     }
 }

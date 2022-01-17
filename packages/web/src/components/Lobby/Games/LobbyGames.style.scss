@@ -1,3 +1,5 @@
+@use '../../../styles/base/variables' as *;
+
 .lobby__games {
     display: flex;
     flex-wrap: wrap;
@@ -6,7 +8,7 @@
 
     &__item {
         flex-basis: calc(50% - 10px);
-        background-color: rgba(39, 39, 50, 0.3);
+        background-color: $gray;
         padding: 20px;
         border-radius: 10px;
         display: flex;
@@ -35,17 +37,17 @@
         }
 
         &:not(&--active):not(&--disabled):hover {
-            background-color: #343343;
+            background-color: $tertiary;
         }
 
         &--disabled {
-            background: linear-gradient(45deg, #272732, transparent);
+            background: linear-gradient(200deg, $dark, transparent);
             opacity: .6;
             cursor: not-allowed;
         }
 
         &--active:not(&--disabled) {
-            background-color: rgb(187, 63, 221);
+            background-color: $secondary;
             position: relative;
 
             &:after {

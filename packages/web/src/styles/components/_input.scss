@@ -2,18 +2,18 @@
     width: 100%;
     padding: 1.4rem;
     background: none;
-    border: 2px solid #343343;
+    color: #fff;
+    border: 2px solid $gray;
     border-radius: 10px;
-    color: rgba(255, 255, 255, .8);
     transition: border-color .2s;
 
     &:hover, &:focus {
-        border-color: #ff9e7c;
+        border-color: $primary;
     }
 
     &:focus {
         outline: none;
-        box-shadow: 0 0 0 4px #181820, 0 0 8px rgba(255, 255, 255, .8);
+        box-shadow: 0 0 0 4px $gray, 0 0 8px transparentize($secondary, .6);
     }
 
     &--select {
@@ -27,7 +27,7 @@
         background-position-y: 50%;
         
         option {
-            background: #343343;
+            background: $gray;
             color: #fff;
         }
     }
@@ -44,7 +44,7 @@
         }
 
         &:focus {
-            box-shadow: 0 0 0 4px #343343, 0 0 8px rgba(255, 255, 255, .8);
+            box-shadow: 0 0 0 4px $gray, 0 0 8px rgba(255, 255, 255, .8);
         }
     }
 

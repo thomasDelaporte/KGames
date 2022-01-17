@@ -1,3 +1,5 @@
+@use '../../../../styles/base/variables' as *;
+
 .kculture__answer-order {
     margin-top: 1.5rem;
     display: flex;
@@ -8,7 +10,7 @@
         text-align: center;
         position: relative;
         max-height: 150px;
-        border: 2px dotted #343343;
+        border: 2px dotted $tertiary;
         border-radius: 10px;
         padding: 10px;
         cursor: pointer;
@@ -37,13 +39,13 @@
         }
 
         &--correct {
-            border-color: #71BC78;
-            background: linear-gradient(135deg, #71BC78, transparent);
+            border-color: $success;
+            background: linear-gradient(135deg, $success, transparent);
         }
 
         &--wrong {
-            border-color: #fb6da9;
-            background: linear-gradient(135deg, #fb6da9, transparent);
+            border-color: $error;
+            background: linear-gradient(135deg, $error, transparent);
         }
     }
 }
