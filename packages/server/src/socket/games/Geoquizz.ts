@@ -4,7 +4,7 @@ import { Player } from '../../entities';
 import { GeoquizzService } from '../../services';
 import { Game } from '../core/Game';
 
-const msClock = process.env.NODE_ENV === 'production' ? 1000 : 100;
+const msClock = process.env.NODE_ENV === 'production' ? 1000 : 1000;
 
 export class Geoquizz extends Game {
 
