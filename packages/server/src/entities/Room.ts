@@ -127,7 +127,8 @@ export class Room extends EventEmitter {
                 configurationFields = {
                     questionCountries: { label: 'Nombre de questions pays', type: 'number' },
                     questionFlags: { label: 'Nombre de questions drapeaux', type: 'number' },
-                    questionCapitals: { label: 'Nombre de questions capitales', type: 'number' }
+                    questionCapitals: { label: 'Nombre de questions capitales', type: 'number' },
+                    timesPerQuestion: { label: 'Temps par question', type: 'number' }
                 }
             
             this.currentGame.room = this;

@@ -1,12 +1,13 @@
 import { GeoquizzQuestionType } from '@kgames/common';
 import React, { useContext, useEffect, useState } from 'react';
+import { LobbyConfiguration } from '../../components/Lobby';
 import { GameContext } from '../../store';
 import { AnswerWorld } from './answers/World/AnswerWorld';
 import { QuestionFlag } from './questions/Flag/QuestionFlag';
 
 export default function Geoquizz() {
 
-    const { websocket, id, owner, step, setStep } = useContext<GameContext>(GameContext);
+    const { websocket, id, owner, step, setStep, configuration } = useContext<GameContext>(GameContext);
     
     const [ timer, setTimer ] = useState<number>(10);
     const [ question, setQuestion ] = useState<any>();
@@ -46,7 +47,7 @@ export default function Geoquizz() {
             <h2 className="page-title__subtitle">Geoquizz</h2>
 
             { timer ? (
-                <span className="kculture__time">{String(timer).padStart(2, '0')}</span>
+                <span className="kculture__time" style={{ '--progress': `${(configuration.timesPerQuestion - timer) * 100 / configuration.timesPerQuestion}%`} as any}>{String(timer).padStart(2, '0')}</span>
             ): null }
 
             <div className="question" data-question={question.number}>

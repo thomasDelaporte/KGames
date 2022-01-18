@@ -13,6 +13,7 @@ export class Kculture extends Game {
     public configuration: any = {
         theme: 'Thème de dinguo', // Default theme not used 
         time: 30, // 10 seconds per question,
+        questions: 5
     };
 
     private timer: number;

@@ -6,7 +6,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background: linear-gradient(45deg, $gray, transparentize($primary, .4));
+    background: linear-gradient(45deg, $gray, transparentize($primary, .2));
     backdrop-filter: blur(10px);
     z-index: 9;
 
@@ -32,7 +32,7 @@
         
         font-weight: 900;
         font-size: 12rem;
-        background: linear-gradient(45deg, $primary, $secondary);
+        background: linear-gradient(45deg, #fff, transparentize(#fff, .2));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         color: #bb3fdd;
