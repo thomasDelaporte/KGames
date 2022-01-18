@@ -23,7 +23,8 @@ export class Geoquizz extends Game {
     public configuration: any = {
         questionCountries: 1,
         questionFlags: 1,
-        questionCapitals: 1
+        questionCapitals: 1,
+        timesPerQuestion: 10
     }
 
     constructor() {
@@ -38,6 +39,7 @@ export class Geoquizz extends Game {
         this.questions = this.geoquizzService.getQuestions(
             this.configuration.questionCountries, this.configuration.questionFlags, this.configuration.questionCapitals);
         this.hasStarded = true;
+        this.timer = this.configuration.timesPerQuestion;
 
         this.pickQuestion();
         this.update();
@@ -51,7 +53,7 @@ export class Geoquizz extends Game {
             this.room.broadcast('timer', { time: this.timer });
         } else {
 
-            this.timer = 10;
+            this.timer = this.configuration.timesPerQuestion;
             this.pickQuestion();
         }
     }
