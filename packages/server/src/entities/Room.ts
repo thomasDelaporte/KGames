@@ -7,6 +7,7 @@ import { GameMode } from '@kgames/common';
 import { Game } from '../socket/core/Game';
 import { KcultureService, RoomService } from '../services';
 import { Geoquizz, Kculture } from '../socket/games';
+import { Spyfall } from '../socket/games/Spyfall';
 
 @ObjectType()
 export class Room extends EventEmitter {
@@ -115,6 +116,11 @@ export class Room extends EventEmitter {
                 this.currentGame = new Kculture();
             else if(this.selectedGame === 'geoquizz')
                 this.currentGame = new Geoquizz();
+            else if(this.selectedGame === 'spyfall')
+                this.currentGame = new Spyfall();
+
+            if(this.currentGame === null)
+                return player.socket?.close();
             
             let configurationFields = {};
 
