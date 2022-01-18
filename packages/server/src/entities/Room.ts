@@ -6,7 +6,7 @@ import { Player } from './Player';
 import { GameMode } from '@kgames/common';
 import { Game } from '../socket/core/Game';
 import { KcultureService, RoomService } from '../services';
-import { Geoquizz, Kculture } from '../socket/games';
+import { Geoquizz, Undercover, Kculture } from '../socket/games';
 import { Spyfall } from '../socket/games/Spyfall';
 
 @ObjectType()
@@ -118,6 +118,8 @@ export class Room extends EventEmitter {
                 this.currentGame = new Geoquizz();
             else if(this.selectedGame === 'spyfall')
                 this.currentGame = new Spyfall();
+            else if(this.selectedGame === 'undercover')
+                this.currentGame = new Undercover();
 
             if(this.currentGame === null)
                 return player.socket?.close();
@@ -136,6 +138,12 @@ export class Room extends EventEmitter {
                     questionCapitals: { label: 'Nombre de questions capitales', type: 'number' },
                     timesPerQuestion: { label: 'Temps par question', type: 'number' }
                 }
+            else if(this.currentGame instanceof Undercover) {
+                configurationFields = {
+                    words: { label: 'Nombre de mots', type: 'number' },
+                    timesPerRound: { label: 'Temps par mots', type: 'number' }
+                }
+            }
             
             this.currentGame.room = this;
             this.broadcast('showconfig', { fields: configurationFields, configuration: this.currentGame.configuration });
