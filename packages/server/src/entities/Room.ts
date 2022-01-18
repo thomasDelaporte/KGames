@@ -5,7 +5,7 @@ import { EventEmitter } from 'stream';
 import { Player } from './Player';
 import { GameMode } from '@kgames/common';
 import { Game } from '../socket/core/Game';
-import { KcultureService, RoomService } from '../services';
+import { KcultureService, RoomService, SpyfallService } from '../services';
 import { Geoquizz, Undercover, Kculture } from '../socket/games';
 import { Spyfall } from '../socket/games/Spyfall';
 
@@ -138,6 +138,12 @@ export class Room extends EventEmitter {
                     questionCapitals: { label: 'Nombre de questions capitales', type: 'number' },
                     timesPerQuestion: { label: 'Temps par question', type: 'number' }
                 }
+            else if(this.currentGame instanceof Spyfall) {
+                configurationFields = {
+                    rounds: { label: 'Nombre de round', type: 'number' },
+                    timePerRound: { label: 'Temps par round', type: 'number' }
+                }
+            }
             else if(this.currentGame instanceof Undercover) {
                 configurationFields = {
                     words: { label: 'Nombre de mots', type: 'number' },
