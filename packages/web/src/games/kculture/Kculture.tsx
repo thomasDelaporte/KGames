@@ -69,7 +69,7 @@ export default function Kculture() {
             <h2 className="page-title__subtitle">Kculture</h2>
 
             { timer ? (
-                <span className="kculture__time">{String(timer).padStart(2, '0')}</span>
+                <span className="kculture__time" style={{ '--progress': `${(configuration.time - timer) * 100 / configuration.time}%`} as any}>{String(timer).padStart(2, '0')}</span>
             ): null }
 
             <div className="kculture__step">

@@ -3,14 +3,16 @@
 .kculture {
 
     &__time {
+        width: 55px;
+        height: 55px;
+        line-height: 50px;
+        text-align: center;
         position: absolute;
         right: 0;
         top: 0;
-        padding: 1rem;
         border: 2px solid $gray;
         border-radius: 10px;
         aspect-ratio: 1/1;
-        transition: clip-path .1s;
         --progress: 50%;
 
         &:after {
@@ -22,6 +24,7 @@
             border-color: #fff;
             border-radius: inherit;
             clip-path: inset(var(--progress) 0 0 0);
+            transition: clip-path .1s;
         }
     }
 
