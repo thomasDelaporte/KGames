@@ -19,11 +19,13 @@
         "node-fetch": "2",
         "prisma": "^3.7.0",
         "react-google-login": "^5.2.2",
+        "react-modal": "^3.14.4",
         "react-router-dom": "6",
         "react-simple-maps": "^2.3.0"
     },
     "devDependencies": {
         "@types/node-fetch": "^3.0.3",
+        "@types/react-modal": "^3.13.1",
         "react-simple-maps": "^2.3.0"
     }
 }

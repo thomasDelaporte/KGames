@@ -39,7 +39,7 @@
         }
 
         &--empty {
-            border: 2px dashed $primary;
+            border: 2px dashed $tertiary;
             color: rgba(255, 255, 255, .8);
             display: flex;
             justify-content: center;
@@ -73,15 +73,15 @@
             }
 
             &:hover {
-                color: #fff;
-                border-color: $gray;
+                color: $secondary;
+                border-color: $secondary;
 
                 &:active {
                     transform: scale(0.96);
                 }
 
                 svg {
-                    fill: #fff;
+                    fill: $secondary;
                 }
             }
         }

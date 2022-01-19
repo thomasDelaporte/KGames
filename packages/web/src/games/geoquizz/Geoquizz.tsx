@@ -1,11 +1,11 @@
-import { GeoquizzQuestionType } from '@kgames/common';
 import React, { useContext, useEffect, useState } from 'react';
-import { LobbyConfiguration } from '../../components/Lobby';
+
+import { GeoquizzQuestionType } from '@kgames/common';
 import { GameContext } from '../../store';
 import { AnswerWorld } from './answers/World/AnswerWorld';
 import { QuestionFlag } from './questions/Flag/QuestionFlag';
 
-export default function Geoquizz() {
+export const Geoquizz = () => {
 
     const { websocket, id, owner, step, setStep, configuration } = useContext<GameContext>(GameContext);
     

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, from } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
+import Modal from 'react-modal';
 
 import App from './components/App';
 
@@ -35,6 +36,8 @@ const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: from([authLink, authError, httpLink]),
 });
+
+Modal.setAppElement('#root');
 
 ReactDOM.render(
     <ApolloProvider client={client}>
