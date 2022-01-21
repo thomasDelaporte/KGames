@@ -32,9 +32,6 @@ export function Hub() {
 	return (
 		<div className="hub">
 			<h1 className="page-title">Hub.</h1>
-
-			<Account />
-
 			<button className="btn" onClick={user && createRoom}>Créer un Room</button>
 		</div>
 	);	

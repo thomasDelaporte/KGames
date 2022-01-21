@@ -95,9 +95,6 @@ export function Room() {
             return <Undercover />
     }
 
-    if(!user)
-        return <Login />
-
     if(error) 
         return <p>error...</p>
 

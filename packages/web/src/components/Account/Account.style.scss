@@ -1,15 +1,19 @@
 @use '../../styles/base/variables' as *;
 
 .account {
-    background: $gray;
-    padding: 20px;
-    border-radius: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    
     display: flex;
     align-items: center;
 
     &__thumbnail {
-        border-radius: 10px;
-        width: 80px;
+        border-radius: 20px;
+        width: 35px;
+        height: 35px;
         margin-right: 1rem;
+        border: 2px solid $dark;
+        box-shadow: 0 0 0 2px $primary;;
     }
 }

@@ -3,6 +3,8 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 
 import { SessionContext } from './SessionContext';
+import Login from '../../components/Login/Login';
+import Account from '../../components/Account/Account';
 
 export const GET_ME = gql`
     query me {
@@ -55,11 +57,15 @@ export function SessionProvider(props: { children: ReactNode }): JSX.Element {
     const [authenticateTwitch] = useMutation(AUTHENTICATE_TWITCH, { onCompleted: ({ authTwitch: token }) => onAuthenticate(token) });
     const [authenticateGoogle] = useMutation(AUTHENTICATE_GOOGLE, { onCompleted: ({ authGoogle: token }) => onAuthenticate(token) })
 
-    if(loading) return <p>Loading...</p>;
+    if(loading) 
+        return <p>Loading...</p>;
 
     return (
         <SessionContext.Provider value={{ user, authenticate, authenticateTwitch, authenticateGoogle }}>
-            {props.children}
+
+            { user ?
+                props.children
+            : <Login /> }
         </SessionContext.Provider>
     );
 }

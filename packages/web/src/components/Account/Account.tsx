@@ -7,6 +7,9 @@ export default function Account() {
 
     const { user } = useContext(SessionContext);
 
+    if(!user)
+        return null;
+
     return (
         <div className="account">
             <img className="account__thumbnail" src={user.me.picture || `https://avatars.dicebear.com/api/adventurer-neutral/${user.me.username}.svg`} />
