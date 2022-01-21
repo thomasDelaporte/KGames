@@ -1,5 +1,5 @@
 import React from 'react';
-import { QuestionImage } from '..';
+import { QuestionImage } from './QuestionImage';
 
 export default {
     title: 'Games/Kculture/Questions/Image',

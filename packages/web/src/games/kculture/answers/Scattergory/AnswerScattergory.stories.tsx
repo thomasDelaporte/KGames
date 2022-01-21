@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { AnswerScattergory } from '..';
+import { AnswerScattergory } from './AnswerScattergory';
 
 export default {
     title: 'Games/Kculture/Answers/Scattergory',

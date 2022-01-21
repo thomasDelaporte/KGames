@@ -1,5 +1,5 @@
 import React from 'react';
-import { QuestionAudio } from '..';
+import { QuestionAudio } from './QuestionAudio';
 
 export default {
     title: 'Games/Kculture/Questions/Audio',
