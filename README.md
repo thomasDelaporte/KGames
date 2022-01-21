@@ -11,18 +11,18 @@ group of friends.
 
 By now, the features of KGames we're focusing:
 
-[x] User session
-    [x] Login through Google account
-    [x] Login through Twitch account
-[x] Room session
-[ ] Lobby management (Connection/Disconnection/Configuration/Game select).
-[ ] Games server API
-[ ] Games
-    [x] KCulture
-    [x] Geoquizz
-    [ ] Undercover
-    [ ] Spyfall
-    [ ] Imposter
+- [x] User session
+    - [x] Login through Google account
+    - [x] Login through Twitch account
+- [x] Room session
+- [ ] Lobby management (Connection/Disconnection/Configuration/Game select).
+- [ ] Games server API
+- [ ] Games
+    - [x] KCulture
+    - [x] Geoquizz
+    - [ ] Undercover
+    - [ ] Spyfall
+    - [ ] Imposter
 
 ## How to Contribute
 
