@@ -37,17 +37,17 @@
             }
         }
 
-        &:not(&--active):not(&--disabled):hover, &--active:not(&--disabled) {
-            background-color: $tertiary;
-        }
-
         &--disabled {
             background: linear-gradient(200deg, $dark, transparent);
             opacity: .6;
             cursor: not-allowed;
         }
 
-        &--active:not(&--disabled) {
+        &:not(&--active):not(&--disabled):hover, &--active {
+            background: $tertiary;
+        }
+
+        &--active {
             &:after {
                 content: '';
                 display: block;

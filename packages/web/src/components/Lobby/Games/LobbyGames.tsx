@@ -54,7 +54,7 @@ export function LobbyGames({ game }: any) {
                     name={'Undercover'} 
                     desc={'Trouvez qui est l\'imposteur! À moins que ce soit vous ?'}
                     image={UndercoverIcon}
-                    disabled={false}
+                    disabled={!owner}
                     selected={game === 'undercover'}
                     {...owner && { onSelect: updateGame.bind(null, 'undercover')}}  />
 
@@ -62,7 +62,7 @@ export function LobbyGames({ game }: any) {
                     name={'Spyfall'}
                     desc={'Débusquez l\'espion ou trouvez le lieu!'}
                     image={SpyfallIcon}
-                    disabled={false}
+                    disabled={!owner}
                     selected={game === 'spyfall'}
                     {...owner && { onSelect: updateGame.bind(null, 'spyfall')}}  />
 
@@ -70,7 +70,7 @@ export function LobbyGames({ game }: any) {
                     name={'Géoquizz'}
                     desc={'Testez votre niveau en géographie, placez des pays, trouvez le nom des drapeaux et des capitales pour gagner le plus de points'}
                     image={GeoquizzIcon}
-                    disabled={false}
+                    disabled={!owner}
                     selected={game === 'geoquizz'}
                     {...owner && { onSelect: updateGame.bind(null, 'geoquizz')}}  />
 
@@ -78,6 +78,7 @@ export function LobbyGames({ game }: any) {
                     name={'Kculture'}
                     desc={'Testez votre culture générale entre amis !'}
                     image={KcultureIcon}
+                    disabled={!owner}
                     selected={game === 'kculture'}
                     {...owner && { onSelect: updateGame.bind(null, 'kculture')}}  />
 
@@ -85,7 +86,7 @@ export function LobbyGames({ game }: any) {
                     name={'L\'infiltré'} 
                     desc={'Trouvez le mot caché, mais trouvez aussi l\'infiltré'} 
                     image={InfiltreIcon}
-                    disabled={false}
+                    disabled={!owner}
                     selected={game === 'infiltre'}
                     {...owner && { onSelect: updateGame.bind(null, 'infiltre')}} />
             </motion.div>
