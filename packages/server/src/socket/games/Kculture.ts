@@ -121,15 +121,15 @@ export class Kculture extends Game {
     protected update(): void {
 
         if(this.timer > 0) {
-
             this.timer -= 1;
-            this.room.broadcast('timer', { time: this.timer });
         } else {
 
             this.timer = this.configuration.time;
             this.retrieveAnswer();
             clearInterval(this.clock);
         }
+
+        this.room.broadcast('timer', { time: this.timer });
     }
 
     protected onResponse({ response }: any, player: Player): void {

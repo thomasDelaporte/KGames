@@ -22,6 +22,7 @@
         "node-fetch": "2",
         "prisma": "^3.7.0",
         "react-google-login": "^5.2.2",
+        "react-modal": "^3.14.4",
         "react-router-dom": "6",
         "react-simple-maps": "^2.3.0",
         "reflect-metadata": "^0.1.13",
@@ -35,6 +36,7 @@
         "@types/express": "^4.17.13",
         "@types/jsonwebtoken": "^8.5.6",
         "@types/node": "^10.17.60",
+        "@types/react-modal": "^3.13.1",
         "@types/ws": "^8.2.1"
     }
 }

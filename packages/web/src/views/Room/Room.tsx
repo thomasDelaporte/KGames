@@ -2,15 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useParams } from 'react-router-dom';
 
+import { SessionContext, GameContext } from '../../store'
 import { LobbyConfiguration, LobbyGames, LobbyPlayers, LobbyScores } from '../../components/Lobby';
 import Login from '../../components/Login/Login';
 import Countdown from '../../components/Countdown/Countdown';
-import Kculture from '../../games/kculture/Kculture';
-
-import { SessionContext, GameContext } from '../../store';
+import { Geoquizz, Kculture, Spyfall, Imposter, Undercover } from '../../games';
 
 import './Room.style.scss';
-import Geoquizz from '../../games/geoquizz/Geoquizz';
 
 let websocket: WebSocket;
 
@@ -89,6 +87,12 @@ export function Room() {
             return <Geoquizz />
         else if(game === 'kculture')
             return <Kculture />
+        else if(game === 'spyfall')
+            return <Spyfall />
+        else if(game === 'imposter')
+            return <Imposter />
+        else if(game === 'undercover')
+            return <Undercover />
     }
 
     if(!user)

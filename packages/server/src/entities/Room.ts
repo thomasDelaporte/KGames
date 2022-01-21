@@ -5,8 +5,9 @@ import { EventEmitter } from 'stream';
 import { Player } from './Player';
 import { GameMode } from '@kgames/common';
 import { Game } from '../socket/core/Game';
-import { KcultureService, RoomService } from '../services';
-import { Geoquizz, Kculture } from '../socket/games';
+import { KcultureService, RoomService} from '../services';
+import { Geoquizz, Imposter, Kculture, Undercover } from '../socket/games';
+import { Spyfall } from '../socket/games/Spyfall';
 
 @ObjectType()
 export class Room extends EventEmitter {
@@ -34,7 +35,8 @@ export class Room extends EventEmitter {
         return Array.from(this.players).map((p: Player) => ({
             username: p.username,
             owner: p === this.owner,
-            picture: p.picture
+            picture: p.picture,
+            id: p.id
         }))
     }
 
@@ -115,6 +117,15 @@ export class Room extends EventEmitter {
                 this.currentGame = new Kculture();
             else if(this.selectedGame === 'geoquizz')
                 this.currentGame = new Geoquizz();
+            else if(this.selectedGame === 'spyfall')
+                this.currentGame = new Spyfall();
+            else if(this.selectedGame === 'imposter')
+                this.currentGame = new Imposter();
+            else if(this.selectedGame === 'undercover')
+                this.currentGame = new Undercover();
+
+            if(this.currentGame === null)
+                return player.socket?.close();
             
             let configurationFields = {};
 
@@ -130,6 +141,20 @@ export class Room extends EventEmitter {
                     questionCapitals: { label: 'Nombre de questions capitales', type: 'number' },
                     timesPerQuestion: { label: 'Temps par question', type: 'number' }
                 }
+            else if(this.currentGame instanceof Spyfall) {
+                configurationFields = {
+                    rounds: { label: 'Nombre de round', type: 'number' },
+                    timePerRound: { label: 'Temps par round (min)', type: 'number' }
+                }
+            }
+            else if(this.currentGame instanceof Imposter) {
+                configurationFields = {}
+            } else if(this.currentGame instanceof Undercover) {
+                configurationFields = {
+                    words: { label: 'Nombre de mots', type: 'number' },
+                    timesPerRound: { label: 'Temps par mots', type: 'number' }
+                }
+            }
             
             this.currentGame.room = this;
             this.broadcast('showconfig', { fields: configurationFields, configuration: this.currentGame.configuration });

@@ -8,7 +8,8 @@ export type GameContext = {
     owner: boolean,
     configuration: any,
     id: string,
-    setStep: any
+    setStep: any,
+    players: Array<any>
 }
 
 export const GameContext = createContext(defaultState);

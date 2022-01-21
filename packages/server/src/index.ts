@@ -17,6 +17,7 @@ import { PlayerService } from './services';
 import { AuthorizationDerective } from './directives/Authorization';
 import { onFlagImage } from './controllers/GeoquizzController';
 import { initializeSocketServer } from './socket';
+import { Undercover } from './socket/games';
 
 (async function() {
 	

@@ -48,14 +48,14 @@ export class Geoquizz extends Game {
     private update(): void {
 
         if(this.timer > 0) {
-
             this.timer -= 1;
-            this.room.broadcast('timer', { time: this.timer });
         } else {
 
             this.timer = this.configuration.timesPerQuestion;
             this.pickQuestion();
         }
+
+        this.room.broadcast('timer', { time: this.timer });
     }
 
     private pickQuestion(): void {

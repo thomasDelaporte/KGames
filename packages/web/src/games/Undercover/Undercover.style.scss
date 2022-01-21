@@ -1,0 +1,11 @@
+.undercover {
+
+    &__word {
+        display: flex;
+        align-items: center;
+
+        &__btn {
+            margin-top: 0;
+        }
+    }
+}

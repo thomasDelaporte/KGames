@@ -7,7 +7,7 @@ import { AnswerMarker, AnswerOrder, AnswerScattergory } from './answers';
 
 import './Kculture.style.scss';
 
-export default function Kculture() {
+export const Kculture = () => {
 
     const { websocket, step, owner, configuration } = useContext<GameContext>(GameContext);
     
