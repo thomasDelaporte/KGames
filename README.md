@@ -2,10 +2,12 @@
 
 > `KGames` is a rough copy of the official (game) website of [Kameto Corp](https://kgames.fr/). under ReactJS, NodeJS (with PostgreSQL database), GraphQL and Websocket technologies.
 
+
 `KGames` enables you to own your game server and client with all the games 
 available on the official website of [Kgames](https://kgames.fr). You can update
 the database your self so you can have specific question adapted to your
 group of friends.
+
 
 ## Features
 
@@ -23,6 +25,7 @@ By now, the features of KGames we're focusing:
     - [ ] Undercover
     - [ ] Spyfall
     - [ ] Imposter
+
 
 ## How to Contribute
 
@@ -69,6 +72,7 @@ npm run server:build
 ### Contributing
 
 Contributions and feed back are welcome following Github workflow.
+
 
 ## License
 
