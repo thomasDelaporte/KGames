@@ -80,7 +80,7 @@ export const Undercover = () => {
             { turn === user.me.id &&
                 <form className="undercover__word" onSubmit={submitWord}>
                     <input className="input" placeholder="Votre mot" value={word} onChange={e => setWord(e.target.value)} />
-                    <button className="btn undercover__word__btn">Envoyer</button>
+                    <button className="btn btn--clear">Envoyer</button>
                 </form>
             }
 

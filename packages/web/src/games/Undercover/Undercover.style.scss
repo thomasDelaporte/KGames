@@ -2,10 +2,10 @@
 
     &__word {
         display: flex;
-        align-items: center;
 
-        &__btn {
-            margin-top: 0;
+        .btn {
+            margin-top: 0!important;
+            margin-left: 20px;
         }
     }
 }
