@@ -1,0 +1,21 @@
+@use '../../../../styles/base/variables' as *;
+
+.geoquizz__answer-world {
+    position: relative;
+   
+    svg {
+        width: 100%;
+        max-height: 400px;
+    }
+
+    path {
+        outline: none;
+        stroke: #fff;
+        stroke-width: .4px;
+    }
+
+    &:not(&--disabled) path:hover {
+        fill: $primary;
+        cursor: pointer;
+    }
+}
