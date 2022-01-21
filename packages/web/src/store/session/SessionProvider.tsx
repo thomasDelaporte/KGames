@@ -7,6 +7,7 @@ import { SessionContext } from './SessionContext';
 export const GET_ME = gql`
     query me {
         me {
+            id
             username
             picture
             room {

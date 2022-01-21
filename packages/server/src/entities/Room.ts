@@ -148,14 +148,11 @@ export class Room extends EventEmitter {
                 }
             }
             else if(this.currentGame instanceof Imposter) {
+                configurationFields = {}
+            } else if(this.currentGame instanceof Undercover) {
                 configurationFields = {
                     words: { label: 'Nombre de mots', type: 'number' },
                     timesPerRound: { label: 'Temps par mots', type: 'number' }
-                }
-            } else if(this.currentGame instanceof Undercover) {
-                configurationFields = {
-                    rounds: { label: 'Nombre de round', type: 'number' },
-                    timePerRound: { label: 'Temps par round (min)', type: 'number' }
                 }
             }
             

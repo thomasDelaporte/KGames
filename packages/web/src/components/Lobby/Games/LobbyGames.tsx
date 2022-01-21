@@ -51,12 +51,12 @@ export function LobbyGames({ game }: any) {
 
             <motion.div variants={container} className="lobby__games">
                 <Item 
-                    name={'Imposteur'} 
+                    name={'Undercover'} 
                     desc={'Trouvez qui est l\'imposteur! À moins que ce soit vous ?'}
                     image={UndercoverIcon}
                     disabled={false}
-                    selected={game === 'imposter'}
-                    {...owner && { onSelect: updateGame.bind(null, 'imposter')}}  />
+                    selected={game === 'undercover'}
+                    {...owner && { onSelect: updateGame.bind(null, 'undercover')}}  />
 
                 <Item 
                     name={'Spyfall'}
@@ -86,8 +86,8 @@ export function LobbyGames({ game }: any) {
                     desc={'Trouvez le mot caché, mais trouvez aussi l\'infiltré'} 
                     image={InfiltreIcon}
                     disabled={false}
-                    selected={game === 'undercover'}
-                    {...owner && { onSelect: updateGame.bind(null, 'undercover')}} />
+                    selected={game === 'infiltre'}
+                    {...owner && { onSelect: updateGame.bind(null, 'infiltre')}} />
             </motion.div>
 
             {owner &&
