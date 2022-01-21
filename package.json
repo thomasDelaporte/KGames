@@ -1,23 +1,25 @@
 {
     "name": "kgames",
     "private": true,
-    "scripts": {
-        "postinstall": "lerna bootstrap",
-        
-        "common:build": "lerna run build --scope @kgames/common",
+    "workspaces": [
+        "packages/common",
+        "packages/web",
+        "packages/server"
+    ],
+    "scripts": {        
+        "common:build": "npm run build --workspace @kgames/common",
 
-        "web:dev": "lerna run dev --stream --scope @kgames/web",
-        "web:build": "lerna run build --scope @kgames/web",
-        "web:storybook": "lerna run storybook --stream --scope @kgames/web",
+        "web:dev": "npm run dev --workspace @kgames/web",
+        "web:build": "npm run build --workspace @kgames/web",
+        "web:storybook": "npm run storybook --workspace @kgames/web",
 
-        "server:dev": "lerna run dev --parallel --scope @kgames/server",
-        "server:build": "lerna run build --scope @kgames/server",
+        "server:dev": "npm run dev --workspace @kgames/server",
+        "server:build": "npm run build --workspace @kgames/server",
         "server": "cd packages/server && npm run start",
 
-        "clean": "lerna run clean --parallel"
+        "clean": "npm run clean --workspaces"
     },
     "devDependencies": {
-        "lerna": "^3.22.1",
         "rimraf": "^3.0.2",
         "typescript": "^4.3.5"
     }

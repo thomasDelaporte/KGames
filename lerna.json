@@ -1,4 +1,0 @@
-{
-    "packages": ["packages/*", "games/*"],
-    "version": "0.0.0"
-}
